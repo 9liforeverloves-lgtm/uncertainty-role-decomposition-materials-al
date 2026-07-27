@@ -58,3 +58,22 @@ def test_joint_global_scaling_equals_effective_beta() -> None:
     )
     np.testing.assert_allclose(joint["scores"], matched["scores"])
     np.testing.assert_array_equal(joint["stable_order"], matched["stable_order"])
+
+
+def test_equal_means_sigmas_and_scores_resolve_by_stable_id() -> None:
+    mean = np.ones(4)
+    sigma = np.ones(4)
+    ids = np.array([9, 2, 7, 4])
+    result = score_round(STRATEGIES["RAW"], mean, sigma, ids, beta_raw=1.0)
+    np.testing.assert_array_equal(ids[result["stable_order"]], np.array([2, 4, 7, 9]))
+
+
+def test_duplicate_stable_ids_are_rejected() -> None:
+    with pytest.raises(ValueError, match="unique"):
+        score_round(
+            STRATEGIES["RAW"],
+            np.array([1.0, 1.0]),
+            np.array([1.0, 1.0]),
+            np.array([5, 5]),
+            beta_raw=1.0,
+        )

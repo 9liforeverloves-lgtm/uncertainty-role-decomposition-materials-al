@@ -1,0 +1,13 @@
+{
+  "schema_version": "v6-seed-registry-v1",
+  "status": "FREEZE_READY",
+  "namespaces": [
+    {"class": "V5-RC1", "range": [5000, 5039], "use": "frozen historical confirmation", "allowed_for_v6_fitting": false},
+    {"class": "V6-development", "range": [6000, 6009], "use": "hyperparameter and matched-beta fitting", "allowed_for_v6_fitting": true},
+    {"class": "V6-confirmation", "range": [7000, 7039], "use": "future confirmation only", "allowed_for_v6_fitting": false},
+    {"class": "Stage2-smoke", "values": [91000, 91001], "use": "non-inferential engineering validation", "allowed_for_v6_fitting": false}
+  ],
+  "bootstrap_root_seed": 610001,
+  "sign_flip_root_seed": 610002,
+  "child_seed_rule": "first 32 bits of SHA-256(root_seed|family|environment|contrast|endpoint)"
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": "v6-failure-recovery-v1",
+  "status": "FREEZE_READY",
+  "required_paired_seed_count": 40,
+  "confirmation_seed_range": [7000, 7039],
+  "retry_rule": "retry unchanged configuration and identical seed after atomic-write cleanup",
+  "maximum_automatic_retries": 2,
+  "fallback_rule": "method-specific prespecified identity/raw fallback with explicit status; never substitute guessed values",
+  "missing_data_handling": "no imputation of missing job endpoints; incomplete pairs block primary inference until completion or versioned exclusion sensitivity",
+  "failed_job_handling": "retain failed job row, error class, traceback digest, attempt count and last durable checkpoint",
+  "silent_drop_prohibited": true,
+  "overwrite_rule": "no overwrite of committed artifact with a different hash",
+  "smoke_rule": "smoke failures may be rerun unchanged but cannot enter scientific evidence"
+}

@@ -1,0 +1,40 @@
+{
+  "schema_version": "v6-strategy-registry-v1",
+  "status": "FREEZE_READY_NO_CONFIRMATION_OUTCOMES",
+  "environment_scope": {
+    "tasks": ["matbench_expt_gap", "matbench_mp_gap", "matbench_log_gvrh", "matbench_log_kvrh"],
+    "splits": ["iid_record", "chemical_system_ood"],
+    "models": ["random_forest", "extra_randomized_bagging"]
+  },
+  "defaults": {
+    "development_status": "planned",
+    "confirmation_status": "not_started",
+    "nominal_beta": 1.0,
+    "primary_baseline": "RAW",
+    "selection_criterion": "development-only environment-balanced L1/L4 rule",
+    "required_paired_seed_count": 40,
+    "missing_data_handling": "complete paired set required",
+    "retry_rule": "unchanged configuration; maximum two automatic retries"
+  },
+  "strategies": [
+    {"id": "RAW", "evidence_class": "V6-MECH", "calibration_mapping": "raw_sigma", "acquisition_mapping": "mu+beta_raw*raw_sigma", "endpoint": "L1_and_L4", "direction": "reference", "family": "reference", "classification": "confirmatory_baseline", "fallback": "none"},
+    {"id": "GG_JOINT", "evidence_class": "V6-MECH", "calibration_mapping": "c_t*raw_sigma", "acquisition_mapping": "mu+beta_raw*c_t*raw_sigma", "endpoint": "L1_and_L4", "direction": "two_sided", "family": "secondary_joint", "classification": "secondary", "fallback": "c_t=1"},
+    {"id": "GG_CALIBRATION_ONLY", "evidence_class": "V6-MECH", "calibration_mapping": "c_t*raw_sigma", "acquisition_mapping": "exact_RAW_expression", "endpoint": "L1", "direction": "lower_is_better", "family": "P0_L1_DECOUPLING", "classification": "confirmatory", "fallback": "c_t=1"},
+    {"id": "GG_ACQUISITION_ONLY", "evidence_class": "V6-MECH", "calibration_mapping": "raw_sigma", "acquisition_mapping": "mu+beta_raw*c_t*raw_sigma", "endpoint": "L4", "direction": "higher_is_better", "family": "P0_L4_MECHANISM", "classification": "confirmatory", "fallback": "c_t=1"},
+    {"id": "RAW_FIXED_BETA_MATCHED", "evidence_class": "V6-MECH", "calibration_mapping": "raw_sigma", "acquisition_mapping": "mu+frozen_fixed_beta*raw_sigma", "endpoint": "L4", "direction": "equivalence_descriptive", "family": "P0_L4_MECHANISM", "classification": "confirmatory", "fallback": "block_if_selection_not_frozen"},
+    {"id": "RAW_STAGE_BETA_MATCHED", "evidence_class": "V6-MECH", "calibration_mapping": "raw_sigma", "acquisition_mapping": "mu+frozen_stage_beta*raw_sigma", "endpoint": "L4", "direction": "equivalence_descriptive", "family": "P0_L4_MECHANISM", "classification": "confirmatory", "fallback": "missing_stage_uses_frozen_fixed_beta"},
+    {"id": "GG_NORMALIZED_ACQUISITION", "evidence_class": "V6-MECH", "calibration_mapping": "c_t*raw_sigma", "acquisition_mapping": "exact_RAW_expression; reported beta_t=beta_raw/c_t", "endpoint": "L1", "direction": "lower_is_better", "family": "identity_control", "classification": "secondary_identity", "fallback": "c_t=1"},
+    {"id": "CS_JOINT", "evidence_class": "V6-MECH", "calibration_mapping": "c_i,t*raw_sigma", "acquisition_mapping": "mu+beta_raw*c_i,t*raw_sigma", "endpoint": "L1_and_L4", "direction": "two_sided", "family": "secondary_joint", "classification": "secondary", "fallback": "c_i,t=1"},
+    {"id": "CS_CALIBRATION_ONLY", "evidence_class": "V6-MECH", "calibration_mapping": "c_i,t*raw_sigma", "acquisition_mapping": "exact_RAW_expression", "endpoint": "L1", "direction": "lower_is_better", "family": "P0_L1_DECOUPLING", "classification": "confirmatory", "fallback": "c_i,t=1"},
+    {"id": "CS_ACQUISITION_ONLY", "evidence_class": "V6-MECH", "calibration_mapping": "raw_sigma", "acquisition_mapping": "mu+beta_raw*c_i,t*raw_sigma", "endpoint": "L4", "direction": "higher_is_better", "family": "P0_L4_MECHANISM", "classification": "confirmatory", "fallback": "c_i,t=1"},
+    {"id": "REPLAY_EVALUATION", "evidence_class": "V6-MECH", "calibration_mapping": "alternative_mapping_on_frozen_path", "acquisition_mapping": "none_replay_only", "endpoint": "L1", "direction": "descriptive", "family": "NONE_DESCRIPTIVE", "classification": "exploratory", "fallback": "block_if_path_missing"},
+    {"id": "IDENTITY_CONTROL", "evidence_class": "V6-MECH", "calibration_mapping": "raw_sigma_through_common_scaler_API", "acquisition_mapping": "development_registry_to_freeze", "endpoint": "L1", "direction": "identity", "family": "implementation_control", "classification": "secondary_identity", "fallback": "none"},
+    {"id": "SCALAR_TEMPERATURE_NLL", "evidence_class": "V6-MECH", "calibration_mapping": "a*raw_sigma; a fitted by Gaussian OOB NLL", "acquisition_mapping": "development_registry_to_freeze", "endpoint": "L1", "direction": "lower_is_better", "family": "P0_L1_SIMPLE_BASELINES", "classification": "secondary", "fallback": "identity_if_insufficient_OOB"},
+    {"id": "SCALAR_TEMPERATURE_RESIDUAL_RATIO", "evidence_class": "V6-MECH", "calibration_mapping": "a*raw_sigma; a fitted by OOB median residual ratio", "acquisition_mapping": "development_registry_to_freeze", "endpoint": "L1", "direction": "lower_is_better", "family": "P0_L1_SIMPLE_BASELINES", "classification": "secondary", "fallback": "identity_if_insufficient_OOB"},
+    {"id": "POWER_SCALING", "evidence_class": "V6-MECH", "calibration_mapping": "exp(log_a+b*log(max(raw_sigma,floor)))", "acquisition_mapping": "development_registry_to_freeze", "endpoint": "L1", "direction": "lower_is_better", "family": "P0_L1_SIMPLE_BASELINES", "classification": "secondary", "fallback": "identity_on_optimizer_failure"},
+    {"id": "ISOTONIC_ABS_RESIDUAL", "evidence_class": "V6-MECH", "calibration_mapping": "monotone OOB raw_sigma_to_expected_abs_residual with clipped endpoints", "acquisition_mapping": "development_registry_to_freeze", "endpoint": "L1", "direction": "lower_is_better", "family": "P0_L1_SIMPLE_BASELINES", "classification": "secondary", "fallback": "identity_if_insufficient_OOB"},
+    {"id": "CONFORMAL_GLOBAL", "evidence_class": "V6-MECH", "calibration_mapping": "finite_sample_OOB_residual_quantile_multiplier", "acquisition_mapping": "calibration_only_unless_development_registry_freezes_otherwise", "endpoint": "L1", "direction": "lower_is_better", "family": "P0_L1_SIMPLE_BASELINES", "classification": "secondary", "fallback": "identity_if_insufficient_OOB"},
+    {"id": "SELECTED_CS_EQUIVALENT_DOF_CONTROL", "evidence_class": "V6-MECH", "calibration_mapping": "ridge_calibration_intercept_plus_standardized_log_sigma", "acquisition_mapping": "development_registry_to_freeze", "nominal_parameter_count": 2, "endpoint": "L1", "direction": "lower_is_better", "family": "P0_L1_SIMPLE_BASELINES", "classification": "secondary", "fallback": "identity_if_fewer_than_20_valid_OOB"},
+    {"id": "HISTORICAL_CS_EQUIVALENT_DOF_CONTROL", "evidence_class": "V6-MECH", "calibration_mapping": "ridge_calibration_intercept_plus_six_standardized_features", "acquisition_mapping": "development_registry_to_freeze", "nominal_parameter_count": 7, "endpoint": "L1", "direction": "lower_is_better", "family": "P0_L1_SIMPLE_BASELINES", "classification": "secondary", "fallback": "identity_if_fewer_than_20_valid_OOB"}
+  ]
+}

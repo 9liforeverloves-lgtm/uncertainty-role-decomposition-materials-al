@@ -1,0 +1,36 @@
+{
+  "schema_version": "v6-stage2-smoke-manifest-v1",
+  "validation_label": "NON-INFERENTIAL ENGINEERING VALIDATION",
+  "output_root": "results/v6_smoke",
+  "prohibited_uses": ["scientific inference", "manuscript evidence", "method selection"],
+  "jobs": [
+    {
+      "job_id": "synthetic_identity_seed91000",
+      "dataset_kind": "synthetic",
+      "task": "deterministic_synthetic",
+      "data_path": null,
+      "sample_count": 80,
+      "data_seed": 44,
+      "campaign_seed": 91000,
+      "initial_count": 16,
+      "batch_size": 2,
+      "max_queries": 8,
+      "n_estimators": 16,
+      "strategies": ["RAW", "GG_CALIBRATION_ONLY", "GG_NORMALIZED_ACQUISITION", "CS_CALIBRATION_ONLY"]
+    },
+    {
+      "job_id": "matbench_expt_gap_reduced_seed91001",
+      "dataset_kind": "real_reduced",
+      "task": "matbench_expt_gap",
+      "data_path": "最终/_code_package/results/benchmark/matbench_expt_gap/materials.csv",
+      "sample_count": 80,
+      "data_seed": 91001,
+      "campaign_seed": 91001,
+      "initial_count": 16,
+      "batch_size": 2,
+      "max_queries": 8,
+      "n_estimators": 16,
+      "strategies": ["RAW", "GG_CALIBRATION_ONLY", "GG_NORMALIZED_ACQUISITION", "CS_CALIBRATION_ONLY"]
+    }
+  ]
+}

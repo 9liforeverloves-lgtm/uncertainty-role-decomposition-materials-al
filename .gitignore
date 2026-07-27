@@ -23,6 +23,7 @@ dist/
 *.tmp
 *.temp
 *.log
+!results/v6_smoke/*.log
 *.bak
 *.swp
 *.pid
@@ -87,3 +88,17 @@ paper-novelty-design/
 Thumbs.db
 .idea/
 .vscode/
+
+# V5 is an imported immutable allow-list: only files already tracked in the
+# baseline commit belong to Git. All other historical V5 deliveries stay local.
+revision_v5/*
+
+# Legacy root-level delivery artifacts outside the audited allow-list
+FINAL_STATUS_REPORT*.md
+paper_*.md
+paper_*.html
+figure*_20seeds.*
+analyze_20seeds_results.py
+build_innovation_revision.py
+/data.py
+SCI审稿意见与优化方案.docx

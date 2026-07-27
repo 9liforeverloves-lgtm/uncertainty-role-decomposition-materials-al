@@ -58,6 +58,8 @@ def stable_order(scores: np.ndarray, stable_ids: np.ndarray) -> np.ndarray:
         raise ValueError("scores and stable_ids must be aligned one-dimensional vectors")
     if not np.isfinite(scores).all():
         raise ValueError("scores must be finite")
+    if len(np.unique(stable_ids)) != len(stable_ids):
+        raise ValueError("stable_ids must be unique")
     return np.lexsort((stable_ids, -scores))
 
 
@@ -123,7 +125,13 @@ def score_round(
         raise ValueError("beta must be finite and nonnegative")
     acquisition_sigma = floored * acquisition_scale
     evaluation_sigma = floored * evaluation_scale
-    scores = mean + beta * acquisition_sigma
+    # Identity controls use the exact RAW arithmetic expression, not merely an
+    # algebraically equivalent multiplication order.
+    scores = (
+        mean + float(beta_raw) * floored
+        if spec.must_match_raw_path
+        else mean + beta * acquisition_sigma
+    )
     order = stable_order(scores, stable_ids)
     return {
         "scores": scores,

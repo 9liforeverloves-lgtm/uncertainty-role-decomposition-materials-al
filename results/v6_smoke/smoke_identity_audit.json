@@ -1,0 +1,19 @@
+{
+  "schema_version": "v6-smoke-identity-audit-v1",
+  "validation_label": "NON-INFERENTIAL ENGINEERING VALIDATION",
+  "jobs": [
+    {
+      "job_id": "synthetic_identity_seed91000",
+      "checks": 75,
+      "passed": 75,
+      "failed_fields": []
+    },
+    {
+      "job_id": "matbench_expt_gap_reduced_seed91001",
+      "checks": 75,
+      "passed": 75,
+      "failed_fields": []
+    }
+  ],
+  "all_identity_checks_passed": true
+}

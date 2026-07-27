@@ -26,6 +26,12 @@ replicates.
 - Confirmation: seeds 7000–7039, subject to collision audit.
 - Hyperparameters, fixed beta and stagewise beta are selected from development only.
 - The selection map and its hash must be frozen before confirmation outcomes are read.
+- Matched-beta fitting rejects V5 seeds 5000–5039 and confirmation seeds 7000–7039.
+- Stage intervals are `[0.00,0.25)`, `[0.25,0.50)`, `[0.50,0.75)`, and
+  `[0.75,1.00]`. Thus 0.25, 0.50 and 0.75 enter the later stage; 1.00 enters
+  the final stage.
+- A development stage with no observations uses the already frozen fixed
+  environment-balanced matched beta and is flagged `missing_stage_fallback`.
 
 ## Primary endpoints
 
@@ -54,6 +60,10 @@ Within each environment and prespecified contrast:
 
 Effect size and interval are primary. Evidence labels do not replace estimates.
 
+Bootstrap RNG seed is 610001. Sign-flip RNG seed is 610002. Each environment,
+contrast and endpoint derives a deterministic child seed from the SHA-256 of
+`family|environment|contrast|endpoint`; no outcome-dependent reseeding is allowed.
+
 ## NLL stability gate
 
 NLL is scientifically interpretable only when all conditions hold:
@@ -66,6 +76,15 @@ NLL is scientifically interpretable only when all conditions hold:
 6. results are not driven by one task/environment under leave-one-environment-out diagnostics.
 
 Failure yields `numerically_unstable_descriptive_only`; it does not delete the endpoint.
+
+## Authority-count reconciliation
+
+The initial Stage-1 script enumerated 17 compact authority files. The later
+complete check added `revision_v5/results_v4/confirmation/registry.sqlite`,
+whose frozen SHA-256 is
+`6a67a54589b809f46883423070c1e8b37599bb49fac0e0f79a58bec65f590dc4`.
+Therefore 17 means the original compact-file list; 18 means the same list plus
+the authoritative SQLite registry. No V5 file changed.
 
 ## Missing and failed jobs
 

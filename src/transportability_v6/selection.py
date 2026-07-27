@@ -13,7 +13,7 @@ STAGES = (
     ("0_25", 0.0, 0.25),
     ("25_50", 0.25, 0.50),
     ("50_75", 0.50, 0.75),
-    ("75_100", 0.75, 1.0000000001),
+    ("75_100", 0.75, 1.0),
 )
 
 
@@ -25,14 +25,18 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def validate_development_only(frame: pd.DataFrame, confirmation_seeds=range(7000, 7040)) -> None:
+def validate_development_only(frame: pd.DataFrame) -> None:
     required = {"environment", "budget_fraction", "effective_beta", "seed"}
     if not required <= set(frame.columns):
         raise ValueError(f"missing columns: {sorted(required - set(frame.columns))}")
     seeds = set(frame["seed"].astype(int))
-    collision = seeds & set(confirmation_seeds)
+    forbidden = set(range(5000, 5040)) | set(range(7000, 7040))
+    collision = seeds & forbidden
     if collision:
-        raise ValueError(f"confirmation seed leakage: {sorted(collision)}")
+        raise ValueError(f"forbidden V5/confirmation seed leakage: {sorted(collision)}")
+    unexpected = seeds - set(range(6000, 6010))
+    if unexpected:
+        raise ValueError(f"non-development seeds: {sorted(unexpected)}")
     if not np.isfinite(frame["effective_beta"]).all() or np.any(frame["effective_beta"] < 0):
         raise ValueError("effective_beta must be finite and nonnegative")
 
@@ -48,26 +52,35 @@ def fit_matched_beta_map(frame: pd.DataFrame) -> dict[str, object]:
     validate_development_only(frame)
     fixed = environment_balanced_median(frame)
     stagewise: dict[str, float] = {}
+    fallbacks: list[str] = []
     for name, lower, upper in STAGES:
-        subset = frame[
-            (frame["budget_fraction"].astype(float) >= lower)
-            & (frame["budget_fraction"].astype(float) < upper)
-        ]
+        budget = frame["budget_fraction"].astype(float)
+        upper_match = budget <= upper if name == "75_100" else budget < upper
+        subset = frame[(budget >= lower) & upper_match]
         if subset.empty:
-            raise ValueError(f"development data absent for stage {name}")
-        stagewise[name] = environment_balanced_median(subset)
+            stagewise[name] = fixed
+            fallbacks.append(name)
+        else:
+            stagewise[name] = environment_balanced_median(subset)
     return {
         "method": "environment_balanced_median_of_environment_medians",
         "fixed_matched_beta": fixed,
         "stage_matched_beta": stagewise,
         "development_seeds": sorted(set(frame["seed"].astype(int))),
         "confirmation_seeds_forbidden": list(range(7000, 7040)),
+        "v5_seeds_forbidden": list(range(5000, 5040)),
+        "missing_stage_fallback": "fixed_matched_beta",
+        "stages_using_fallback": fallbacks,
     }
 
 
 def beta_for_budget(selection: dict[str, object], budget_fraction: float) -> float:
+    if not 0.0 <= budget_fraction <= 1.0:
+        raise ValueError("budget_fraction must lie in [0, 1]")
     for name, lower, upper in STAGES:
-        if lower <= budget_fraction < upper:
+        if lower <= budget_fraction < upper or (
+            name == "75_100" and budget_fraction == upper
+        ):
             return float(selection["stage_matched_beta"][name])
     raise ValueError("budget_fraction must lie in [0, 1]")
 
@@ -92,3 +105,10 @@ def freeze_selection_map(
     temporary = output.with_suffix(output.suffix + ".tmp")
     temporary.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     os.replace(temporary, output)
+
+
+def verify_selection_map(path: str | Path) -> bool:
+    payload = json.loads(Path(path).read_text(encoding="utf-8"))
+    recorded = payload.pop("selection_map_sha256", None)
+    canonical = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
+    return recorded == hashlib.sha256(canonical).hexdigest()

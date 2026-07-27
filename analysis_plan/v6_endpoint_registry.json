@@ -1,0 +1,15 @@
+{
+  "schema_version": "v6-endpoint-registry-v1",
+  "status": "FREEZE_READY",
+  "endpoints": [
+    {"id": "L1", "name": "campaign-average MACE", "role": "primary", "direction": "lower_is_better", "unit": "paired seed within environment", "missing_handling": "complete paired set required"},
+    {"id": "L4", "name": "top-1% recall nAUC", "role": "primary", "direction": "higher_is_better", "x_axis": "budget_fraction", "unit": "paired seed within environment", "missing_handling": "complete paired set required"},
+    {"id": "TOP_TAIL_COUNT", "name": "top-tail discoveries at fixed budgets", "role": "secondary", "direction": "higher_is_better"},
+    {"id": "FULL_SPEARMAN", "name": "full-pool Spearman rank agreement", "role": "mechanism_secondary", "direction": "higher_means_more_agreement"},
+    {"id": "KENDALL_TAU", "name": "full-pool Kendall tau", "role": "mechanism_secondary", "direction": "higher_means_more_agreement"},
+    {"id": "BATCH_JACCARD", "name": "batch Jaccard overlap", "role": "mechanism_secondary", "direction": "higher_means_more_agreement"},
+    {"id": "FIRST_DIVERGENCE", "name": "first acquisition-path divergence round", "role": "mechanism_secondary", "direction": "later_means_more_agreement"},
+    {"id": "CRPS", "name": "continuous ranked probability score", "role": "secondary", "direction": "lower_is_better"},
+    {"id": "NLL", "name": "Gaussian negative log likelihood", "role": "secondary_conditional", "direction": "lower_is_better", "stability_gate_required": true}
+  ]
+}

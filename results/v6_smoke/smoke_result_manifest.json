@@ -1,0 +1,49 @@
+{
+  "schema_version": "v6-smoke-result-manifest-v1",
+  "validation_label": "NON-INFERENTIAL ENGINEERING VALIDATION",
+  "manifest_path": "configs/smoke/v6_smoke_manifest.json",
+  "manifest_sha256": "0010d7eb838ca16526f1eb56fe5d5ea3c5c7aa76e0cd7eeb4d0047f5febff12a",
+  "registry_path": "results/v6_smoke/smoke_registry.csv",
+  "registry_sha256": "f04c92ed6642b79e41a35bc269c13c3184fbf9e12d23a394775ff4a9d602bc2c",
+  "log_path": "results/v6_smoke/smoke_run.log",
+  "log_sha256": "247537967eff7cba38d23f129a88c95fe033e6c88a40a612ad29f835c1a75b46",
+  "identity_audit_path": "results/v6_smoke/smoke_identity_audit.json",
+  "identity_audit_sha256": "0ec3cbc282aaca973f574334df80a320213ef7c00084a00c8a40a39d71e62313",
+  "jobs": 8,
+  "completed": 8,
+  "failed": 0,
+  "artifacts": [
+    {
+      "path": "results/v6_smoke/synthetic_identity_seed91000__RAW.json",
+      "sha256": "35379681ab0657aec7bd7b6c564593305159e34e2745f365ca3a317ce95e5c6c"
+    },
+    {
+      "path": "results/v6_smoke/synthetic_identity_seed91000__GG_CALIBRATION_ONLY.json",
+      "sha256": "fda77149f2b20c16dce4b044e4558da95c2be28693eaf20183eea26b8a7b58ea"
+    },
+    {
+      "path": "results/v6_smoke/synthetic_identity_seed91000__GG_NORMALIZED_ACQUISITION.json",
+      "sha256": "44cb7915271fd556658e100ffcc168b9d5db7d7cf49ecfec9eea4c697eb649f4"
+    },
+    {
+      "path": "results/v6_smoke/synthetic_identity_seed91000__CS_CALIBRATION_ONLY.json",
+      "sha256": "6356eabf4e752260d51f7921934a27b04ba8124203a45c722501c08a2956d3a3"
+    },
+    {
+      "path": "results/v6_smoke/matbench_expt_gap_reduced_seed91001__RAW.json",
+      "sha256": "cf24e3e30e6c7fe5b0b769eecf883f4a6c900e99be65cbce188b9bfc770361fd"
+    },
+    {
+      "path": "results/v6_smoke/matbench_expt_gap_reduced_seed91001__GG_CALIBRATION_ONLY.json",
+      "sha256": "f160dcf50e24f1011016884a431d48660edee65f289c4db3c27e50b76880b812"
+    },
+    {
+      "path": "results/v6_smoke/matbench_expt_gap_reduced_seed91001__GG_NORMALIZED_ACQUISITION.json",
+      "sha256": "ab3d0468fa9118fc9b4702926feca439e01da9e838a9cb9951efad1e005010bf"
+    },
+    {
+      "path": "results/v6_smoke/matbench_expt_gap_reduced_seed91001__CS_CALIBRATION_ONLY.json",
+      "sha256": "35a8e9f57a55cdabf4e1e08c87a25691c2b21475b8e11777646adc6064df4506"
+    }
+  ]
+}
