@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from transportability_v6.development import CALIBRATION_REPLAY_STRATEGIES
 from transportability_v6.production_campaign import ProductionCampaignConfig, _assert_production_config
 from transportability_v6.production_strategies import PRODUCTION_STRATEGIES
 
@@ -32,6 +33,10 @@ def test_actual_production_strategy_specs_cover_required_algorithms() -> None:
     ].objective
     assert PRODUCTION_STRATEGIES["SELECTED_CS_EQUIVALENT_DOF_CONTROL"].acquisition_mapping == "raw_sigma"
     assert PRODUCTION_STRATEGIES["HISTORICAL_CS_EQUIVALENT_DOF_CONTROL"].acquisition_mapping == "raw_sigma"
+    assert all(
+        PRODUCTION_STRATEGIES[strategy].acquisition_mapping == "raw_sigma"
+        for strategy in CALIBRATION_REPLAY_STRATEGIES
+    )
 
 
 def test_production_confirmation_and_unregistered_seed_are_blocked() -> None:
