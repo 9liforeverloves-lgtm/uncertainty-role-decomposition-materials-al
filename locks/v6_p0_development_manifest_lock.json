@@ -1,12 +1,14 @@
 {
-  "created_utc": "2026-07-27T11:10:23.648730+00:00",
+  "created_utc": "2026-07-27T11:14:38.243146+00:00",
   "development_seed_range": [
     6000,
     6009
   ],
   "execution_boundary": "development only; no confirmation execution capability",
-  "git_commit_before_stage_2_5_commit": "fa4ec4888fdaf4c24dc99e5386f12d6a3a7d6693",
-  "immutable_lock_sha256": "a3bef9c4b87df895ee511b0a3bf9c1ea8834ee5fb5b556a3cd26a5b81d6f7164",
+  "execution_run_id": "rerun_after_seedsequence_fix",
+  "git_commit_before_stage_2_5_commit": "eba8d544bf84cdd01066d323662739155ed55e39",
+  "immutable_lock_sha256": "ef0607d55cd9f326abed7165f1c7ce1a681540b1a248e5c4f17353c23e1a0866",
+  "lock_revision": 2,
   "manifest_job_count": 360,
   "manifest_path": "manifests/v6_p0_development_manifest.csv",
   "manifest_sha256": "d862b85f615b8d4525d9d580f00490b1d869adc097c96ac32ea5cae0f9e7b1fc",
@@ -16,7 +18,10 @@
   ],
   "schema_version": "v6-p0-development-manifest-lock-v1",
   "seed_collision_check": "passed_exactly_6000_6009",
-  "status": "PRE_DEVELOPMENT_LOCKED_NOT_EXECUTED",
+  "status": "PRE_DEVELOPMENT_LOCK_REISSUED_AFTER_RECORDED_CANARY_FAILURE",
+  "superseded_lock_path": "locks/v6_p0_development_manifest_lock_superseded_a3bef9c4b87d.json",
+  "supersedes_immutable_lock_sha256": "a3bef9c4b87df895ee511b0a3bf9c1ea8834ee5fb5b556a3cd26a5b81d6f7164",
+  "supersession_reason": "Recorded P0 canary failure: V6 initial model SeedSequence used negative round key; corrected to canonical round-0 key before any model checkpoint write.",
   "v5_authority_lock": {
     "checked_files": 18,
     "checks": [
@@ -138,5 +143,5 @@
     "observed_overall_sha256": "09ce0e42bdf173b455e65165748a2653e8681fae207c2d4aa9b3d568b1aa6e08",
     "source_hashes_match": true
   },
-  "v6_code_tree_sha256": "0e7cf14f0653245bf1b32868efa4301ccf038233ed2690d80ce36363678e16e9"
+  "v6_code_tree_sha256": "fdf751726c8eb0e2f29bc301be508154488a21a315e2a9d61aa4fedea430fdb9"
 }

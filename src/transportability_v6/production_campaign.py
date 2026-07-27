@@ -255,7 +255,10 @@ def run_production_campaign(
         return model.fit(X[labelled], y[labelled], model_seed, stable[labelled])
 
     if "initial" not in checkpoint_rows:
-        initial_model = fit_model(-1, queried)
+        # V5 trains the initial-state model with acquisition-round seed 0.
+        # SeedSequence rejects negative integers, so use the same canonical
+        # non-negative round key rather than a synthetic -1 sentinel.
+        initial_model = fit_model(0, queried)
         durable.write_payload(
             "initial",
             _model_payload(initial_model),
@@ -277,7 +280,7 @@ def run_production_campaign(
             X_diagnostic=X[split.diagnostic],
             diagnostic_mean=diagnostic_mean,
             diagnostic_raw_sigma=diagnostic_raw_sigma,
-            seed=int(np.random.SeedSequence([config.seed, -1, 31]).generate_state(1)[0]),
+            seed=int(np.random.SeedSequence([config.seed, 0, 31]).generate_state(1)[0]),
             floor=floor,
         )
         diagnostic_rows.append(

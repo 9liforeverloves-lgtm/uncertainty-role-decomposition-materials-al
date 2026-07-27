@@ -219,6 +219,50 @@ def generate_p0_manifest(
     return {"manifest_path": str(manifest_path), "lock_path": str(lock_path), **lock}
 
 
+def reissue_p0_manifest_lock(
+    *,
+    workspace: str | Path = WORKSPACE,
+    reason: str,
+    execution_run_id: str = "rerun_after_seedsequence_fix",
+) -> dict[str, object]:
+    """Explicitly supersede a pre-execution lock after a recorded engine defect.
+
+    The old lock is retained under a versioned filename.  The manifest bytes
+    and registered seed set must be unchanged; only the source-tree hash and
+    transparent reissue provenance may change.
+    """
+
+    workspace = Path(workspace).resolve()
+    _, old = _read_manifest(workspace)
+    old_hash = str(old.get("immutable_lock_sha256", ""))
+    if not old_hash:
+        raise ValueError("existing P0 lock lacks an immutable hash")
+    old_path = workspace / "locks" / "v6_p0_development_manifest_lock.json"
+    archive = workspace / "locks" / f"v6_p0_development_manifest_lock_superseded_{old_hash[:12]}.json"
+    if not archive.exists():
+        temporary = archive.with_suffix(archive.suffix + ".tmp")
+        temporary.write_text(json.dumps(old, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        os.replace(temporary, archive)
+    new = dict(old)
+    new.pop("immutable_lock_sha256", None)
+    new["status"] = "PRE_DEVELOPMENT_LOCK_REISSUED_AFTER_RECORDED_CANARY_FAILURE"
+    new["created_utc"] = datetime.now(timezone.utc).isoformat()
+    new["git_commit_before_stage_2_5_commit"] = current_git_commit(workspace)
+    new["v6_code_tree_sha256"] = code_tree_sha256(workspace / "src" / "transportability_v6")
+    new["lock_revision"] = int(old.get("lock_revision", 1)) + 1
+    new["supersedes_immutable_lock_sha256"] = old_hash
+    new["supersession_reason"] = str(reason)
+    new["execution_run_id"] = str(execution_run_id)
+    new["superseded_lock_path"] = archive.relative_to(workspace).as_posix()
+    new["immutable_lock_sha256"] = _sha256_bytes(
+        json.dumps(new, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    )
+    temporary = old_path.with_suffix(old_path.suffix + ".tmp")
+    temporary.write_text(json.dumps(new, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    os.replace(temporary, old_path)
+    return new
+
+
 def _read_manifest(workspace: Path) -> tuple[pd.DataFrame, dict[str, object]]:
     manifest_path = workspace / "manifests" / "v6_p0_development_manifest.csv"
     lock_path = workspace / "locks" / "v6_p0_development_manifest_lock.json"
@@ -232,12 +276,14 @@ def _read_manifest(workspace: Path) -> tuple[pd.DataFrame, dict[str, object]]:
     return frame, lock
 
 
-def _write_registry_snapshot(registry: CanonicalJobRegistry, output_root: Path) -> pd.DataFrame:
+def _write_registry_snapshot(
+    registry: CanonicalJobRegistry, output_root: Path, run_root: Path
+) -> pd.DataFrame:
     snapshot = registry.snapshot_frame()
-    path = output_root / "registry_snapshot.csv"
-    temporary = path.with_suffix(path.suffix + ".tmp")
-    snapshot.to_csv(temporary, index=False)
-    os.replace(temporary, path)
+    for path in (run_root / "registry_snapshot.csv", output_root / "registry_snapshot.csv"):
+        temporary = path.with_suffix(path.suffix + ".tmp")
+        snapshot.to_csv(temporary, index=False)
+        os.replace(temporary, path)
     return snapshot
 
 
@@ -466,11 +512,12 @@ def execute_p0_development(*, workspace: str | Path = WORKSPACE) -> dict[str, ob
     if not authority["passed"]:
         raise RuntimeError("V5 authority lock failed before P0 execution")
     output_root = workspace / "results" / "v6_development"
-    trajectory_root = output_root / "trajectories"
-    evaluation_root = output_root / "calibration_replays"
+    run_root = output_root / str(lock.get("execution_run_id", "primary"))
+    trajectory_root = run_root / "trajectories"
+    evaluation_root = run_root / "calibration_replays"
     trajectory_root.mkdir(parents=True, exist_ok=True)
     evaluation_root.mkdir(parents=True, exist_ok=True)
-    registry = CanonicalJobRegistry(output_root / "job_registry.sqlite", adapter=adapter)
+    registry = CanonicalJobRegistry(run_root / "job_registry.sqlite", adapter=adapter)
     connection = registry.initialize(rows.job_id.astype(str).tolist(), str(lock["manifest_sha256"]))
     connection.close()
     base = rows[rows.execution_phase == "base"]
@@ -492,7 +539,7 @@ def execute_p0_development(*, workspace: str | Path = WORKSPACE) -> dict[str, ob
         adapter=adapter,
         selection=None,
     )
-    snapshot = _write_registry_snapshot(registry, output_root)
+    snapshot = _write_registry_snapshot(registry, output_root, run_root)
     failures = snapshot[snapshot.status == "FAILED"]
     if len(failures):
         return {
@@ -520,7 +567,7 @@ def execute_p0_development(*, workspace: str | Path = WORKSPACE) -> dict[str, ob
         adapter=adapter,
         selection=dict(preliminary["selection"]),
     )
-    snapshot = _write_registry_snapshot(registry, output_root)
+    snapshot = _write_registry_snapshot(registry, output_root, run_root)
     final = _write_draft_selection_map(
         workspace=workspace,
         manifest_sha256=str(lock["manifest_sha256"]),
@@ -537,6 +584,7 @@ def execute_p0_development(*, workspace: str | Path = WORKSPACE) -> dict[str, ob
         "excluded": int((snapshot.status == "EXCLUDED_WITH_REASON").sum()),
         "manifest_sha256": lock["manifest_sha256"],
         "registry_snapshot": (output_root / "registry_snapshot.csv").relative_to(workspace).as_posix(),
+        "execution_run_root": run_root.relative_to(workspace).as_posix(),
         "selection_map": (workspace / "analysis_plan" / "v6_selection_map_DRAFT.json").relative_to(workspace).as_posix(),
         "selection_map_sha256": final["draft_selection_map_sha256"],
         "completed_utc": datetime.now(timezone.utc).isoformat(),
@@ -550,9 +598,10 @@ def selection_stability_summary(*, workspace: str | Path = WORKSPACE) -> dict[st
 
     workspace = Path(workspace).resolve()
     output_root = workspace / "results" / "v6_development"
-    trajectory_root = output_root / "trajectories"
-    evaluation_root = output_root / "calibration_replays"
     rows, lock = _read_manifest(workspace)
+    run_root = output_root / str(lock.get("execution_run_id", "primary"))
+    trajectory_root = run_root / "trajectories"
+    evaluation_root = run_root / "calibration_replays"
     beta = _collect_original_gg_beta(rows, trajectory_root)
     leave_one_seed_out: dict[str, dict[str, float]] = {}
     for seed in P0_SEEDS:
