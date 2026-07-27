@@ -1,14 +1,14 @@
 {
-  "created_utc": "2026-07-27T11:26:57.084722+00:00",
+  "created_utc": "2026-07-27T11:38:56.950211+00:00",
   "development_seed_range": [
     6000,
     6009
   ],
   "execution_boundary": "development only; no confirmation execution capability",
-  "execution_run_id": "rerun_after_calibration_mapping_fix",
-  "git_commit_before_stage_2_5_commit": "287c8bccb7f354d75d56fbef89dc5f7b61b6d29b",
-  "immutable_lock_sha256": "a4fb9cfa0aa848975329f83f5560e10c89586c434c019da2e93a03ba4c3354dd",
-  "lock_revision": 3,
+  "execution_run_id": "rerun_after_simple_scaler_mapping_fix",
+  "git_commit_before_stage_2_5_commit": "c35ada9c895b818e2a95b09a4647f3e1bf7159c2",
+  "immutable_lock_sha256": "a9c4b568069d27799f70cd3882990cc22c8b6bc7029ced4a911a69f1f9c29e4d",
+  "lock_revision": 4,
   "manifest_job_count": 360,
   "manifest_path": "manifests/v6_p0_development_manifest.csv",
   "manifest_sha256": "d862b85f615b8d4525d9d580f00490b1d869adc097c96ac32ea5cae0f9e7b1fc",
@@ -19,9 +19,9 @@
   "schema_version": "v6-p0-development-manifest-lock-v1",
   "seed_collision_check": "passed_exactly_6000_6009",
   "status": "PRE_DEVELOPMENT_LOCK_REISSUED_AFTER_RECORDED_CANARY_FAILURE",
-  "superseded_lock_path": "locks/v6_p0_development_manifest_lock_superseded_ef0607d55cd9.json",
-  "supersedes_immutable_lock_sha256": "ef0607d55cd9f326abed7165f1c7ce1a681540b1a248e5c4f17353c23e1a0866",
-  "supersession_reason": "Recorded P0 calibration-replay failure: equivalent-DoF controls were registered calibration-only but their production acquisition map was scaled_sigma; corrected to exact RAW acquisition before execution.",
+  "superseded_lock_path": "locks/v6_p0_development_manifest_lock_superseded_a4fb9cfa0aa8.json",
+  "supersedes_immutable_lock_sha256": "a4fb9cfa0aa848975329f83f5560e10c89586c434c019da2e93a03ba4c3354dd",
+  "supersession_reason": "Recorded P0 calibration-replay failure: simple scalers in the calibration-only manifest inherited scaled_sigma acquisition; all calibration replay specifications now explicitly use exact RAW acquisition.",
   "v5_authority_lock": {
     "checked_files": 18,
     "checks": [
@@ -143,5 +143,5 @@
     "observed_overall_sha256": "09ce0e42bdf173b455e65165748a2653e8681fae207c2d4aa9b3d568b1aa6e08",
     "source_hashes_match": true
   },
-  "v6_code_tree_sha256": "09a64f0eadf0b40f458a6c7c08965c07d5a1266454ba3d35dc3bccdbec5467bd"
+  "v6_code_tree_sha256": "f45c7f9f5fdf3d8f3f6abb3648799902cc9570b300344d6ade320e89f183ed24"
 }
