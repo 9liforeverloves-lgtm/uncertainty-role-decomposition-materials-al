@@ -635,12 +635,12 @@
       "retry_rule": "unchanged configuration; maximum two automatic retries"
     }
   ],
-  "creation_time_utc": "2026-07-27T11:54:59.785970+00:00",
-  "git_commit": "fd39c399e72979e99d3c90beb0800bcdd8555929",
+  "creation_time_utc": "2026-07-27T11:57:03.120456+00:00",
+  "git_commit": "1698c2fa830ac30ccd8dd3050201c9d68980f350",
   "source_hashes": {
     "v5_authority_lock_sha256": "dc7ef6077e6c9f87c85823268bcd1774d3733a904ca2e78b33dd4a646f73b315",
     "v5_confirmation_protocol_sha256": "0c8991c1261799336eb7a1991cb004cc9e958f274031de05a3c964a27e897c29",
-    "v6_code_tree_sha256": "9dc9f9b995678f847bc710dd79c2ecbb02a29c381d86d1fe31df9f308ed96b55"
+    "v6_code_tree_sha256": "3295b351fc74b4df63a5ae3b43d9e41cbf51139b7c45a4e073edd1c0bd489ae0"
   },
-  "immutable_freeze_hash": "6888466349f439897356b8cdc5b2285fa862c1c2d582490b0330754943f5d754"
+  "immutable_freeze_hash": "5c9da91514b1232dac82e5f507213f0554046983181c4aad94e8a714e086b5f9"
 }

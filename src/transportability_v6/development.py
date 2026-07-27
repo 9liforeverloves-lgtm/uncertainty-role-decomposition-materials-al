@@ -14,6 +14,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import shutil
 import traceback
 from typing import Any, Iterable
 
@@ -224,6 +225,7 @@ def reissue_p0_manifest_lock(
     workspace: str | Path = WORKSPACE,
     reason: str,
     execution_run_id: str = "rerun_after_seedsequence_fix",
+    reuse_verified_base_from_run_id: str | None = None,
 ) -> dict[str, object]:
     """Explicitly supersede a pre-execution lock after a recorded engine defect.
 
@@ -253,6 +255,10 @@ def reissue_p0_manifest_lock(
     new["supersedes_immutable_lock_sha256"] = old_hash
     new["supersession_reason"] = str(reason)
     new["execution_run_id"] = str(execution_run_id)
+    if reuse_verified_base_from_run_id is None:
+        new.pop("reuse_verified_base_from_run_id", None)
+    else:
+        new["reuse_verified_base_from_run_id"] = str(reuse_verified_base_from_run_id)
     new["superseded_lock_path"] = archive.relative_to(workspace).as_posix()
     new["immutable_lock_sha256"] = _sha256_bytes(
         json.dumps(new, sort_keys=True, separators=(",", ":")).encode("utf-8")
@@ -406,6 +412,63 @@ def _execute_phase(
             connection.close()
 
 
+def _reuse_verified_base_rows(
+    rows: pd.DataFrame,
+    *,
+    registry: CanonicalJobRegistry,
+    source_run_root: Path,
+    destination_run_root: Path,
+) -> None:
+    """Copy only hash-verified completed base artifacts into a new run ledger."""
+
+    source_registry = source_run_root / "job_registry.sqlite"
+    if not source_registry.is_file():
+        raise FileNotFoundError(f"recovery source registry is unavailable: {source_registry}")
+    source_connection = registry.adapter.modules["registry"].connect(source_registry)
+    try:
+        source = pd.read_sql_query(
+            "SELECT job_id,status,output_path,output_hash FROM jobs", source_connection
+        )
+    finally:
+        source_connection.close()
+    by_job = source.set_index("job_id")
+    for row in rows.itertuples(index=False):
+        if row.job_id not in by_job.index:
+            raise RuntimeError(f"recovery source lacks base job {row.job_id}")
+        prior = by_job.loc[row.job_id]
+        if str(prior.status) != "COMPLETED":
+            raise RuntimeError(f"recovery source did not complete base job {row.job_id}")
+        source_dir = Path(str(prior.output_path))
+        trace = source_dir / "trajectory.json"
+        expected_hash = str(prior.output_hash)
+        if not trace.is_file() or sha256_file(trace) != expected_hash:
+            raise RuntimeError(f"recovery source output hash does not validate for {row.job_id}")
+        kind_root = "trajectories" if row.job_kind == "trajectory" else "calibration_replays"
+        destination = destination_run_root / kind_root / row.job_id
+        if destination.exists():
+            destination_trace = destination / "trajectory.json"
+            if not destination_trace.is_file() or sha256_file(destination_trace) != expected_hash:
+                raise FileExistsError(f"recovery destination conflicts for {row.job_id}")
+        else:
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copytree(source_dir, destination)
+        connection = registry.connect()
+        try:
+            registry.claim_specific(connection, row.job_id, "p0-verified-recovery", os.getpid(), "localhost")
+            registry.transition(
+                connection,
+                row.job_id,
+                "COMPLETED",
+                {
+                    "output_path": str(destination),
+                    "output_hash": expected_hash,
+                    "last_error": f"verified reuse from {source_run_root.name}",
+                },
+            )
+        finally:
+            connection.close()
+
+
 def _collect_original_gg_beta(rows: pd.DataFrame, trajectory_root: Path) -> pd.DataFrame:
     extracted: list[pd.DataFrame] = []
     selected = rows[(rows.strategy == "ORIGINAL_GG") & (rows.execution_phase == "base")]
@@ -521,24 +584,33 @@ def execute_p0_development(*, workspace: str | Path = WORKSPACE) -> dict[str, ob
     connection = registry.initialize(rows.job_id.astype(str).tolist(), str(lock["manifest_sha256"]))
     connection.close()
     base = rows[rows.execution_phase == "base"]
-    _execute_phase(
-        base[base.job_kind == "trajectory"],
-        registry=registry,
-        manifest_sha256=str(lock["manifest_sha256"]),
-        trajectory_root=trajectory_root,
-        evaluation_root=evaluation_root,
-        adapter=adapter,
-        selection=None,
-    )
-    _execute_phase(
-        base[base.job_kind == "calibration_replay"],
-        registry=registry,
-        manifest_sha256=str(lock["manifest_sha256"]),
-        trajectory_root=trajectory_root,
-        evaluation_root=evaluation_root,
-        adapter=adapter,
-        selection=None,
-    )
+    recovery_run_id = lock.get("reuse_verified_base_from_run_id")
+    if recovery_run_id:
+        _reuse_verified_base_rows(
+            base,
+            registry=registry,
+            source_run_root=output_root / str(recovery_run_id),
+            destination_run_root=run_root,
+        )
+    else:
+        _execute_phase(
+            base[base.job_kind == "trajectory"],
+            registry=registry,
+            manifest_sha256=str(lock["manifest_sha256"]),
+            trajectory_root=trajectory_root,
+            evaluation_root=evaluation_root,
+            adapter=adapter,
+            selection=None,
+        )
+        _execute_phase(
+            base[base.job_kind == "calibration_replay"],
+            registry=registry,
+            manifest_sha256=str(lock["manifest_sha256"]),
+            trajectory_root=trajectory_root,
+            evaluation_root=evaluation_root,
+            adapter=adapter,
+            selection=None,
+        )
     snapshot = _write_registry_snapshot(registry, output_root, run_root)
     failures = snapshot[snapshot.status == "FAILED"]
     if len(failures):
