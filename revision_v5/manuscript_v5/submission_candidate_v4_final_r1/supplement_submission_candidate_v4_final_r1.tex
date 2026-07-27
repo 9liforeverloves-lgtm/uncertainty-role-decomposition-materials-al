@@ -1,0 +1,375 @@
+
+\documentclass[9pt]{article}
+\usepackage[margin=.62in]{geometry}
+\usepackage{graphicx,booktabs,longtable,array,amsmath,amssymb,natbib,microtype}
+\usepackage[hidelinks]{hyperref}
+\usepackage{pdflscape,tabularx,ragged2e}
+\newcolumntype{Y}{>{\RaggedRight\arraybackslash}X}
+\newcommand{\evidencelabel}[1]{\textbf{#1}\enspace}
+\setlength{\parindent}{0pt}\setlength{\parskip}{3pt}\sloppy
+\title{Supplementary Information: Calibration-Oriented Uncertainty Scaling in Tree-Ensemble UCB Materials Screening: A Four-Task Cross-Environment Evaluation}\author{Administrative metadata pending}\date{}
+\begin{document}\maketitle\tableofcontents
+\section{Authoritative study geometry}
+V2: 1,920 historical exploratory jobs; V3: 1,920 historical calibration-evaluation jobs; development: 5,760 planned broad-manifest jobs and 2,240 valid executed reduced-cohort jobs; V5-RC1: 3,360 sole-confirmatory jobs. Confirmation result-lock file SHA-256: \texttt{69074fceae6030ea0e92292f95be628e09afa9e66d14524424392c17fe138b50}. Registry snapshot SHA-256: \texttt{cf218bb8ba5d1647bf37213a83d2831fdddd3a1efc4a8d28a8f52dff6483a441}. Final-table lock SHA-256: \texttt{5ffc2652368ea7399bf3c1f43c49d5ab989396e379bd7943d0010a118708074d}.
+\section{Evidence-class audit}
+Historical, development, confirmatory, post hoc sensitivity, exploratory mechanism, and descriptive evidence remain separated. No historical or development seed was pooled with V5-RC1.
+\section{Descriptor specification}
+\resizebox{\linewidth}{!}{\begin{tabular}{lllll}
+\toprule
+Task & Library & Features & Dim. & Scaling\\
+\midrule
+matbench\_expt\_gap & pymatgen 2024.10.29 Composition & dataset-wide sorted elemental atomic fractions; total atom count; number of distinct elements & 83 & none for surrogate fitting; source-only z-score for descriptor-distance diagnostics\\
+matbench\_mp\_gap & pymatgen 2024.10.29 Composition & dataset-wide sorted elemental atomic fractions; total atom count; number of distinct elements & 86 & none for surrogate fitting; source-only z-score for descriptor-distance diagnostics\\
+matbench\_log\_gvrh & pymatgen 2024.10.29 Composition & dataset-wide sorted elemental atomic fractions; total atom count; number of distinct elements & 86 & none for surrogate fitting; source-only z-score for descriptor-distance diagnostics\\
+matbench\_log\_kvrh & pymatgen 2024.10.29 Composition & dataset-wide sorted elemental atomic fractions; total atom count; number of distinct elements & 86 & none for surrogate fitting; source-only z-score for descriptor-distance diagnostics\\
+\bottomrule
+\end{tabular}}
+\section{Surrogate hyperparameters}
+\resizebox{\linewidth}{!}{\begin{tabular}{llllllllll}
+\toprule
+surrogate & n\_estimators & max\_depth & min\_samples\_split & min\_samples\_leaf & max\_features & bootstrap & criterion & n\_jobs & uncertainty\_floor\\
+\midrule
+random\_forest & 80 & None & 2 & 2 & 1.0000 & True & squared\_error & 1 & 1.00e-08\\
+extra\_randomized\_bagging & 80 & None & 2 & 2 & 1.0000 & True & squared\_error & 1 & 1.00e-08\\
+\bottomrule
+\end{tabular}}
+RF uses best CART splits; ExtraTrees uses random split thresholds. Both use 80 bootstrap members, no sample weighting, member-mean prediction, population member standard deviation, and the documented SeedSequence derivation.
+\section{Campaign geometry}
+\resizebox{\linewidth}{!}{\begin{tabular}{llllllllll}
+\toprule
+task & split & total\_records & source\_count & selectable\_pool\_size & diagnostic\_pool\_size & initial\_labeled\_count & batch\_size & maximum\_queried\_count & maximum\_rounds\\
+\midrule
+matbench\_expt\_gap & iid\_record & 4604 & 921 & 2762 & 921 & 46 & 46 & 552 & 12\\
+matbench\_expt\_gap & chemical\_system\_ood & 4604 & 921 & 2762 & 921 & 46 & 46 & 552 & 12\\
+matbench\_mp\_gap & iid\_record & 106113 & 21223 & 63667 & 21223 & 1061 & 1061 & 12733 & 13\\
+matbench\_mp\_gap & chemical\_system\_ood & 106113 & 21223 & 63668 & 21222 & 1061 & 1061 & 12734 & 13\\
+matbench\_log\_gvrh & iid\_record & 10987 & 2197 & 6593 & 2197 & 110 & 110 & 1319 & 12\\
+matbench\_log\_gvrh & chemical\_system\_ood & 10987 & 2198 & 6592 & 2197 & 110 & 110 & 1318 & 12\\
+matbench\_log\_kvrh & iid\_record & 10987 & 2197 & 6593 & 2197 & 110 & 110 & 1319 & 12\\
+matbench\_log\_kvrh & chemical\_system\_ood & 10987 & 2198 & 6592 & 2197 & 110 & 110 & 1318 & 12\\
+\bottomrule
+\end{tabular}}
+\section{Exact Historical CS algorithm}
+Let $r_i=|y_i-\hat\mu_i^{OOB}|/\max(\hat\sigma_i^{OOB},10^{-8})$. Valid rows require at least three OOB trees and 30 queried records. Features are:
+(1) $\log\max(\sigma,10^{-12})$;
+(2) $\log(1+\sum_i p_i^2)$ where $p_i$ is the fraction of trees sharing a leaf;
+(3) $\log(1+d_{NN})$ after queried-reference z-scaling, Euclidean distance, and self-neighbor exclusion;
+(4) average-rank predictive-mean percentile divided by population size;
+(5) log squared-proximity-weighted median of $r_i$;
+(6) log-one-plus the squared-proximity-weighted mean absolute deviation about that median.
+Empty neighborhoods use local ratio one, dispersion zero, and density zero.
+
+For sampled unequal-target pairs $(i,j)$, $s_k=\mu_k+\sigma_k\exp(\mathrm{clip}(z_k^\top\theta,\log .25,\log4))$ and
+\[
+\mathcal L(\theta)=\frac{\sum w_{ij}\log[1+\exp(-\mathrm{sign}(y_i-y_j)(s_i-s_j))]}{\sum w_{ij}}
++0.01\|\theta_{1:}\|_2^2+0.01\,\mathrm{mean}[(Z\theta)^2].
+\]
+Up to 20,000 pairs are drawn by the deterministic round seed; pairs touching the top 10\% receive weight two. Temperature is one. L-BFGS-B uses 100 iterations. The intercept is excluded from the first ridge term but included through the mean-log-scale penalty. Fallback is Raw UCB for insufficient valid data or no valid pair.
+\section{Exact Selected CS algorithm}
+Selected CS uses the same objective, bounds, optimizer, and fallback, but its design is intercept plus standardized log raw uncertainty only, requires at least ten OOB trees, and sets top-tail pair weight to one. It is a parsimonious transform, not proof of unique necessity or minimality.
+\section{Development broad manifest and reduced selection cohort}
+Broad development manifest: 5,760 planned configuration jobs across the 36-configuration inventory. Reduced selection cohort: 2,240 valid executed jobs retained for family-specific leave-one-task-out selection. For each fold, excluding the held-out task leaves 720 Raw, 600 GG, and 360 CS training-task jobs. Not all broad-manifest controls or ablations entered each family-specific fold.
+\section{Development-selection stability}
+\textbf{Post hoc sensitivity; unit: development seed, cohort 1000--1009.} The frozen selection map was unchanged. Held-out log-KVRH Raw beta 2 retained 0.786 frequency in 500 deterministic bootstraps but remained criterion dependent.
+\includegraphics[width=.9\linewidth]{../../figures_v5/submission_candidate_v4_final_r1/FigureS2_Development_Stability.pdf}
+\section{Development-to-confirmation mapping}
+Selected identities were frozen before V5 outcomes: Raw beta 1 for experimental gap, MP gap, and log GVRH; Raw beta 2 for log KVRH; selected GG nominal beta 0.5; Selected CS intercept plus log sigma.
+\section{OOD split construction}
+Whole chemical-system groups are greedily assigned to source, selectable, and diagnostic roles with deterministic SHA-256 seed/group ordering and zero group overlap. Targets are not used for assignment.
+\section{OOD severity with reference distances}
+\textbf{Descriptive; unit: task and frozen seed 5000.} Same descriptor representation, source-only scaling, and Euclidean metric for all roles. This is representation-space severity, not real-world extrapolation proof.
+\resizebox{\linewidth}{!}{\begin{tabular}{lllllll}
+\toprule
+task & role\_or\_reference & median\_distance & IQR\_distance & within\_source\_ratio & iid\_reference\_ratio & descriptor\_dimension\\
+\midrule
+matbench\_expt\_gap & within\_source\_leave\_one\_out & 4.3862 & 3.1048 & 1.0000 & 0.9816 & 83\\
+matbench\_expt\_gap & iid\_heldout & 4.4684 & 3.3720 & 1.0187 & 1.0000 & 83\\
+matbench\_expt\_gap & ood\_selectable & 4.8277 & 2.9877 & 0.9932 & 1.0804 & 83\\
+matbench\_expt\_gap & ood\_diagnostic & 5.0663 & 2.8564 & 1.0423 & 1.1338 & 83\\
+matbench\_mp\_gap & within\_source\_leave\_one\_out & 2.0419 & 2.8962 & 1.0000 & 1.0002 & 86\\
+matbench\_mp\_gap & iid\_heldout & 2.0415 & 2.7957 & 0.9998 & 1.0000 & 86\\
+matbench\_mp\_gap & ood\_selectable & 2.5523 & 1.7922 & 1.2902 & 1.2502 & 86\\
+matbench\_mp\_gap & ood\_diagnostic & 2.8200 & 2.5638 & 1.4255 & 1.3813 & 86\\
+matbench\_log\_gvrh & within\_source\_leave\_one\_out & 4.2812 & 2.3585 & 1.0000 & 1.0163 & 86\\
+matbench\_log\_gvrh & iid\_heldout & 4.2127 & 2.3173 & 0.9840 & 1.0000 & 86\\
+matbench\_log\_gvrh & ood\_selectable & 4.6747 & 1.9234 & 1.0079 & 1.1097 & 86\\
+matbench\_log\_gvrh & ood\_diagnostic & 4.8157 & 1.8989 & 1.0383 & 1.1431 & 86\\
+matbench\_log\_kvrh & within\_source\_leave\_one\_out & 4.2812 & 2.3585 & 1.0000 & 1.0163 & 86\\
+matbench\_log\_kvrh & iid\_heldout & 4.2127 & 2.3173 & 0.9840 & 1.0000 & 86\\
+matbench\_log\_kvrh & ood\_selectable & 4.6747 & 1.9234 & 1.0079 & 1.1097 & 86\\
+matbench\_log\_kvrh & ood\_diagnostic & 4.8157 & 1.8989 & 1.0383 & 1.1431 & 86\\
+\bottomrule
+\end{tabular}}
+\includegraphics[width=.9\linewidth]{../../figures_v5/submission_candidate_v4_final_r1/FigureS6_OOD_Reference_All_Seeds.pdf}
+
+\section{OOD assignment variation across confirmation seeds}
+\evidencelabel{Descriptive analysis.}Canonical hashes were generated for
+source IDs, selectable IDs, diagnostic IDs, and the complete
+chemical-system-to-role mapping for every task and seed 5000--5039. Assignments
+were not invariant: only each task's seed-5000 row matched its seed-5000
+reference (4/160 rows). Consequently, cohort-level severity uses the exact
+40-seed distributions in
+\texttt{ood\_distance\_reference\_all\_seeds.csv}, supported by the 640-row
+per-seed table. Across tasks, median OOD-selectable/within-source ratios ranged
+from 0.98 to 1.29. Chemical-system disjointness and representation-space
+distance are distinct concepts.
+
+\section{Stratified GG effective-beta analysis}
+\textbf{Exploratory mechanism analysis; unit: stored state, with environment-balanced reader summary.} Original GG nominal beta 1 and Selected GG nominal beta 0.5 are separate. Ranking agreement means ranking agreement on the retained candidate subset only.
+\includegraphics[width=.9\linewidth]{../../figures_v5/submission_candidate_v4_final_r1/FigureS1_GG_Effective_Beta_Stratified.pdf}
+
+\section{NLL numerical stability}
+\evidencelabel{Post hoc numerical-stability audit.}The executed formula was
+$0.5\log(2\pi\sigma^2)+0.5[(y-\mu)/\sigma]^2$ with
+$\sigma=\max(\sigma_{\rm raw},10^{-8})$ applied before both terms. No
+implementation bug was found. Nevertheless, 41/64 paired environment-level
+NLL contrasts failed the prespecified stability checks; the largest absolute
+mean effect was $3.62\times10^{13}$ and the largest single-seed contribution
+was 1.000. Individual diagnostic mean and sigma vectors were not retained, so
+sigma quantiles and maximum individual standardized residual are unavailable
+rather than reconstructed. NLL is classified
+\texttt{numerically\_unstable\_not\_interpretable}, excluded from scientific
+direction/classification summaries, and retained only in
+\texttt{nll\_numerical\_stability\_seed\_level.csv} and
+\texttt{nll\_contrast\_stability\_audit.csv}.
+
+\section{Endpoint-sensitivity classification rules}
+Labels follow the fixed rules in
+\texttt{reviewer\_revision\_v4/final\_r1/02\_endpoint\_sensitivity\_label\_rules.json}.
+Direction agreement, BH changes, CI-zero changes, and effect-change magnitudes
+are reported numerically. NLL is unavailable by the preceding audit.
+
+\begin{landscape}
+\section{Table Sx-A: L1 calibration sensitivity}
+{\fontsize{8}{9.6}\selectfont
+\begin{tabularx}{\linewidth}{lYYYYYYYY}
+\toprule
+Strategy & Early MACE & Late MACE & CRPS & NLL status & Direction agreement & BH changes & CI-zero changes & Exception\\
+\midrule
+Original GG & magnitude sensitive & preserved & magnitude sensitive & unavailable & 51 / 64 (0.797) & 1 & 4 & expt gap / OOD / extra randomized bagging\\
+Historical CS & direction changed & direction changed & direction changed & unavailable & 43 / 64 (0.672) & 29 & 26 & expt gap / OOD / extra randomized bagging\\
+Selected GG & direction changed & direction changed & direction changed & unavailable & 40 / 64 (0.625) & 19 & 24 & expt gap / IID / extra randomized bagging\\
+Selected CS & direction changed & direction changed & direction changed & unavailable & 43 / 64 (0.672) & 21 & 22 & expt gap / OOD / extra randomized bagging\\
+\bottomrule
+\end{tabularx}}
+
+\section{Table Sx-B: L4 discovery sensitivity}
+{\fontsize{8}{9.6}\selectfont
+\begin{tabularx}{\linewidth}{lYYYYYYYYYY}
+\toprule
+Strategy & Top 0.5\% & Top 1\% & Top 2\% & Top 5\% & 5\% budget & 10\% budget & 20\% budget & Direction agreement & Class changes & Exception\\
+\midrule
+Original GG & direction changed & preserved & direction changed & direction changed & direction changed & direction changed & direction changed & 94 / 112 (0.839) & BH 34; CI 26 & mp gap / OOD / extra randomized bagging\\
+Historical CS & classification changed & preserved & classification changed & classification changed & direction changed & direction changed & classification changed & 110 / 112 (0.982) & BH 26; CI 14 & expt gap / OOD / extra randomized bagging\\
+Selected GG & direction changed & classification changed & direction changed & direction changed & direction changed & direction changed & direction changed & 85 / 112 (0.759) & BH 34; CI 35 & expt gap / OOD / extra randomized bagging\\
+Selected CS & classification changed & preserved & classification changed & direction changed & direction changed & direction changed & direction changed & 103 / 112 (0.920) & BH 44; CI 44 & expt gap / OOD / random forest\\
+\bottomrule
+\end{tabularx}}
+\end{landscape}
+
+Detailed environment lists are in
+\texttt{endpoint\_sensitivity\_label\_environment\_detail.csv}; the full
+numeric summary is in
+\texttt{endpoint\_sensitivity\_label\_numeric\_summary.csv}.
+
+\section{Practical significance}
+\evidencelabel{Descriptive analysis.}The unit is a paired seed within a fixed
+environment. Across the 64 unique strategy-environment comparisons, endpoint
+duplicates were removed after exact equality checks. Values are paired-seed
+mean differences in the number of top-1\% candidates discovered by 20\%
+queried budget and include 95\% paired-bootstrap intervals. Fractional values
+are means of paired integer outcomes, not observed fractional materials.
+
+\begin{landscape}
+\section*{Representative practical cases}
+{\fontsize{8}{9.6}\selectfont
+\begin{tabularx}{\linewidth}{YYYYYYYYYYY}
+\toprule
+Selection rule & Comparison & Environment & Primary L4 class & Pool & Top set & Baseline mean & Test mean & Paired mean diff. & 95\% CI & Discordance\\
+\midrule
+non significant representative & Selected GG & Expt/IID/RF & not-BH-significant & 2762 & 28 & 6.04 & 5.23 & -0.82 & [-1.53, -0.01] & --\\
+largest absolute effect & Historical CS & logK/IID/ET & BH-harmful & 6593 & 66 & 20.52 & 14.05 & -6.47 & [-8.85, -4.18] & --\\
+median bh significant harmful & Selected CS & MP/OOD/ET & BH-harmful & 63668 & 637 & 365.65 & 351.90 & -13.75 & [-20.02, -7.44] & --\\
+median bh significant favorable & Original GG & MP/IID/RF & BH-favorable & 63667 & 637 & 409.00 & 407.53 & -1.47 & [-10.91, 8.29] & sign differs from primary L4 class\\
+\bottomrule
+\end{tabularx}}
+\end{landscape}
+
+The case flagged for discordance was selected because its primary L4 nAUC
+classification was BH-favorable; its fixed-20\% budget consequence differed
+in sign. The complete 64-row table and secondary fields are provided in
+\texttt{practical\_significance\_with\_uncertainty.csv}; they are not compressed
+into the PDF table.
+
+\section{Complete locked V5 primary table}
+All 128 frozen rows. Effects, CIs, raw p-values, BH p-values, and labels are unchanged.
+\scriptsize
+\begin{longtable}{p{2.0cm}p{1.35cm}ccrrrrr}
+\toprule
+Environment & Contrast & Endpoint & $n$ & Effect & CI low & CI high & $p_{raw}$ & $p_{BH}$\\\midrule\endhead
+Expt/OOD/ET & Historical CS & L1 & 40 & -0.0037 & -0.0071 & -4.93e-04 & 0.0369 & 0.0590\\
+Expt/OOD/ET & Historical CS & L4 & 40 & -0.0370 & -0.0660 & -0.0078 & 0.0212 & 0.0424\\
+Expt/OOD/ET & Original GG & L1 & 40 & 0.1129 & 0.1076 & 0.1181 & 1.00e-04 & 4.00e-04\\
+Expt/OOD/ET & Original GG & L4 & 40 & 0.0323 & 0.0161 & 0.0515 & 1.00e-04 & 4.00e-04\\
+Expt/OOD/ET & Selected CS & L1 & 40 & -0.0022 & -0.0057 & 0.0016 & 0.2595 & 0.3113\\
+Expt/OOD/ET & Selected CS & L4 & 40 & -0.0358 & -0.0576 & -0.0137 & 0.0027 & 0.0072\\
+Expt/OOD/ET & Selected GG & L1 & 40 & -0.0015 & -0.0039 & 0.0011 & 0.2724 & 0.3113\\
+Expt/OOD/ET & Selected GG & L4 & 40 & -7.44e-04 & -0.0174 & 0.0160 & 0.9327 & 0.9327\\
+Expt/OOD/RF & Historical CS & L1 & 40 & 7.63e-04 & -0.0033 & 0.0046 & 0.7075 & 0.7075\\
+Expt/OOD/RF & Historical CS & L4 & 40 & -0.0398 & -0.0659 & -0.0146 & 0.0048 & 0.0192\\
+Expt/OOD/RF & Original GG & L1 & 40 & 0.1012 & 0.0956 & 0.1069 & 1.00e-04 & 8.00e-04\\
+Expt/OOD/RF & Original GG & L4 & 40 & 0.0106 & -0.0049 & 0.0260 & 0.1871 & 0.2993\\
+Expt/OOD/RF & Selected CS & L1 & 40 & 5.23e-04 & -0.0016 & 0.0028 & 0.6608 & 0.7075\\
+Expt/OOD/RF & Selected CS & L4 & 40 & -0.0296 & -0.0514 & -0.0080 & 0.0106 & 0.0283\\
+Expt/OOD/RF & Selected GG & L1 & 40 & 0.0024 & 2.67e-04 & 0.0046 & 0.0341 & 0.0682\\
+Expt/OOD/RF & Selected GG & L4 & 40 & -0.0083 & -0.0254 & 0.0086 & 0.3455 & 0.4606\\
+Expt/IID/ET & Historical CS & L1 & 40 & -0.0025 & -0.0065 & 0.0020 & 0.2683 & 0.3066\\
+Expt/IID/ET & Historical CS & L4 & 40 & -0.0727 & -0.1234 & -0.0263 & 0.0045 & 0.0120\\
+Expt/IID/ET & Original GG & L1 & 40 & 0.1106 & 0.1039 & 0.1169 & 1.00e-04 & 8.00e-04\\
+Expt/IID/ET & Original GG & L4 & 40 & 0.0162 & -0.0036 & 0.0364 & 0.1256 & 0.2009\\
+Expt/IID/ET & Selected CS & L1 & 40 & -0.0043 & -0.0081 & -5.26e-04 & 0.0333 & 0.0666\\
+Expt/IID/ET & Selected CS & L4 & 40 & -0.0575 & -0.0951 & -0.0267 & 6.00e-04 & 0.0024\\
+Expt/IID/ET & Selected GG & L1 & 40 & -6.70e-04 & -0.0030 & 0.0019 & 0.5996 & 0.5996\\
+Expt/IID/ET & Selected GG & L4 & 40 & -0.0227 & -0.0603 & 0.0069 & 0.2096 & 0.2794\\
+Expt/IID/RF & Historical CS & L1 & 40 & 0.0025 & -0.0011 & 0.0063 & 0.2070 & 0.4140\\
+Expt/IID/RF & Historical CS & L4 & 40 & -0.0758 & -0.1099 & -0.0401 & 1.00e-04 & 4.00e-04\\
+Expt/IID/RF & Original GG & L1 & 40 & 0.0995 & 0.0923 & 0.1061 & 1.00e-04 & 4.00e-04\\
+Expt/IID/RF & Original GG & L4 & 40 & -0.0030 & -0.0254 & 0.0174 & 0.8001 & 0.9304\\
+Expt/IID/RF & Selected CS & L1 & 40 & 3.22e-04 & -0.0021 & 0.0031 & 0.8209 & 0.9304\\
+Expt/IID/RF & Selected CS & L4 & 40 & -0.0557 & -0.0830 & -0.0292 & 6.00e-04 & 0.0016\\
+Expt/IID/RF & Selected GG & L1 & 40 & -1.13e-04 & -0.0027 & 0.0023 & 0.9304 & 0.9304\\
+Expt/IID/RF & Selected GG & L4 & 40 & -0.0069 & -0.0300 & 0.0183 & 0.5821 & 0.9304\\
+logG/OOD/ET & Historical CS & L1 & 40 & 0.0045 & -0.0026 & 0.0115 & 0.2272 & 0.2596\\
+logG/OOD/ET & Historical CS & L4 & 40 & -0.1425 & -0.1678 & -0.1170 & 1.00e-04 & 2.67e-04\\
+logG/OOD/ET & Original GG & L1 & 40 & 0.1160 & 0.1076 & 0.1241 & 1.00e-04 & 2.67e-04\\
+logG/OOD/ET & Original GG & L4 & 40 & -0.1382 & -0.1671 & -0.1103 & 1.00e-04 & 2.67e-04\\
+logG/OOD/ET & Selected CS & L1 & 40 & 0.0077 & 0.0023 & 0.0133 & 0.0107 & 0.0171\\
+logG/OOD/ET & Selected CS & L4 & 40 & -0.0367 & -0.0561 & -0.0193 & 3.00e-04 & 6.00e-04\\
+logG/OOD/ET & Selected GG & L1 & 40 & 0.0016 & -0.0029 & 0.0062 & 0.5038 & 0.5038\\
+logG/OOD/ET & Selected GG & L4 & 40 & -0.0073 & -0.0179 & 0.0033 & 0.1849 & 0.2465\\
+logG/OOD/RF & Historical CS & L1 & 40 & 0.0170 & 0.0088 & 0.0248 & 5.00e-04 & 1.00e-03\\
+logG/OOD/RF & Historical CS & L4 & 40 & -0.1481 & -0.1765 & -0.1208 & 1.00e-04 & 2.67e-04\\
+logG/OOD/RF & Original GG & L1 & 40 & 0.0997 & 0.0910 & 0.1084 & 1.00e-04 & 2.67e-04\\
+logG/OOD/RF & Original GG & L4 & 40 & -0.1555 & -0.1883 & -0.1237 & 1.00e-04 & 2.67e-04\\
+logG/OOD/RF & Selected CS & L1 & 40 & 0.0092 & 0.0040 & 0.0149 & 0.0017 & 0.0027\\
+logG/OOD/RF & Selected CS & L4 & 40 & -0.0175 & -0.0363 & 1.25e-04 & 0.0779 & 0.0890\\
+logG/OOD/RF & Selected GG & L1 & 40 & 0.0068 & 0.0020 & 0.0118 & 0.0090 & 0.0120\\
+logG/OOD/RF & Selected GG & L4 & 40 & -0.0040 & -0.0166 & 0.0094 & 0.5574 & 0.5574\\
+logG/IID/ET & Historical CS & L1 & 40 & 0.0041 & -0.0024 & 0.0105 & 0.2285 & 0.3656\\
+logG/IID/ET & Historical CS & L4 & 40 & -0.1907 & -0.2279 & -0.1564 & 1.00e-04 & 2.67e-04\\
+logG/IID/ET & Original GG & L1 & 40 & 0.0806 & 0.0731 & 0.0877 & 1.00e-04 & 2.67e-04\\
+logG/IID/ET & Original GG & L4 & 40 & -0.0889 & -0.1133 & -0.0645 & 1.00e-04 & 2.67e-04\\
+logG/IID/ET & Selected CS & L1 & 40 & -8.53e-06 & -0.0048 & 0.0049 & 0.9979 & 0.9979\\
+logG/IID/ET & Selected CS & L4 & 40 & -0.0153 & -0.0289 & -0.0019 & 0.0372 & 0.0744\\
+logG/IID/ET & Selected GG & L1 & 40 & 8.62e-04 & -0.0036 & 0.0053 & 0.7170 & 0.8475\\
+logG/IID/ET & Selected GG & L4 & 40 & 0.0014 & -0.0063 & 0.0100 & 0.7415 & 0.8475\\
+logG/IID/RF & Historical CS & L1 & 40 & 0.0117 & 0.0040 & 0.0194 & 0.0051 & 0.0082\\
+logG/IID/RF & Historical CS & L4 & 40 & -0.1869 & -0.2169 & -0.1590 & 1.00e-04 & 2.67e-04\\
+logG/IID/RF & Original GG & L1 & 40 & 0.0730 & 0.0656 & 0.0803 & 1.00e-04 & 2.67e-04\\
+logG/IID/RF & Original GG & L4 & 40 & -0.1266 & -0.1516 & -0.1003 & 1.00e-04 & 2.67e-04\\
+logG/IID/RF & Selected CS & L1 & 40 & 0.0094 & 0.0039 & 0.0148 & 0.0026 & 0.0052\\
+logG/IID/RF & Selected CS & L4 & 40 & -0.0108 & -0.0263 & 0.0041 & 0.1783 & 0.2038\\
+logG/IID/RF & Selected GG & L1 & 40 & 0.0052 & -3.53e-04 & 0.0110 & 0.0953 & 0.1271\\
+logG/IID/RF & Selected GG & L4 & 40 & 8.12e-04 & -0.0104 & 0.0132 & 0.8974 & 0.8974\\
+logK/OOD/ET & Historical CS & L1 & 40 & -0.0193 & -0.0268 & -0.0122 & 1.00e-04 & 1.60e-04\\
+logK/OOD/ET & Historical CS & L4 & 40 & -0.1989 & -0.2415 & -0.1568 & 1.00e-04 & 1.60e-04\\
+logK/OOD/ET & Original GG & L1 & 40 & 0.1082 & 0.0984 & 0.1178 & 1.00e-04 & 1.60e-04\\
+logK/OOD/ET & Original GG & L4 & 40 & -0.1739 & -0.1955 & -0.1519 & 1.00e-04 & 1.60e-04\\
+logK/OOD/ET & Selected CS & L1 & 40 & 0.0089 & 0.0037 & 0.0141 & 0.0024 & 0.0027\\
+logK/OOD/ET & Selected CS & L4 & 40 & 0.0546 & 0.0299 & 0.0794 & 2.00e-04 & 2.67e-04\\
+logK/OOD/ET & Selected GG & L1 & 40 & 0.0086 & 0.0023 & 0.0144 & 0.0100 & 0.0100\\
+logK/OOD/ET & Selected GG & L4 & 40 & 0.0620 & 0.0417 & 0.0826 & 1.00e-04 & 1.60e-04\\
+logK/OOD/RF & Historical CS & L1 & 40 & -0.0132 & -0.0203 & -0.0059 & 0.0011 & 0.0015\\
+logK/OOD/RF & Historical CS & L4 & 40 & -0.1958 & -0.2330 & -0.1574 & 1.00e-04 & 2.67e-04\\
+logK/OOD/RF & Original GG & L1 & 40 & 0.0857 & 0.0764 & 0.0945 & 1.00e-04 & 2.67e-04\\
+logK/OOD/RF & Original GG & L4 & 40 & -0.1949 & -0.2233 & -0.1669 & 1.00e-04 & 2.67e-04\\
+logK/OOD/RF & Selected CS & L1 & 40 & 0.0141 & 0.0072 & 0.0212 & 3.00e-04 & 4.80e-04\\
+logK/OOD/RF & Selected CS & L4 & 40 & 0.0363 & 0.0095 & 0.0623 & 0.0093 & 0.0106\\
+logK/OOD/RF & Selected GG & L1 & 40 & 0.0073 & -7.93e-05 & 0.0147 & 0.0587 & 0.0587\\
+logK/OOD/RF & Selected GG & L4 & 40 & 0.0547 & 0.0297 & 0.0783 & 3.00e-04 & 4.80e-04\\
+logK/IID/ET & Historical CS & L1 & 40 & -0.0368 & -0.0459 & -0.0280 & 1.00e-04 & 1.33e-04\\
+logK/IID/ET & Historical CS & L4 & 40 & -0.2521 & -0.2920 & -0.2116 & 1.00e-04 & 1.33e-04\\
+logK/IID/ET & Original GG & L1 & 40 & 0.0600 & 0.0516 & 0.0685 & 1.00e-04 & 1.33e-04\\
+logK/IID/ET & Original GG & L4 & 40 & -0.2056 & -0.2338 & -0.1778 & 1.00e-04 & 1.33e-04\\
+logK/IID/ET & Selected CS & L1 & 40 & 0.0149 & 0.0099 & 0.0198 & 1.00e-04 & 1.33e-04\\
+logK/IID/ET & Selected CS & L4 & 40 & 0.0521 & 0.0275 & 0.0801 & 2.00e-04 & 2.29e-04\\
+logK/IID/ET & Selected GG & L1 & 40 & 0.0101 & 0.0039 & 0.0163 & 0.0028 & 0.0028\\
+logK/IID/ET & Selected GG & L4 & 40 & 0.0871 & 0.0578 & 0.1165 & 1.00e-04 & 1.33e-04\\
+logK/IID/RF & Historical CS & L1 & 40 & -0.0177 & -0.0307 & -0.0058 & 0.0058 & 0.0066\\
+logK/IID/RF & Historical CS & L4 & 40 & -0.2191 & -0.2576 & -0.1785 & 1.00e-04 & 2.00e-04\\
+logK/IID/RF & Original GG & L1 & 40 & 0.0491 & 0.0406 & 0.0571 & 1.00e-04 & 2.00e-04\\
+logK/IID/RF & Original GG & L4 & 40 & -0.2155 & -0.2536 & -0.1762 & 1.00e-04 & 2.00e-04\\
+logK/IID/RF & Selected CS & L1 & 40 & 0.0095 & 0.0031 & 0.0160 & 0.0070 & 0.0070\\
+logK/IID/RF & Selected CS & L4 & 40 & 0.0452 & 0.0222 & 0.0694 & 3.00e-04 & 4.80e-04\\
+logK/IID/RF & Selected GG & L1 & 40 & 0.0104 & 0.0044 & 0.0165 & 0.0020 & 0.0027\\
+logK/IID/RF & Selected GG & L4 & 40 & 0.0653 & 0.0422 & 0.0897 & 1.00e-04 & 2.00e-04\\
+MP/OOD/ET & Historical CS & L1 & 40 & -0.0047 & -0.0056 & -0.0039 & 1.00e-04 & 1.60e-04\\
+MP/OOD/ET & Historical CS & L4 & 40 & -0.0190 & -0.0290 & -0.0099 & 1.00e-04 & 1.60e-04\\
+MP/OOD/ET & Original GG & L1 & 40 & 0.1662 & 0.1651 & 0.1673 & 1.00e-04 & 1.60e-04\\
+MP/OOD/ET & Original GG & L4 & 40 & -0.0049 & -0.0149 & 0.0047 & 0.3454 & 0.3454\\
+MP/OOD/ET & Selected CS & L1 & 40 & -0.0015 & -0.0021 & -0.0010 & 1.00e-04 & 1.60e-04\\
+MP/OOD/ET & Selected CS & L4 & 40 & -0.0155 & -0.0233 & -0.0077 & 3.00e-04 & 4.00e-04\\
+MP/OOD/ET & Selected GG & L1 & 40 & 0.0014 & 8.72e-04 & 0.0019 & 1.00e-04 & 1.60e-04\\
+MP/OOD/ET & Selected GG & L4 & 40 & 0.0126 & 0.0062 & 0.0186 & 4.00e-04 & 4.57e-04\\
+MP/OOD/RF & Historical CS & L1 & 40 & -0.0025 & -0.0032 & -0.0018 & 1.00e-04 & 4.00e-04\\
+MP/OOD/RF & Historical CS & L4 & 40 & -0.0199 & -0.0294 & -0.0112 & 5.00e-04 & 0.0012\\
+MP/OOD/RF & Original GG & L1 & 40 & 0.1617 & 0.1603 & 0.1631 & 1.00e-04 & 4.00e-04\\
+MP/OOD/RF & Original GG & L4 & 40 & -0.0187 & -0.0291 & -0.0091 & 6.00e-04 & 0.0012\\
+MP/OOD/RF & Selected CS & L1 & 40 & -4.24e-04 & -0.0010 & 2.04e-04 & 0.1923 & 0.1923\\
+MP/OOD/RF & Selected CS & L4 & 40 & -0.0133 & -0.0224 & -0.0042 & 0.0088 & 0.0141\\
+MP/OOD/RF & Selected GG & L1 & 40 & 6.71e-04 & -1.12e-04 & 0.0014 & 0.1010 & 0.1154\\
+MP/OOD/RF & Selected GG & L4 & 40 & 0.0115 & 0.0016 & 0.0215 & 0.0298 & 0.0397\\
+MP/IID/ET & Historical CS & L1 & 40 & -0.0019 & -0.0024 & -0.0013 & 1.00e-04 & 2.00e-04\\
+MP/IID/ET & Historical CS & L4 & 40 & -0.0210 & -0.0252 & -0.0170 & 1.00e-04 & 2.00e-04\\
+MP/IID/ET & Original GG & L1 & 40 & 0.1606 & 0.1595 & 0.1617 & 1.00e-04 & 2.00e-04\\
+MP/IID/ET & Original GG & L4 & 40 & 0.0062 & 0.0026 & 0.0098 & 0.0019 & 0.0030\\
+MP/IID/ET & Selected CS & L1 & 40 & -6.76e-04 & -0.0011 & -2.74e-04 & 0.0030 & 0.0040\\
+MP/IID/ET & Selected CS & L4 & 40 & -0.0178 & -0.0218 & -0.0140 & 1.00e-04 & 2.00e-04\\
+MP/IID/ET & Selected GG & L1 & 40 & 1.42e-04 & -2.78e-04 & 5.97e-04 & 0.5209 & 0.5209\\
+MP/IID/ET & Selected GG & L4 & 40 & -0.0014 & -0.0044 & 0.0016 & 0.3742 & 0.4276\\
+MP/IID/RF & Historical CS & L1 & 40 & -0.0014 & -0.0020 & -7.16e-04 & 3.00e-04 & 6.00e-04\\
+MP/IID/RF & Historical CS & L4 & 40 & -0.0300 & -0.0370 & -0.0234 & 1.00e-04 & 2.67e-04\\
+MP/IID/RF & Original GG & L1 & 40 & 0.1523 & 0.1509 & 0.1537 & 1.00e-04 & 2.67e-04\\
+MP/IID/RF & Original GG & L4 & 40 & 0.0083 & 0.0018 & 0.0160 & 0.0204 & 0.0326\\
+MP/IID/RF & Selected CS & L1 & 40 & -5.08e-04 & -0.0011 & 6.58e-05 & 0.0945 & 0.1260\\
+MP/IID/RF & Selected CS & L4 & 40 & -0.0218 & -0.0285 & -0.0159 & 1.00e-04 & 2.67e-04\\
+MP/IID/RF & Selected GG & L1 & 40 & 2.24e-04 & -2.87e-04 & 7.28e-04 & 0.3957 & 0.3957\\
+MP/IID/RF & Selected GG & L4 & 40 & 0.0042 & -0.0027 & 0.0123 & 0.3199 & 0.3656\\
+\bottomrule
+\end{longtable}
+\normalsize
+\section{Representative primary effects}
+\resizebox{\linewidth}{!}{\begin{tabular}{lllllllll}
+\toprule
+Rule & Task & Split & Model & Effect & CI low & CI high & $p\_{raw}$ & $p\_{BH}$\\
+\midrule
+Original GG L1 representative harmful & matbench\_expt\_gap & chemical\_system\_ood & random\_forest & 0.1012 & 0.0956 & 0.1069 & 1.00e-04 & 8.00e-04\\
+Historical CS L4 representative harmful & matbench\_log\_gvrh & chemical\_system\_ood & extra\_randomized\_bagging & -0.1425 & -0.1678 & -0.1170 & 1.00e-04 & 2.67e-04\\
+Selected GG L4 favorable log-KVRH & matbench\_log\_kvrh & chemical\_system\_ood & extra\_randomized\_bagging & 0.0620 & 0.0417 & 0.0826 & 1.00e-04 & 1.60e-04\\
+Selected CS L4 representative favorable & matbench\_log\_kvrh & iid\_record & random\_forest & 0.0452 & 0.0222 & 0.0694 & 3.00e-04 & 4.80e-04\\
+Selected CS L4 representative harmful & matbench\_expt\_gap & chemical\_system\_ood & random\_forest & -0.0296 & -0.0514 & -0.0080 & 0.0106 & 0.0283\\
+\bottomrule
+\end{tabular}}
+\section{Cross-environment descriptive summaries}
+Counts are descriptive environment-specific BH classifications, not pooled hypothesis tests, task-population estimates, or universal-effect tests. Paired-seed intervals are conditional on fixed tasks, data, split, surrogate, geometry, and policy.
+\section{Recovery job-level reconciliation}
+Six Historical-CS jobs in MP-gap chemical-system-group OOD ExtraTrees, seeds 5013--5018, were interrupted during a controlled reduction from six to four workers and completed under the unchanged protocol. Preserved events did not record process exit codes.
+\section{Recovery paired-seed sensitivity}
+Seeds 5013--5018 were excluded from every strategy entering affected environment-level contrasts, reducing every paired comparison from 40 to 34. Direction, BH label, and interval zero-crossing changed in 0/8 tests; maximum absolute effect change was 0.001825.
+\section{Derived-analysis correction}
+The confirmation result-lock file hash is 69074fceae6030ea0e92292f95be628e09afa9e66d14524424392c17fe138b50; cf218bb8ba5d1647bf37213a83d2831fdddd3a1efc4a8d28a8f52dff6483a441 is only the registry snapshot hash. Development bootstrap uses seeds 1000--1009, confirmation uses 5000--5039, recovery sensitivity excludes 5013--5018 from the latter, V2 uses 2000--2019, and V3 uses 3000--3039.
+\section{Runtime}
+Runtime is descriptive and machine/scheduling dependent. Runtime per additional discovery is unavailable where the denominator is zero or negative.
+\section{Reproducibility and validation}
+An internally verified reproducibility package was generated. External/public
+reproducibility is not claimed while the repository DOI/URL, licenses,
+environment lock, public run instructions, and accessible Matbench version
+information remain pending.
+Repository-local finalization scripts, source SHA-256 values, result lock, trajectory lock, final-table lock, exact filters, and seed cohorts are recorded in the rebuilt traceability tables.
+\section{Optional unexecuted protocols}
+No new campaign was executed. The simple-scaling protocol remains unexecuted and requires explicit human approval.
+\section{Supplementary figures}
+S1 stratified GG; S2 development stability; S3 top-tail sensitivity; S4 budget/calibration sensitivity; S5 practical significance; S6 OOD reference distances; S7 descriptive direction-aware environment counts.
+\includegraphics[width=.9\linewidth]{../../figures_v5/submission_candidate_v4_final_r1/FigureS7_Direction_Aware_Evidence.pdf}
+\nocite{*}\bibliographystyle{plainnat}\bibliography{references_submission_candidate_v4_final_r1}
+\end{document}

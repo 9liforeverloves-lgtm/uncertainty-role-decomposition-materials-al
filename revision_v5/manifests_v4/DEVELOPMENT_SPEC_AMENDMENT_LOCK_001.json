@@ -1,0 +1,7 @@
+{
+  "status": "DEVELOPMENT_SPEC_AMENDMENT_001_LOCKED",
+  "amendment_sha256": "ec41fc71e4b9781483c3b047e0364a49206846afb3a480a05a8972c0aa8ee44c",
+  "runner_sha256": "17527533b809069e0c7dd7855fba98303827321f0cbeb93fc4d9a746f7572968",
+  "candidate_specific_development_jobs_completed_before_amendment": 0,
+  "historical_outputs_changed": false
+}

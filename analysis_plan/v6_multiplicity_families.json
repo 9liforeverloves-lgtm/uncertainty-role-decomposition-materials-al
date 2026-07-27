@@ -1,0 +1,37 @@
+{
+  "schema_version": "v6-multiplicity-families-v1",
+  "status": "PROSPECTIVE_BEFORE_CONFIRMATION",
+  "method": "Benjamini-Hochberg within family",
+  "alpha": 0.05,
+  "families": [
+    {
+      "id": "P0_L1_DECOUPLING",
+      "endpoint": "L1",
+      "contrasts": ["H1", "H5a", "H6"]
+    },
+    {
+      "id": "P0_L4_MECHANISM",
+      "endpoint": "L4",
+      "contrasts": ["H2", "H3", "H4", "H5b"]
+    },
+    {
+      "id": "P1_MODEL_FAMILY",
+      "endpoint": "L1_and_L4",
+      "contrasts": [],
+      "freeze_required_after_development": true
+    },
+    {
+      "id": "P1_ACQUISITION_FAMILY",
+      "endpoint": "L1_and_L4",
+      "contrasts": [],
+      "freeze_required_after_development": true
+    },
+    {
+      "id": "P1_EXTERNAL_DATASET",
+      "endpoint": "L1_and_L4",
+      "contrasts": [],
+      "freeze_required_after_development": true
+    }
+  ],
+  "rule": "Do not combine model, acquisition, external-dataset, sensitivity, or exploratory-ablation families."
+}

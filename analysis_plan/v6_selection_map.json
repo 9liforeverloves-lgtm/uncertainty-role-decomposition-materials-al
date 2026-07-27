@@ -1,0 +1,13 @@
+{
+  "schema_version": "v6-selection-map-v1",
+  "status": "TEMPLATE_NOT_FROZEN",
+  "confirmation_outcomes_inspected": false,
+  "development_seed_range": [6000, 6009],
+  "confirmation_seed_range": [7000, 7039],
+  "selection_rule": "environment-balanced development summaries; prespecified tie breaking",
+  "fixed_beta_method": "median of environment-level beta_eff medians",
+  "stage_beta_boundaries": [0.0, 0.25, 0.5, 0.75, 1.0],
+  "selected_policies": [],
+  "source_hashes": [],
+  "freeze_hash": null
+}

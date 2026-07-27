@@ -1,0 +1,253 @@
+{
+  "status": "CONFIRMATION_FROZEN_BEFORE_OUTCOMES",
+  "created_utc": "2026-07-23T21:20:10.824667+00:00",
+  "manifest_path": "manifests_v4/CONFIRMATION_JOB_MANIFEST_V5_RC1.csv",
+  "manifest_sha256": "6fbe0d79906df8523fb036800ccfec17f9bcb18a8845ddcaae9dadf3ce2c52a8",
+  "manifest_json_sha256": "eb4b71082b7ce9c540247299b0089d1ea932d2b1e7651e50034fac75d6d62392",
+  "job_count": 3360,
+  "protocol_path": "20_confirmation_protocol_v5_rc1.md",
+  "protocol_sha256": "0c8991c1261799336eb7a1991cb004cc9e958f274031de05a3c964a27e897c29",
+  "selected_policy_lock_sha256": "814d1bdee6562b3e29f78afdc86fb92a303b97c60fa4c392d83681b6b1af55f2",
+  "code_tree_sha256": "8c654e7de9dd7ecb67f84cc974499889d2122ce8ea87b9a446073af0804de56b",
+  "code_files": [
+    {
+      "path": "revision_v5/experiments_v4/src/transportability_v5/__init__.py",
+      "bytes": 90,
+      "sha256": "50c79499f7d14637bc74f70d18481bbf47f3d9a16e38a7ff468d0b0ef31b9136"
+    },
+    {
+      "path": "revision_v5/experiments_v4/src/transportability_v5/audit.py",
+      "bytes": 4649,
+      "sha256": "c3234da3905de6437a4fb597bf3ec9089c12437dfca8536e5d8f8c9afac81819"
+    },
+    {
+      "path": "revision_v5/experiments_v4/src/transportability_v5/checkpoint.py",
+      "bytes": 3479,
+      "sha256": "bf05831610f082f62ab1759054677185aa088ee538f5f0b4b3122da77591ad4d"
+    },
+    {
+      "path": "revision_v5/experiments_v4/src/transportability_v5/data.py",
+      "bytes": 1944,
+      "sha256": "1650fafc184036c5142967271a64678dfa838211be2f7b22f9781d2979ed97b7"
+    },
+    {
+      "path": "revision_v5/experiments_v4/src/transportability_v5/layers.py",
+      "bytes": 2150,
+      "sha256": "8b95732fd348b8c3ea68783c62d533db170f4f59cfb830d3ac9f908492e8099f"
+    },
+    {
+      "path": "revision_v5/experiments_v4/src/transportability_v5/metrics.py",
+      "bytes": 3169,
+      "sha256": "d9c19938c0813bfc8f1404051a081c9975e5c64f3e1d99e3086af87daba27c79"
+    },
+    {
+      "path": "revision_v5/experiments_v4/src/transportability_v5/provenance.py",
+      "bytes": 6316,
+      "sha256": "cda89071dc9394f4037d2e49b9f3c9a119a11d7ac1caa9402f129d7b73af28ab"
+    },
+    {
+      "path": "revision_v5/experiments_v4/src/transportability_v5/registry.py",
+      "bytes": 7487,
+      "sha256": "f3fc4f8f315f4e394db4a0c2959f2bb70f26d234e944eead8a79fcad5a72ec5a"
+    },
+    {
+      "path": "revision_v5/experiments_v4/src/transportability_v5/runner.py",
+      "bytes": 20272,
+      "sha256": "9482c74ec6707825fe93b49c10a2094577d2a636b2df984b069c269a42576619"
+    },
+    {
+      "path": "revision_v5/experiments_v4/src/transportability_v5/selection.py",
+      "bytes": 1449,
+      "sha256": "b40a9fefefeccf4bcf0d4336a703c4343350e78793970b7d81d5c4218797712a"
+    },
+    {
+      "path": "revision_v5/experiments_v4/src/transportability_v5/smoke_manifest.py",
+      "bytes": 1138,
+      "sha256": "ffa070d8826f038fe5e543a623168488d6c30c17f9739a89f261e5c013e11255"
+    },
+    {
+      "path": "revision_v5/experiments_v4/src/transportability_v5/splits.py",
+      "bytes": 4350,
+      "sha256": "5b77743a16ba88c04e103ff388164e1b49182fa97c529a4794a8a451a27f56ab"
+    },
+    {
+      "path": "revision_v5/experiments_v4/src/transportability_v5/statistics.py",
+      "bytes": 2471,
+      "sha256": "4177ef6da1629fd1d652da6521e8531f4ec942aa1b362cad7fda9a3000f8123f"
+    },
+    {
+      "path": "revision_v5/experiments_v4/src/transportability_v5/strategies.py",
+      "bytes": 10951,
+      "sha256": "0093da3411a4df3496643565c08ced448082499f3af5f468a147338bd94b7546"
+    },
+    {
+      "path": "revision_v5/experiments_v4/src/transportability_v5/surrogates.py",
+      "bytes": 3846,
+      "sha256": "543f98ed3aa2101597d5f26c66d06faa2b1d647ed593d5ebb239ceb80b44753d"
+    },
+    {
+      "path": "revision_v5/scripts/analyze_reduced_development.py",
+      "bytes": 7031,
+      "sha256": "5ec193fe6ceece981e46e77d0451eb515501fbe09e5e2c2399227ebdf956e724"
+    },
+    {
+      "path": "revision_v5/scripts/audit_global_scaling_equivalence.py",
+      "bytes": 3677,
+      "sha256": "d924174ebcef44cab994938abc32b11e2ed751449cb8d47a19a515a5c8e0c755"
+    },
+    {
+      "path": "revision_v5/scripts/build_confirmation_manifest.py",
+      "bytes": 2811,
+      "sha256": "48a77e4bcc000be5f2098490edd413310c4e2a5a9a122e4ea78b24d5ea7aa27c"
+    },
+    {
+      "path": "revision_v5/scripts/build_development_manifest.py",
+      "bytes": 3455,
+      "sha256": "aa40ee4330ee83482488dfdc3c5cc5141125275dca95e7282b70449666c74b38"
+    },
+    {
+      "path": "revision_v5/scripts/build_ood_audit.py",
+      "bytes": 4836,
+      "sha256": "d2f9f57dc44b7c21d3f4061fa284d7c336ee56ccfa5ca96b3fa3cf8b04d1c77c"
+    },
+    {
+      "path": "revision_v5/scripts/build_reduced_development.py",
+      "bytes": 3520,
+      "sha256": "e43aaa09bf824c4b66a4c2cbfd25834405fa1f809996fad5e7ef21f19096b85f"
+    },
+    {
+      "path": "revision_v5/scripts/freeze_confirmation.py",
+      "bytes": 2992,
+      "sha256": "38e2c48980f8375a4e97e20a603d4db17235345ba515a7cf2aab51b7bf07aed7"
+    },
+    {
+      "path": "revision_v5/scripts/freeze_development_source.py",
+      "bytes": 1598,
+      "sha256": "1df6dd361bc57f82ff820e6eb82c439137f4c22fc3cf012974a4bd254979c23b"
+    },
+    {
+      "path": "revision_v5/scripts/freeze_reduced_development.py",
+      "bytes": 3395,
+      "sha256": "b1c0e42c1656e6fc012e23d514090589874b4285cf8c9492d54557e32efa396a"
+    },
+    {
+      "path": "revision_v5/scripts/hard_gate_reduced_development.py",
+      "bytes": 1846,
+      "sha256": "e8f2d75477d6ff814181bff18b51c48b84b5be5534f86d097044c74ddb44cffa"
+    },
+    {
+      "path": "revision_v5/scripts/phase0_inventory.py",
+      "bytes": 10390,
+      "sha256": "a41db4e5113eb651444d57d65515bfc0a9c93b6db55895c074785218255f805c"
+    },
+    {
+      "path": "revision_v5/scripts/run_confirmation_canary.py",
+      "bytes": 2061,
+      "sha256": "48c41f0f715358a6111a4a5055ae591313371d0ae58c32d7025d46396c477670"
+    },
+    {
+      "path": "revision_v5/scripts/run_job.py",
+      "bytes": 7623,
+      "sha256": "84be9f0ef7f9d9523286974029e383fc083a3beb36e0cdebbe88053547e89d78"
+    },
+    {
+      "path": "revision_v5/scripts/run_manifest_pool.py",
+      "bytes": 3492,
+      "sha256": "e80c85841408fdf6d295502c50944dc500bfb4ad973ee6a21ff63cf7ff11677f"
+    },
+    {
+      "path": "revision_v5/scripts/run_reduced_canary.py",
+      "bytes": 3050,
+      "sha256": "51c9f95b7f662df92e1610a3695f7bfa08e4accb585a76942211e8333fbea08a"
+    },
+    {
+      "path": "revision_v5/scripts/seed_namespace_audit.py",
+      "bytes": 3249,
+      "sha256": "ef2621f607976b89767acad63680914c212d5c410adb4d87df1615ef3ae81240"
+    },
+    {
+      "path": "revision_v5/scripts/verify_protected_baseline.py",
+      "bytes": 2570,
+      "sha256": "0a219f08fb0102d27f0316e5061781acc3e180b8fb8b7cce36a564c0247a153b"
+    },
+    {
+      "path": "revision_v5/tests/test_revision_core.py",
+      "bytes": 6786,
+      "sha256": "9e78e653ea7ee1e766c508967352e82dfe62816873ecaa350a860bdaa94cbea2"
+    }
+  ],
+  "data_tree_sha256": "88882bdaea5a3d69db2dbb2e686b98ea9aedbf84da12fd3210991edde24ebae0",
+  "data_files": [
+    {
+      "path": "\u6700\u7ec8/_code_package/results/benchmark/matbench_expt_gap/materials.csv",
+      "bytes": 113281,
+      "sha256": "82812f5cbea6c4358487420461761388e73c977a3d5adb02134d8004ea57274e"
+    },
+    {
+      "path": "\u6700\u7ec8/_code_package/results/benchmark/matbench_log_gvrh/materials.csv",
+      "bytes": 400230,
+      "sha256": "7dd19f9e4160e078170921417fa48ab2db4756b888dd99e7a152aeb2d235d34b"
+    },
+    {
+      "path": "\u6700\u7ec8/_code_package/results/benchmark/matbench_log_kvrh/materials.csv",
+      "bytes": 400483,
+      "sha256": "edf6db8f9d8ac4b51aa1e3148d1058f479140a3e5db3ba11e6821245a62adb29"
+    },
+    {
+      "path": "\u6700\u7ec8/_code_package/results/benchmark/matbench_mp_gap/materials.csv",
+      "bytes": 3047801,
+      "sha256": "686446bbd09946f470127a1b2364bd17486a3eb07424461735100cf3f4dd8012"
+    }
+  ],
+  "environment_sha256": "22bd05ebb49d3d5e6524fd5de62c28f35792fcf43cc3c69d2f7514bc5c48bc1d",
+  "confirmation_seeds": [
+    5000,
+    5001,
+    5002,
+    5003,
+    5004,
+    5005,
+    5006,
+    5007,
+    5008,
+    5009,
+    5010,
+    5011,
+    5012,
+    5013,
+    5014,
+    5015,
+    5016,
+    5017,
+    5018,
+    5019,
+    5020,
+    5021,
+    5022,
+    5023,
+    5024,
+    5025,
+    5026,
+    5027,
+    5028,
+    5029,
+    5030,
+    5031,
+    5032,
+    5033,
+    5034,
+    5035,
+    5036,
+    5037,
+    5038,
+    5039
+  ],
+  "inference_unit": "paired_seed_within_environment",
+  "primary_endpoints": [
+    "campaign_mace",
+    "top1_recall_normalized_auc"
+  ],
+  "tie_breaking": "descending_score_then_ascending_stable_candidate_id",
+  "failure_rule": "atomic resumable unchanged retry; require 40 pairs or explicit exclusion",
+  "stopping_rule": "no interim outcome-based stopping"
+}

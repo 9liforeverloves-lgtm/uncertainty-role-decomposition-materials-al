@@ -1,0 +1,196 @@
+
+\documentclass[10pt]{article}
+\usepackage[margin=0.78in]{geometry}
+\usepackage{graphicx,booktabs,longtable,array,amsmath,amssymb,natbib,microtype}
+\usepackage[hidelinks]{hyperref}
+\usepackage[font=small]{caption}
+\setlength{\parindent}{0pt}\setlength{\parskip}{4pt}\sloppy
+\newcommand{\evidencelabel}[1]{\textbf{#1}\enspace}
+\title{Calibration-Oriented Uncertainty Scaling in Tree-Ensemble UCB Materials Screening: A Four-Task Cross-Environment Evaluation}
+\author{Author names/order and affiliations pending}
+\date{}
+\begin{document}\maketitle
+\begin{abstract}
+We evaluated calibration-oriented uncertainty scaling for offline UCB screening
+on four Matbench regression tasks, two split types, and two related tree
+ensembles. V5-RC1 remained the sole confirmatory cohort: 3,360 locked jobs and
+40 paired seeds per environment. Primary endpoints and every frozen primary
+effect, interval, raw p-value, BH-adjusted p-value, and evidence label were
+unchanged. Original GG was L1-harmful in 16/16 environments; Historical CS was
+L4-harmful in 16/16. Practical consequences were corrected to 64 unique
+strategy-environment comparisons and are reported as paired-seed mean
+differences in top-1\% candidates discovered by 20\% queried budget with
+paired-bootstrap intervals. Stored diagnostic summaries showed that post hoc
+NLL sensitivity was numerically unstable and unavailable for scientific
+interpretation. Chemical-system role assignments varied across confirmation
+seeds, so descriptor-distance severity was aggregated over all 40 seeds.
+Recovery exclusion remained paired across all strategies in the affected
+environment. Conclusions remain bounded to this four-task evaluation.
+\end{abstract}
+
+\section{Introduction}
+Finite-budget materials screening depends on acquisition decisions, not predictive accuracy alone \citep{lookman2019active,xue2016adaptive,kusne2020closedloop,rohr2020metrics,hase2021olympus}. UCB combines a predictive mean and an uncertainty-weighted exploration term \citep{auer2002ucb,srinivas2010gpucb,shahriari2016bo,frazier2018tutorial}. Calibration, ranking, and sequential utility are distinct \citep{gneiting2007proper,kuleshov2018calibrated,guo2017calibration,angelopoulos2023conformal,mandi2022decision,wilder2019decision,donti2017task}. The contribution is a layered, reproducible evaluation rather than proof of a uniquely novel algorithm. Matbench and composition featurization provide the bounded benchmark context \citep{dunn2020matbench,ward2018matminer,butler2018mlmaterials}. Negative and heterogeneous results are retained \citep{fanelli2012negative,liang2021benchmark}. General uncertainty literature, including deep ensembles, supplies background but those models were not tested \citep{lakshminarayanan2017ensembles}.
+
+\section{Methods}
+\subsection{Evidence classes and study geometry}
+V2 comprised 1,920 jobs with six strategies and remains historical exploratory evidence. V3 comprised 1,920 jobs with three strategies and remains historical calibration-evaluation evidence. The broad development manifest contained 5,760 planned configuration jobs across 36 configurations. The reduced selection cohort contained 2,240 valid executed jobs. Within each leave-one-task-out fold, the three training tasks contributed 720 Raw, 600 Gaussian-global, and 360 candidate-specific valid jobs; held-out-task rows and noneligible broad-manifest configurations did not enter that fold. Development used seeds 1000--1009; V5-RC1 used seeds 5000--5039.
+
+\subsection{Descriptors and related tree ensembles}
+Formula parsing used pymatgen 2024.10.29 Composition. Each task used a deterministic, lexicographically ordered elemental atomic-fraction vector plus total atom count and number of elements: 83 descriptors for experimental gap and 86 for the other tasks. No feature scaling was applied to surrogate fitting. Distance diagnostics used source-only z-scaling. Complete handling rules are in Supplement Section 3 and \texttt{descriptor\_specification.csv}. Random forest used 80 bootstrap trees, squared-error splits, unrestricted depth, minimum leaf size two, all features, and one worker \citep{breiman2001rf,meinshausen2006qrf,wager2014confidence,mentch2016uncertainty}. ExtraTrees used 80 bootstrap-bagged ExtraTree regressors with random split thresholds and otherwise matched tree settings \citep{geurts2006extratrees}. Tree means were averaged; population tree dispersion was the uncertainty signal, floored at $10^{-8}$.
+
+\subsection{Campaign geometry and endpoints}
+For every task and split, the initial labeled count was $\max(30,\mathrm{round}(0.01N))$ from the source role; batch size was $\max(1,\mathrm{round}(0.01N))$; maximum queries were $\max(1,\mathrm{round}(0.20N_{target}))$. Models were retrained after each simultaneous batch. Ties used descending score then ascending stable record index; queried records were removed before rescoring. Full task-specific counts appear in Supplement Section 5.
+
+L1 used nominal coverages 50\%, 80\%, 90\%, and 95\%. At initial, 25\%, 50\%, and 75\% campaign checkpoints, MACE was the mean of four absolute empirical-minus-nominal coverage errors on the diagnostic role; the four checkpoint MACE values received equal weight. Gaussian intervals used the tree mean and effective standard deviation. Invalid required checkpoints yielded unavailable values. Lower is better.
+
+L4 defined the target set as the highest $\max(1,\lceil0.01N_{target}\rceil)$ selectable targets, ordered by target then stable ID. The initial state at budget fraction zero was included. Recall was integrated against queried-budget fraction by the trapezoid rule and divided by the observed x-range. Higher is better.
+
+\subsection{UCB, CS, inference, and derived analyses}
+Raw UCB is $\mu+\beta\sigma$. GG is $\mu+\beta c_t\sigma$, so $\beta_{eff}=\beta c_t$. Historical CS used six exactly defined local features; Selected CS used intercept plus standardized log raw uncertainty only. Both used the frozen pairwise objective detailed in Supplement Sections 6--7. Selected CS is parsimonious but not shown uniquely necessary or minimal.
+
+The paired seed was the within-environment inference unit. The locked analysis used 10,000 paired bootstrap and 10,000 sign-flip replicates, add-one p-values, and within-environment BH adjustment across eight tests. Environment counts are descriptive, not pooled tests. Phase-3 endpoint analyses are post hoc sensitivity; GG diagnostics are exploratory mechanism analyses; OOD and practical translations are descriptive.
+
+\subsection{Recovery}
+Six Historical-CS jobs in the MP-gap chemical-system-group OOD ExtraTrees environment, corresponding to seeds 5013--5018, were interrupted during a controlled reduction from six to four workers and subsequently completed under the unchanged protocol. The preserved events did not record process exit codes. In the paired recovery sensitivity analysis, seeds 5013--5018 were excluded from every strategy entering the affected contrasts, giving 34 paired seeds.
+
+\section{Results}
+\subsection{Locked primary evidence}
+Original GG was L1-harmful in 16/16 environments. Historical CS was L4-harmful in 16/16. These are descriptive counts of environment-specific BH classifications. Representative effects were selected by frozen neutral rules:
+\begin{center}\resizebox{\linewidth}{!}{\begin{tabular}{lllllllll}
+\toprule
+Rule & Task & Split & Model & Effect & CI low & CI high & $p\_{raw}$ & $p\_{BH}$\\
+\midrule
+Original GG L1 representative harmful & matbench\_expt\_gap & chemical\_system\_ood & random\_forest & 0.1012 & 0.0956 & 0.1069 & 1.00e-04 & 8.00e-04\\
+Historical CS L4 representative harmful & matbench\_log\_gvrh & chemical\_system\_ood & extra\_randomized\_bagging & -0.1425 & -0.1678 & -0.1170 & 1.00e-04 & 2.67e-04\\
+Selected GG L4 favorable log-KVRH & matbench\_log\_kvrh & chemical\_system\_ood & extra\_randomized\_bagging & 0.0620 & 0.0417 & 0.0826 & 1.00e-04 & 1.60e-04\\
+Selected CS L4 representative favorable & matbench\_log\_kvrh & iid\_record & random\_forest & 0.0452 & 0.0222 & 0.0694 & 3.00e-04 & 4.80e-04\\
+Selected CS L4 representative harmful & matbench\_expt\_gap & chemical\_system\_ood & random\_forest & -0.0296 & -0.0514 & -0.0080 & 0.0106 & 0.0283\\
+\bottomrule
+\end{tabular}}\end{center}
+
+\subsection{Development stability}
+\evidencelabel{Post hoc sensitivity.}Development selection was stable for most families. Held-out log-KVRH Raw beta 2 versus beta 1 was criterion dependent; the 500-resample beta-2 retention frequency was 0.786. V5 outcomes were not used.
+
+\subsection{GG mechanism}
+\evidencelabel{Exploratory mechanism analysis.}Original GG (nominal beta 1) and Selected GG (nominal beta 0.5) are reported separately in Figure 4. Their median effective betas were 2.938 and 1.363, respectively. GG partly acts as dynamic beta modulation, but conclusions rely on ranking agreement on the retained candidate subset; full-pool rank equivalence was not reconstructed.
+
+\subsection{Endpoint sensitivity}
+\evidencelabel{Post hoc sensitivity.}Fixed numeric rules replaced opaque
+qualitative summaries. Across sensitivity definitions, labels were determined
+from direction agreement, BH-status changes, CI-zero-status changes, and
+effect-change magnitudes. NLL was excluded from these interpretive labels:
+the executed Gaussian formula was correct, but stored round-level NLL means
+showed extreme seed dominance and pathological mean--median divergence in
+41/64 environment-level contrasts. NLL is retained only in the numerical
+stability appendix and is classified unavailable for scientific interpretation.
+The frozen primary endpoints and BH families were unchanged.
+
+\subsection{Practical consequences}
+\evidencelabel{Descriptive analysis.}Across all 64 unique
+strategy-environment comparisons, the paired-seed mean difference in the
+number of top-1\% candidates discovered by 20\% queried budget ranged from
+-39.86 to
+4.68. These are means of paired integer
+seed outcomes, not fractional observed materials. Each comparison includes a
+95\% paired-bootstrap interval. Representative cases were preselected by the
+frozen neutral rules and are reported separately. One BH-favorable primary L4
+case had a negative fixed-20\% discovery-count difference; the sign discordance
+is stated explicitly in the Supplement.
+
+\subsection{Chemical-system-group OOD severity}
+\evidencelabel{Descriptive analysis.}Canonical candidate-ID and
+chemical-system role hashes showed that assignments varied across seeds
+5000--5039; only 4/160 task-seed rows, the seed-5000 references themselves,
+matched seed 5000. Severity was therefore recomputed and summarized over all
+40 seeds. Task-level median OOD-selectable to within-source distance ratios
+ranged from 0.98 to
+1.29. Chemical-system disjointness is
+a grouping constraint, whereas these Euclidean ratios depend on the
+composition representation and source-only scaling. They are not a universal
+measure of real-world extrapolation difficulty.
+
+\subsection{Recovery and reproducibility}
+Paired exclusion changed direction, BH label, and interval zero-crossing in 0/8 tests; two relative effect changes exceeded 10\%, and the maximum absolute change was 0.001825. Frozen results and locks were unchanged.
+
+\begin{figure}[p]\centering\includegraphics[width=.96\linewidth]{../../figures_v5/submission_candidate_v4_final_r1/Figure1_Evidence_Lineage.pdf}\caption{Evidence lineage and distinct development cohorts.}\end{figure}
+\begin{figure}[p]\centering\includegraphics[width=.98\linewidth]{../../figures_v5/submission_candidate_v4_final_r1/Figure2_L1_All_Contrasts.pdf}\caption{L1 paired effects.}\end{figure}
+\begin{figure}[p]\centering\includegraphics[width=.98\linewidth]{../../figures_v5/submission_candidate_v4_final_r1/Figure3_L4_All_Contrasts.pdf}\caption{L4 paired effects.}\end{figure}
+\begin{figure}[p]\centering\includegraphics[width=.96\linewidth]{../../figures_v5/submission_candidate_v4_final_r1/Figure4_GG_Mechanism.pdf}\caption{Original and Selected GG mechanism diagnostics; rank agreement is retained-subset only.}\end{figure}
+
+\section{Discussion}
+Original GG consistently harmed L1 in the tested environments. GG applies one
+fitted global factor to every candidate uncertainty in a state, so all interval
+widths expand or contract together. The stored mechanism analysis showed
+state-dependent scale inflation and a corresponding effective-beta shift.
+That pattern is compatible with task- and environment-specific mismatch
+between a single global scale and heterogeneous residual behavior. Even when a
+factor improves calibration at one state, campaign-average calibration need
+not improve: the labeled set, residual distribution, and fitted ensemble
+change after every acquired batch. This interpretation is associative rather
+than causal because the study did not randomize scale trajectories separately
+from acquisition histories.
+
+Historical CS could improve some L1 summaries while harming L4 because the two
+objectives ask different questions. Its local residual adaptation targets
+uncertainty calibration through six candidate-specific features, but L4
+depends on the ordering of a small top tail. Candidate-specific rescaling can
+leave some rankings nearly monotone while changing others nonmonotonically,
+especially when local density, residual location, and predictive-mean
+percentile interact. Those changes affect which candidates enter a batch and
+therefore alter later training sets. Consequently, a local calibration gain at
+one round does not guarantee better top-tail discovery after a path-dependent
+sequence of retraining rounds. The consistently harmful Historical-CS L4
+result remains the strongest stable negative result in this package.
+
+Selected-GG benefits were concentrated in log-KVRH. That task used Raw beta 2
+under the frozen selected-policy map, whereas Selected GG used nominal beta
+0.5 under fitted global scaling. The development choice between Raw beta 2 and
+nearby alternatives was itself criterion dependent. The concentration of
+favorable signals in one task therefore limits generalization; it does not
+show that the selected scaling is broadly preferable across material
+properties.
+
+NLL sensitivity does not support a substantive claim. The executed Gaussian
+formula floors standard deviation before the logarithm and standardized
+residual, and no deterministic implementation bug was found. However,
+individual diagnostic prediction vectors were not retained, while stored
+round-level means and paired contrasts show extreme seed dominance and large
+mean--median divergence. NLL is therefore classified as numerically unstable
+and unavailable for scientific interpretation under the stored uncertainty
+scale. No clipping, winsorization, endpoint replacement, or new NLL definition
+was introduced.
+
+OOD descriptor-distance ratios were often near one even though chemical
+systems were disjoint. This is not contradictory: chemical-system OOD enforces
+a group-membership constraint, while Euclidean distance measures separation in
+the chosen composition features after source-only scaling. Distinct chemical
+systems may remain close in that representation. Strategy heterogeneity can
+also arise under modest descriptor-distance shifts because acquisition
+depends on predictive means, uncertainties, ranking thresholds, and
+retraining history, not distance alone. Since role assignments varied across
+the 40 confirmation seeds, the revised analysis uses seed distributions rather
+than seed 5000 as cohort evidence.
+
+Selected CS is an intercept-plus-log-uncertainty transform. Simple power or
+temperature transforms were not equally confirmed, and no new campaign was
+authorized to compare them. The evidence therefore supports the evaluation
+framework---prospective locking, paired inference, sensitivity separation, and
+decision-layer auditing---more strongly than a claim that Selected CS is a
+uniquely novel or necessary algorithm. RF and ExtraTrees remain related tree
+ensembles, only UCB acquisition was tested, and four tasks do not define a
+population of materials problems.
+
+\section{Conclusion}
+Within the tested four-task, two-split, two-tree-ensemble offline UCB benchmark, calibration-oriented uncertainty scaling was not automatically beneficial to sequential discovery.
+
+\section*{Reproducibility status}
+An internally verified reproducibility package was generated. External/public
+reproducibility is not claimed while the repository DOI/URL, code license,
+data license, public environment lock, and public run instructions remain
+pending.
+
+\section*{Administrative placeholders}
+Author names/order; affiliations; corresponding author/email; CRediT; funding; competing interests; acknowledgements; repository DOI/URL; code license; data license; target journal; journal limits.
+
+\bibliographystyle{plainnat}\bibliography{references_submission_candidate_v4_final_r1}
+\end{document}

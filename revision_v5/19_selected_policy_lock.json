@@ -1,0 +1,119 @@
+{
+  "status": "DEVELOPMENT_SELECTION_LOCKED",
+  "confirmation_outcomes_inspected": false,
+  "development_results_sha256": "1f6c119a70ab023709e527720ef542885a6cf1c00f860243c3387eff51b65c58",
+  "selection_table_sha256": "f8aefe24eede104976332521dada51bd0486d0192e13fe85f8b4d6c95390db90",
+  "selection_rule_protocol_sha256": "8d9ec24ff8fa3bf5735fb4bb5c4a5a8f413fbd1b1e5409a3b3e22e0caa9e0e71",
+  "selected_policies": [
+    {
+      "held_out_task": "matbench_expt_gap",
+      "family": "raw",
+      "development_tasks": "matbench_mp_gap|matbench_log_gvrh|matbench_log_kvrh",
+      "candidate_strategies": "raw_ucb_beta_0|raw_ucb_beta_0p25|raw_ucb_beta_0p5|raw_ucb_beta_1|raw_ucb_beta_2|raw_ucb_beta_4",
+      "valid_job_count": 720,
+      "selected_strategy": "raw_ucb_beta_1",
+      "tie_breaking_rule": "mean; near-tie<=0.005 then worst environment, complexity, lexical"
+    },
+    {
+      "held_out_task": "matbench_expt_gap",
+      "family": "gaussian_global",
+      "development_tasks": "matbench_mp_gap|matbench_log_gvrh|matbench_log_kvrh",
+      "candidate_strategies": "gg_ucb_beta_0p25|gg_ucb_beta_0p5|gg_ucb_beta_1|gg_ucb_beta_2|gg_ucb_beta_4",
+      "valid_job_count": 600,
+      "selected_strategy": "gg_ucb_beta_0p5",
+      "tie_breaking_rule": "mean; near-tie<=0.005 then worst environment, complexity, lexical"
+    },
+    {
+      "held_out_task": "matbench_expt_gap",
+      "family": "candidate_specific",
+      "development_tasks": "matbench_mp_gap|matbench_log_gvrh|matbench_log_kvrh",
+      "candidate_strategies": "cs_da_oob_hist|cs_da_oob_v5|cs_da_oob_parsimonious_f1",
+      "valid_job_count": 360,
+      "selected_strategy": "cs_da_oob_parsimonious_f1",
+      "tie_breaking_rule": "mean; near-tie<=0.005 then worst environment, complexity, lexical"
+    },
+    {
+      "held_out_task": "matbench_mp_gap",
+      "family": "raw",
+      "development_tasks": "matbench_expt_gap|matbench_log_gvrh|matbench_log_kvrh",
+      "candidate_strategies": "raw_ucb_beta_0|raw_ucb_beta_0p25|raw_ucb_beta_0p5|raw_ucb_beta_1|raw_ucb_beta_2|raw_ucb_beta_4",
+      "valid_job_count": 720,
+      "selected_strategy": "raw_ucb_beta_1",
+      "tie_breaking_rule": "mean; near-tie<=0.005 then worst environment, complexity, lexical"
+    },
+    {
+      "held_out_task": "matbench_mp_gap",
+      "family": "gaussian_global",
+      "development_tasks": "matbench_expt_gap|matbench_log_gvrh|matbench_log_kvrh",
+      "candidate_strategies": "gg_ucb_beta_0p25|gg_ucb_beta_0p5|gg_ucb_beta_1|gg_ucb_beta_2|gg_ucb_beta_4",
+      "valid_job_count": 600,
+      "selected_strategy": "gg_ucb_beta_0p5",
+      "tie_breaking_rule": "mean; near-tie<=0.005 then worst environment, complexity, lexical"
+    },
+    {
+      "held_out_task": "matbench_mp_gap",
+      "family": "candidate_specific",
+      "development_tasks": "matbench_expt_gap|matbench_log_gvrh|matbench_log_kvrh",
+      "candidate_strategies": "cs_da_oob_hist|cs_da_oob_v5|cs_da_oob_parsimonious_f1",
+      "valid_job_count": 360,
+      "selected_strategy": "cs_da_oob_parsimonious_f1",
+      "tie_breaking_rule": "mean; near-tie<=0.005 then worst environment, complexity, lexical"
+    },
+    {
+      "held_out_task": "matbench_log_gvrh",
+      "family": "raw",
+      "development_tasks": "matbench_expt_gap|matbench_mp_gap|matbench_log_kvrh",
+      "candidate_strategies": "raw_ucb_beta_0|raw_ucb_beta_0p25|raw_ucb_beta_0p5|raw_ucb_beta_1|raw_ucb_beta_2|raw_ucb_beta_4",
+      "valid_job_count": 720,
+      "selected_strategy": "raw_ucb_beta_1",
+      "tie_breaking_rule": "mean; near-tie<=0.005 then worst environment, complexity, lexical"
+    },
+    {
+      "held_out_task": "matbench_log_gvrh",
+      "family": "gaussian_global",
+      "development_tasks": "matbench_expt_gap|matbench_mp_gap|matbench_log_kvrh",
+      "candidate_strategies": "gg_ucb_beta_0p25|gg_ucb_beta_0p5|gg_ucb_beta_1|gg_ucb_beta_2|gg_ucb_beta_4",
+      "valid_job_count": 600,
+      "selected_strategy": "gg_ucb_beta_0p5",
+      "tie_breaking_rule": "mean; near-tie<=0.005 then worst environment, complexity, lexical"
+    },
+    {
+      "held_out_task": "matbench_log_gvrh",
+      "family": "candidate_specific",
+      "development_tasks": "matbench_expt_gap|matbench_mp_gap|matbench_log_kvrh",
+      "candidate_strategies": "cs_da_oob_hist|cs_da_oob_v5|cs_da_oob_parsimonious_f1",
+      "valid_job_count": 360,
+      "selected_strategy": "cs_da_oob_parsimonious_f1",
+      "tie_breaking_rule": "mean; near-tie<=0.005 then worst environment, complexity, lexical"
+    },
+    {
+      "held_out_task": "matbench_log_kvrh",
+      "family": "raw",
+      "development_tasks": "matbench_expt_gap|matbench_mp_gap|matbench_log_gvrh",
+      "candidate_strategies": "raw_ucb_beta_0|raw_ucb_beta_0p25|raw_ucb_beta_0p5|raw_ucb_beta_1|raw_ucb_beta_2|raw_ucb_beta_4",
+      "valid_job_count": 720,
+      "selected_strategy": "raw_ucb_beta_2",
+      "tie_breaking_rule": "mean; near-tie<=0.005 then worst environment, complexity, lexical"
+    },
+    {
+      "held_out_task": "matbench_log_kvrh",
+      "family": "gaussian_global",
+      "development_tasks": "matbench_expt_gap|matbench_mp_gap|matbench_log_gvrh",
+      "candidate_strategies": "gg_ucb_beta_0p25|gg_ucb_beta_0p5|gg_ucb_beta_1|gg_ucb_beta_2|gg_ucb_beta_4",
+      "valid_job_count": 600,
+      "selected_strategy": "gg_ucb_beta_0p5",
+      "tie_breaking_rule": "mean; near-tie<=0.005 then worst environment, complexity, lexical"
+    },
+    {
+      "held_out_task": "matbench_log_kvrh",
+      "family": "candidate_specific",
+      "development_tasks": "matbench_expt_gap|matbench_mp_gap|matbench_log_gvrh",
+      "candidate_strategies": "cs_da_oob_hist|cs_da_oob_v5|cs_da_oob_parsimonious_f1",
+      "valid_job_count": 360,
+      "selected_strategy": "cs_da_oob_parsimonious_f1",
+      "tie_breaking_rule": "mean; near-tie<=0.005 then worst environment, complexity, lexical"
+    }
+  ],
+  "valid_development_jobs": 2240,
+  "recovered_jobs": 1
+}

@@ -1,0 +1,89 @@
+# Python caches and environments
+.pytest_cache/
+**/.pytest_cache/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+.venv*/
+venv/
+env/
+
+# Build and package caches
+build/
+dist/
+*.egg-info/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+
+# Temporary files and logs
+*.tmp
+*.temp
+*.log
+*.bak
+*.swp
+*.pid
+logs/
+**/logs/
+.tmp*/
+tmp/
+
+# LaTeX intermediates
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.lot
+*.out
+*.synctex.gz
+*.toc
+
+# Raw trajectory corpora and mutable execution stores
+revision_v5/results_v4/
+results/**/trajectories/
+results/**/raw/
+results/**/checkpoints/
+results/**/shards/
+results/v6_development/
+results/v6_confirmation/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
+# Models and intermediate columnar artifacts
+*.joblib
+*.pkl
+*.pickle
+*.ckpt
+*.pt
+*.pth
+*.onnx
+*.parquet
+*.feather
+
+# Large historical workspaces not part of the baseline import
+liunx result/
+material-active-learning/
+transportability_study_v3_l1_codex_finalization/
+transportability_study_v3_l1_codex_rebuild/
+transportability_study_v3_l1_codex_rebuild_round2/
+transportability_study_v3_l1_l4_exploratory/
+transportability_study_v4_crabnet_l1_l4_confirmatory/
+最终/
+【重跑】/
+.tmp-skill-sources/
+.tmp-v3-rebuild-python/
+plugins/
+paper-novelty-design/
+
+# Installers and local OS/editor files
+*.exe
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

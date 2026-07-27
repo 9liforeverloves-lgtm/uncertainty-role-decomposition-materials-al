@@ -1,0 +1,158 @@
+{
+  "status": "DEVELOPMENT_SOURCE_FROZEN",
+  "created_utc": "2026-07-23T07:17:00.072517+00:00",
+  "scope": "Development only; does not release the V5-RC1 confirmation manifest.",
+  "file_count": 30,
+  "files": [
+    {
+      "relative_path": "03_frozen_v4_protocol.md",
+      "size_bytes": 6014,
+      "sha256": "1e20d37b481422063f5d28cd83f846fe8d6a0d730aeb54b172257183007c7149"
+    },
+    {
+      "relative_path": "experiments_v4/src/transportability_v5/__init__.py",
+      "size_bytes": 90,
+      "sha256": "50c79499f7d14637bc74f70d18481bbf47f3d9a16e38a7ff468d0b0ef31b9136"
+    },
+    {
+      "relative_path": "experiments_v4/src/transportability_v5/audit.py",
+      "size_bytes": 4649,
+      "sha256": "c3234da3905de6437a4fb597bf3ec9089c12437dfca8536e5d8f8c9afac81819"
+    },
+    {
+      "relative_path": "experiments_v4/src/transportability_v5/checkpoint.py",
+      "size_bytes": 3479,
+      "sha256": "bf05831610f082f62ab1759054677185aa088ee538f5f0b4b3122da77591ad4d"
+    },
+    {
+      "relative_path": "experiments_v4/src/transportability_v5/data.py",
+      "size_bytes": 1944,
+      "sha256": "1650fafc184036c5142967271a64678dfa838211be2f7b22f9781d2979ed97b7"
+    },
+    {
+      "relative_path": "experiments_v4/src/transportability_v5/layers.py",
+      "size_bytes": 2150,
+      "sha256": "8b95732fd348b8c3ea68783c62d533db170f4f59cfb830d3ac9f908492e8099f"
+    },
+    {
+      "relative_path": "experiments_v4/src/transportability_v5/metrics.py",
+      "size_bytes": 3169,
+      "sha256": "d9c19938c0813bfc8f1404051a081c9975e5c64f3e1d99e3086af87daba27c79"
+    },
+    {
+      "relative_path": "experiments_v4/src/transportability_v5/provenance.py",
+      "size_bytes": 6316,
+      "sha256": "cda89071dc9394f4037d2e49b9f3c9a119a11d7ac1caa9402f129d7b73af28ab"
+    },
+    {
+      "relative_path": "experiments_v4/src/transportability_v5/registry.py",
+      "size_bytes": 7487,
+      "sha256": "f3fc4f8f315f4e394db4a0c2959f2bb70f26d234e944eead8a79fcad5a72ec5a"
+    },
+    {
+      "relative_path": "experiments_v4/src/transportability_v5/runner.py",
+      "size_bytes": 17073,
+      "sha256": "20fe91a35c5fa00105b6f1e089c95233ec7dd2ae0e2d4ad07690b2aa5378aa0f"
+    },
+    {
+      "relative_path": "experiments_v4/src/transportability_v5/selection.py",
+      "size_bytes": 1449,
+      "sha256": "b40a9fefefeccf4bcf0d4336a703c4343350e78793970b7d81d5c4218797712a"
+    },
+    {
+      "relative_path": "experiments_v4/src/transportability_v5/smoke_manifest.py",
+      "size_bytes": 1138,
+      "sha256": "ffa070d8826f038fe5e543a623168488d6c30c17f9739a89f261e5c013e11255"
+    },
+    {
+      "relative_path": "experiments_v4/src/transportability_v5/splits.py",
+      "size_bytes": 4350,
+      "sha256": "5b77743a16ba88c04e103ff388164e1b49182fa97c529a4794a8a451a27f56ab"
+    },
+    {
+      "relative_path": "experiments_v4/src/transportability_v5/statistics.py",
+      "size_bytes": 2471,
+      "sha256": "4177ef6da1629fd1d652da6521e8531f4ec942aa1b362cad7fda9a3000f8123f"
+    },
+    {
+      "relative_path": "experiments_v4/src/transportability_v5/strategies.py",
+      "size_bytes": 10853,
+      "sha256": "2c7ce60a83e17de46b64c423079116ce6e96f2d42181c5f6a50c34d62d9a4ceb"
+    },
+    {
+      "relative_path": "experiments_v4/src/transportability_v5/surrogates.py",
+      "size_bytes": 3846,
+      "sha256": "543f98ed3aa2101597d5f26c66d06faa2b1d647ed593d5ebb239ceb80b44753d"
+    },
+    {
+      "relative_path": "manifests_v4/DEVELOPMENT_JOB_MANIFEST_V5.csv",
+      "size_bytes": 2495027,
+      "sha256": "3134474fcf0fa0c60263c708058fc1cf647cd06d1cc6b17be1457fa585250e66"
+    },
+    {
+      "relative_path": "manifests_v4/DEVELOPMENT_SPEC_AMENDMENT_001.md",
+      "size_bytes": 1145,
+      "sha256": "ec41fc71e4b9781483c3b047e0364a49206846afb3a480a05a8972c0aa8ee44c"
+    },
+    {
+      "relative_path": "manifests_v4/DEVELOPMENT_SPEC_LOCK_V5.json",
+      "size_bytes": 1882,
+      "sha256": "9584cf1494160b68b465b3b6528cb9b2f2a7ced2d73ce1a81cbecaeca11cc93e"
+    },
+    {
+      "relative_path": "pyproject.toml",
+      "size_bytes": 224,
+      "sha256": "0c7bc496b24ce8a63ef8b2508a9dfe65a60c6dd9dc1a936b14ab28acc3f4fbfc"
+    },
+    {
+      "relative_path": "scripts/audit_global_scaling_equivalence.py",
+      "size_bytes": 3677,
+      "sha256": "d924174ebcef44cab994938abc32b11e2ed751449cb8d47a19a515a5c8e0c755"
+    },
+    {
+      "relative_path": "scripts/build_development_manifest.py",
+      "size_bytes": 3455,
+      "sha256": "aa40ee4330ee83482488dfdc3c5cc5141125275dca95e7282b70449666c74b38"
+    },
+    {
+      "relative_path": "scripts/build_ood_audit.py",
+      "size_bytes": 4836,
+      "sha256": "d2f9f57dc44b7c21d3f4061fa284d7c336ee56ccfa5ca96b3fa3cf8b04d1c77c"
+    },
+    {
+      "relative_path": "scripts/freeze_development_source.py",
+      "size_bytes": 1598,
+      "sha256": "1df6dd361bc57f82ff820e6eb82c439137f4c22fc3cf012974a4bd254979c23b"
+    },
+    {
+      "relative_path": "scripts/phase0_inventory.py",
+      "size_bytes": 10390,
+      "sha256": "a41db4e5113eb651444d57d65515bfc0a9c93b6db55895c074785218255f805c"
+    },
+    {
+      "relative_path": "scripts/run_job.py",
+      "size_bytes": 4997,
+      "sha256": "17527533b809069e0c7dd7855fba98303827321f0cbeb93fc4d9a746f7572968"
+    },
+    {
+      "relative_path": "scripts/run_manifest_pool.py",
+      "size_bytes": 3333,
+      "sha256": "180420209f4aaf08fb1121b4642395d21604dd6702b0fd9b07b93b689d547fc4"
+    },
+    {
+      "relative_path": "scripts/seed_namespace_audit.py",
+      "size_bytes": 3249,
+      "sha256": "ef2621f607976b89767acad63680914c212d5c410adb4d87df1615ef3ae81240"
+    },
+    {
+      "relative_path": "scripts/verify_protected_baseline.py",
+      "size_bytes": 2570,
+      "sha256": "0a219f08fb0102d27f0316e5061781acc3e180b8fb8b7cce36a564c0247a153b"
+    },
+    {
+      "relative_path": "tests/test_revision_core.py",
+      "size_bytes": 6332,
+      "sha256": "f08e6c0284c3f589ee2167befb3431425b771d52225730001db8a0473ced6d3f"
+    }
+  ]
+}

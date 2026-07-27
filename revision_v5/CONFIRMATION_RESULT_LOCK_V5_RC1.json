@@ -1,0 +1,32 @@
+{
+  "schema_version": "confirmation-result-lock-v1",
+  "protocol_version": "v5-rc1",
+  "frozen_at": "2026-07-25T05:43:20.248215",
+  "confirmation_manifest": {
+    "path": "revision_v5/manifests_v4/CONFIRMATION_JOB_MANIFEST_V5_RC1.csv",
+    "sha256": "6fbe0d79906df8523fb036800ccfec17f9bcb18a8845ddcaae9dadf3ce2c52a8",
+    "row_count": 3360
+  },
+  "execution_registry": {
+    "path": "revision_v5/results_v4/confirmation/registry_snapshot.csv",
+    "sha256": "cf218bb8ba5d1647bf37213a83d2831fdddd3a1efc4a8d28a8f52dff6483a441",
+    "row_count": 3360
+  },
+  "protocol": {
+    "path": "revision_v5/20_confirmation_protocol_v5_rc1.md",
+    "sha256": "0c8991c1261799336eb7a1991cb004cc9e958f274031de05a3c964a27e897c29"
+  },
+  "confirmation_freeze_lock": {
+    "path": "revision_v5/manifests_v4/CONFIRMATION_FREEZE_LOCK_V5_RC1.json",
+    "sha256": "cd88596a5f1cb3bbbce990945f5211e70ca7e024de86ab26a154353032d67a0e"
+  },
+  "environment_lock": {
+    "path": "revision_v5/environment-lock.txt",
+    "sha256": "22bd05ebb49d3d5e6524fd5de62c28f35792fcf43cc3c69d2f7514bc5c48bc1d"
+  },
+  "trajectory_outputs": {
+    "directory": "results_v4/confirmation/trajectories",
+    "completed_count": 3360
+  },
+  "immutability_pledge": "After this lock, no result file may be silently replaced or recalculated under a changed protocol."
+}

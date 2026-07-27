@@ -1,0 +1,19 @@
+{
+  "schema_version": "v6-hypothesis-registry-v1",
+  "status": "PROSPECTIVE_BEFORE_CONFIRMATION",
+  "primary": [
+    {"id": "H1", "evidence_class": "V6-MECH", "contrast": "GG_CALIBRATION_ONLY vs RAW", "endpoint": "L1", "trajectory_identity_required": true},
+    {"id": "H2", "evidence_class": "V6-MECH", "contrast": "GG_ACQUISITION_ONLY vs RAW", "endpoint": "L4", "path_change_required": true},
+    {"id": "H3", "evidence_class": "V6-MECH", "contrast": "RAW_FIXED_BETA_MATCHED vs GG_JOINT", "endpoint": "L4"},
+    {"id": "H4", "evidence_class": "V6-MECH", "contrast": "RAW_STAGE_BETA_MATCHED vs GG_JOINT", "endpoint": "L4"},
+    {"id": "H5a", "evidence_class": "V6-MECH", "contrast": "CS_CALIBRATION_ONLY vs RAW", "endpoint": "L1", "trajectory_identity_required": true},
+    {"id": "H5b", "evidence_class": "V6-MECH", "contrast": "CS_ACQUISITION_ONLY vs RAW", "endpoint": "L4"},
+    {"id": "H6", "evidence_class": "V6-MECH", "contrast": "best frozen simple scaler vs frozen complex CS", "endpoint": "L1"},
+    {"id": "H7", "evidence_class": "V6-MECH", "contrast": "L1 improvement versus L4 improvement", "endpoint": "joint_descriptive"}
+  ],
+  "p1_families": {
+    "model_family": "registered separately after development freeze",
+    "acquisition_family": "registered separately after development freeze",
+    "external_dataset": "registered separately after dataset and endpoint freeze"
+  }
+}
