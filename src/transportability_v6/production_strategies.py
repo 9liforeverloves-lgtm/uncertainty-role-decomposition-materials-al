@@ -87,8 +87,8 @@ PRODUCTION_STRATEGIES = {
         _spec("ISOTONIC_ABS_RESIDUAL", min_oob=3, bounds=None, parameters=0, objective="monotone OOB absolute-residual regression"),
         _spec("CONFORMAL_INTERVAL_ONLY", min_oob=3, bounds=None, acquisition="raw_sigma", evaluation="coverage_specific_interval", parameters=0, objective="finite-sample OOB residual-ratio quantile", coverage=0.90),
         _spec("CONFORMAL_GAUSSIAN_EQUIVALENT", min_oob=3, bounds=None, acquisition="raw_sigma", evaluation="coverage_specific_gaussian_equivalent", parameters=0, objective="named finite-sample conformal-to-Gaussian conversion", coverage=0.90),
-        _spec("SELECTED_CS_EQUIVALENT_DOF_CONTROL", min_oob=20, bounds=(0.25, 4.0), parameters=2, objective="OOB ridge intercept plus log raw sigma"),
-        _spec("HISTORICAL_CS_EQUIVALENT_DOF_CONTROL", min_oob=20, bounds=(0.25, 4.0), parameters=7, objective="OOB ridge intercept plus six V5 local features"),
+        _spec("SELECTED_CS_EQUIVALENT_DOF_CONTROL", min_oob=20, bounds=(0.25, 4.0), acquisition="raw_sigma", parameters=2, objective="OOB ridge intercept plus log raw sigma; calibration-only control"),
+        _spec("HISTORICAL_CS_EQUIVALENT_DOF_CONTROL", min_oob=20, bounds=(0.25, 4.0), acquisition="raw_sigma", parameters=7, objective="OOB ridge intercept plus six V5 local features; calibration-only control"),
     )
 }
 

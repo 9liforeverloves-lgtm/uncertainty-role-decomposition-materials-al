@@ -277,15 +277,15 @@
         4.0
       ],
       "calibration_mapping": "scaled_gaussian_sigma",
-      "acquisition_mapping": "scaled_sigma",
+      "acquisition_mapping": "raw_sigma",
       "evaluation_mapping": "scaled_gaussian_sigma",
       "nominal_parameter_count": 7,
-      "objective": "OOB ridge intercept plus six V5 local features",
+      "objective": "OOB ridge intercept plus six V5 local features; calibration-only control",
       "development_status": "planned",
       "confirmation_status": "not_started",
       "nominal_beta": 1.0,
       "primary_baseline": "RAW",
-      "endpoint": "L1_and_L4",
+      "endpoint": "L1",
       "direction": "reference",
       "family": "reference",
       "classification": "confirmatory_baseline",
@@ -592,15 +592,15 @@
         4.0
       ],
       "calibration_mapping": "scaled_gaussian_sigma",
-      "acquisition_mapping": "scaled_sigma",
+      "acquisition_mapping": "raw_sigma",
       "evaluation_mapping": "scaled_gaussian_sigma",
       "nominal_parameter_count": 2,
-      "objective": "OOB ridge intercept plus log raw sigma",
+      "objective": "OOB ridge intercept plus log raw sigma; calibration-only control",
       "development_status": "planned",
       "confirmation_status": "not_started",
       "nominal_beta": 1.0,
       "primary_baseline": "RAW",
-      "endpoint": "L1_and_L4",
+      "endpoint": "L1",
       "direction": "reference",
       "family": "reference",
       "classification": "confirmatory_baseline",
@@ -635,12 +635,12 @@
       "retry_rule": "unchanged configuration; maximum two automatic retries"
     }
   ],
-  "creation_time_utc": "2026-07-27T11:14:25.083150+00:00",
-  "git_commit": "eba8d544bf84cdd01066d323662739155ed55e39",
+  "creation_time_utc": "2026-07-27T11:26:42.509658+00:00",
+  "git_commit": "4680af3082b1c3a1dbc555d2b50a04a25dabf9c4",
   "source_hashes": {
     "v5_authority_lock_sha256": "dc7ef6077e6c9f87c85823268bcd1774d3733a904ca2e78b33dd4a646f73b315",
     "v5_confirmation_protocol_sha256": "0c8991c1261799336eb7a1991cb004cc9e958f274031de05a3c964a27e897c29",
-    "v6_code_tree_sha256": "fdf751726c8eb0e2f29bc301be508154488a21a315e2a9d61aa4fedea430fdb9"
+    "v6_code_tree_sha256": "d7159c8627a0b3a54f114568b0732f52650e1f591964629f445c19f8afab1ede"
   },
-  "immutable_freeze_hash": "6161ca285b384719f051236f933c917c565b13e7716f320d8adf8c9c52468451"
+  "immutable_freeze_hash": "c2228a92e43a23cb4f3614849a8d4154150e97c719484fe73bcc2317b7aeebe3"
 }

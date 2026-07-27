@@ -30,6 +30,8 @@ def test_actual_production_strategy_specs_cover_required_algorithms() -> None:
     assert PRODUCTION_STRATEGIES["SELECTED_CS"].objective != PRODUCTION_STRATEGIES[
         "SELECTED_CS_EQUIVALENT_DOF_CONTROL"
     ].objective
+    assert PRODUCTION_STRATEGIES["SELECTED_CS_EQUIVALENT_DOF_CONTROL"].acquisition_mapping == "raw_sigma"
+    assert PRODUCTION_STRATEGIES["HISTORICAL_CS_EQUIVALENT_DOF_CONTROL"].acquisition_mapping == "raw_sigma"
 
 
 def test_production_confirmation_and_unregistered_seed_are_blocked() -> None:

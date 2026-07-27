@@ -202,6 +202,7 @@ def main() -> None:
     p0_reissue = subparsers.add_parser("p0-reissue-lock", help="explicitly supersede a P0 lock after a recorded canary defect")
     p0_reissue.add_argument("--workspace", default=str(WORKSPACE))
     p0_reissue.add_argument("--reason", required=True)
+    p0_reissue.add_argument("--execution-run-id", default="rerun_after_seedsequence_fix")
     p0_run = subparsers.add_parser("p0-run", help="execute only the already locked P0 development manifest")
     p0_run.add_argument("--workspace", default=str(WORKSPACE))
     p0_stability = subparsers.add_parser("p0-selection-stability", help="write the descriptive P0 selection-stability summary")
@@ -214,7 +215,7 @@ def main() -> None:
     elif args.command == "p0-manifest":
         print(json.dumps(generate_p0_manifest(workspace=args.workspace), indent=2))
     elif args.command == "p0-reissue-lock":
-        print(json.dumps(reissue_p0_manifest_lock(workspace=args.workspace, reason=args.reason), indent=2))
+        print(json.dumps(reissue_p0_manifest_lock(workspace=args.workspace, reason=args.reason, execution_run_id=args.execution_run_id), indent=2))
     elif args.command == "p0-run":
         print(json.dumps(execute_p0_development(workspace=args.workspace), indent=2))
     elif args.command == "p0-selection-stability":
