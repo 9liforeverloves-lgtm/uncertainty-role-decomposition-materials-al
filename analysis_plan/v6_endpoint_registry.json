@@ -1,15 +1,57 @@
 {
-  "schema_version": "v6-endpoint-registry-v1",
-  "status": "FREEZE_READY",
+  "schema_version": "v6-endpoint-registry-v2",
+  "status": "STAGE_2_5_FROZEN_PRE_DEVELOPMENT",
   "endpoints": [
-    {"id": "L1", "name": "campaign-average MACE", "role": "primary", "direction": "lower_is_better", "unit": "paired seed within environment", "missing_handling": "complete paired set required"},
-    {"id": "L4", "name": "top-1% recall nAUC", "role": "primary", "direction": "higher_is_better", "x_axis": "budget_fraction", "unit": "paired seed within environment", "missing_handling": "complete paired set required"},
-    {"id": "TOP_TAIL_COUNT", "name": "top-tail discoveries at fixed budgets", "role": "secondary", "direction": "higher_is_better"},
-    {"id": "FULL_SPEARMAN", "name": "full-pool Spearman rank agreement", "role": "mechanism_secondary", "direction": "higher_means_more_agreement"},
-    {"id": "KENDALL_TAU", "name": "full-pool Kendall tau", "role": "mechanism_secondary", "direction": "higher_means_more_agreement"},
-    {"id": "BATCH_JACCARD", "name": "batch Jaccard overlap", "role": "mechanism_secondary", "direction": "higher_means_more_agreement"},
-    {"id": "FIRST_DIVERGENCE", "name": "first acquisition-path divergence round", "role": "mechanism_secondary", "direction": "later_means_more_agreement"},
-    {"id": "CRPS", "name": "continuous ranked probability score", "role": "secondary", "direction": "lower_is_better"},
-    {"id": "NLL", "name": "Gaussian negative log likelihood", "role": "secondary_conditional", "direction": "lower_is_better", "stability_gate_required": true}
-  ]
+    {
+      "id": "L1",
+      "name": "campaign MACE at initial/25/50/75% canonical checkpoints",
+      "role": "primary",
+      "direction": "lower_is_better",
+      "unit": "paired seed within environment",
+      "missing_handling": "complete paired set required",
+      "checkpoint_weighting": "equal"
+    },
+    {
+      "id": "L4",
+      "name": "top-1% recall normalized AUC",
+      "role": "primary",
+      "direction": "higher_is_better",
+      "x_axis": "canonical campaign budget_fraction",
+      "unit": "paired seed within environment",
+      "missing_handling": "complete paired set required"
+    },
+    {
+      "id": "CONFORMAL_COVERAGE",
+      "name": "coverage-specific conformal interval coverage",
+      "role": "secondary_calibration",
+      "direction": "absolute error lower is better",
+      "coverages": [
+        0.5,
+        0.8,
+        0.9,
+        0.95
+      ]
+    },
+    {
+      "id": "NLL",
+      "name": "Gaussian negative log likelihood",
+      "role": "secondary_conditional",
+      "direction": "lower_is_better",
+      "stability_gate_required": true
+    },
+    {
+      "id": "RANKING_DIAGNOSTICS",
+      "name": "stable-order path diagnostics",
+      "role": "mechanism_secondary",
+      "direction": "descriptive"
+    }
+  ],
+  "creation_time_utc": "2026-07-27T11:10:14.004354+00:00",
+  "git_commit": "fa4ec4888fdaf4c24dc99e5386f12d6a3a7d6693",
+  "source_hashes": {
+    "v5_authority_lock_sha256": "dc7ef6077e6c9f87c85823268bcd1774d3733a904ca2e78b33dd4a646f73b315",
+    "v5_confirmation_protocol_sha256": "0c8991c1261799336eb7a1991cb004cc9e958f274031de05a3c964a27e897c29",
+    "v6_code_tree_sha256": "0e7cf14f0653245bf1b32868efa4301ccf038233ed2690d80ce36363678e16e9"
+  },
+  "immutable_freeze_hash": "4c55ec9a9d72bc34bdb13ba72369d2ced441043398488b0060cc296228ba3097"
 }

@@ -19,8 +19,8 @@ def main() -> None:
         key=str.lower,
     )
     (ROOT / "requirements-lock.txt").write_text(
-        "# Generated from the clean Stage-2 smoke environment.\n"
-        "# Python 3.12; minimal core + test dependencies only.\n"
+        "# Generated from the clean Stage-2.5 production-validation environment.\n"
+        "# Python 3.12; canonical V5 adapter dependencies included.\n"
         + "\n".join(rows)
         + "\n",
         encoding="utf-8",

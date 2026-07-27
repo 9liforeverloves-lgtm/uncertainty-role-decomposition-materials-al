@@ -1,15 +1,78 @@
 {
-  "schema_version": "v6-multiplicity-families-v2",
-  "status": "FREEZE_READY_NO_CONFIRMATION_OUTCOMES",
-  "method": "Benjamini-Hochberg within family",
+  "schema_version": "v6-multiplicity-families-v3",
+  "status": "STAGE_2_5_FROZEN_PRE_DEVELOPMENT",
+  "method": "Benjamini-Hochberg within exact registered family",
   "alpha": 0.05,
   "families": [
-    {"id": "P0_L1_DECOUPLING", "endpoint": "L1", "members": ["H1", "H5A"], "family_size": 2},
-    {"id": "P0_L1_SIMPLE_BASELINES", "endpoint": "L1", "members": ["H6"], "family_size": 1, "note": "final member identities and any noninferiority margin must be frozen after development"},
-    {"id": "P0_L4_MECHANISM", "endpoint": "L4", "members": ["H2", "H3", "H4", "H5B"], "family_size": 4},
-    {"id": "P1_MODEL_FAMILY", "endpoint": "L1_and_L4", "members": [], "freeze_after_development": true},
-    {"id": "P1_ACQUISITION_FAMILY", "endpoint": "L1_and_L4", "members": [], "freeze_after_development": true},
-    {"id": "P1_EXTERNAL_DATASET", "endpoint": "L1_and_L4", "members": [], "freeze_after_dataset_audit": true}
+    {
+      "id": "P0_L1_CALIBRATION_ONLY",
+      "endpoint": "L1",
+      "members": [
+        "H1",
+        "H5A"
+      ],
+      "family_size": 2
+    },
+    {
+      "id": "P0_L4_ACQUISITION_AND_JOINT",
+      "endpoint": "L4",
+      "members": [
+        "H2A",
+        "H2B",
+        "H5B",
+        "H5C"
+      ],
+      "family_size": 4
+    },
+    {
+      "id": "P0_L4_MATCHED_BETA_MECHANISM",
+      "endpoint": "L4",
+      "members": [
+        "H3",
+        "H4"
+      ],
+      "family_size": 2
+    },
+    {
+      "id": "P0_L1_SIMPLE_SCALING",
+      "endpoint": "L1",
+      "members": [
+        "H6A",
+        "H6B"
+      ],
+      "family_size": 2
+    },
+    {
+      "id": "P1_MODEL_FAMILY",
+      "endpoint": "L1_and_L4",
+      "members": [],
+      "status": "placeholder_out_of_scope"
+    },
+    {
+      "id": "P1_ACQUISITION_FAMILY",
+      "endpoint": "L1_and_L4",
+      "members": [],
+      "status": "placeholder_out_of_scope"
+    },
+    {
+      "id": "P1_EXTERNAL_DATASET",
+      "endpoint": "L1_and_L4",
+      "members": [],
+      "status": "placeholder_out_of_scope"
+    }
   ],
-  "excluded_from_bh": ["H7", "exploratory ablations", "smoke engineering validation"]
+  "excluded_from_bh": [
+    "H6",
+    "H7",
+    "smoke engineering validation",
+    "P1 placeholders"
+  ],
+  "creation_time_utc": "2026-07-27T11:10:13.995443+00:00",
+  "git_commit": "fa4ec4888fdaf4c24dc99e5386f12d6a3a7d6693",
+  "source_hashes": {
+    "v5_authority_lock_sha256": "dc7ef6077e6c9f87c85823268bcd1774d3733a904ca2e78b33dd4a646f73b315",
+    "v5_confirmation_protocol_sha256": "0c8991c1261799336eb7a1991cb004cc9e958f274031de05a3c964a27e897c29",
+    "v6_code_tree_sha256": "0e7cf14f0653245bf1b32868efa4301ccf038233ed2690d80ce36363678e16e9"
+  },
+  "immutable_freeze_hash": "de831cee980eb503b743ccf9c0efaada3a893dd2aef9240e3b8493284317deed"
 }

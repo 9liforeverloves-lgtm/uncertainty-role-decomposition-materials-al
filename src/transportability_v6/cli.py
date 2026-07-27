@@ -11,6 +11,8 @@ import numpy as np
 from .campaigns import CampaignConfig, SMOKE_LABEL, run_campaign
 from .data import formula_features, load_materials_csv, synthetic_materials
 from .provenance import atomic_json, sha256
+from .canonical_adapter import CanonicalV5Adapter
+from .development import execute_p0_development, generate_p0_manifest, selection_stability_summary
 
 
 WORKSPACE = Path(__file__).resolve().parents[2]
@@ -188,9 +190,25 @@ def main() -> None:
     subparsers = parser.add_subparsers(dest="command", required=True)
     smoke = subparsers.add_parser("smoke", help="run non-inferential Stage-2 smoke jobs")
     smoke.add_argument("--manifest", required=True)
+    replay = subparsers.add_parser("canonical-replay", help="run a read-only V5 RAW compatibility replay")
+    replay.add_argument("--output-root", required=True)
+    p0_manifest = subparsers.add_parser("p0-manifest", help="generate, but do not execute, the P0 development manifest")
+    p0_manifest.add_argument("--workspace", default=str(WORKSPACE))
+    p0_run = subparsers.add_parser("p0-run", help="execute only the already locked P0 development manifest")
+    p0_run.add_argument("--workspace", default=str(WORKSPACE))
+    p0_stability = subparsers.add_parser("p0-selection-stability", help="write the descriptive P0 selection-stability summary")
+    p0_stability.add_argument("--workspace", default=str(WORKSPACE))
     args = parser.parse_args()
     if args.command == "smoke":
         print(json.dumps(run_smoke(args.manifest), indent=2))
+    elif args.command == "canonical-replay":
+        print(json.dumps(CanonicalV5Adapter(WORKSPACE).replay_raw(output_root=args.output_root).__dict__, indent=2))
+    elif args.command == "p0-manifest":
+        print(json.dumps(generate_p0_manifest(workspace=args.workspace), indent=2))
+    elif args.command == "p0-run":
+        print(json.dumps(execute_p0_development(workspace=args.workspace), indent=2))
+    elif args.command == "p0-selection-stability":
+        print(json.dumps(selection_stability_summary(workspace=args.workspace), indent=2))
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-name: materials-transportability-v6-smoke
+name: materials-transportability-v6-stage25
 channels:
   - conda-forge
 dependencies:

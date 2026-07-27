@@ -6,10 +6,12 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+from .calibration import validate_sigma
+
 
 VECTOR_COLUMNS = (
     "candidate_id", "task", "split", "model", "seed", "strategy", "round",
-    "environment", "y", "mu", "sigma_raw", "sigma_scaled",
+    "environment", "y", "mu", "sigma_raw", "sigma_scaled", "sigma_effective",
     "uncertainty_floor_before", "uncertainty_floor_after",
     "standardized_residual", "gaussian_log_term",
     "gaussian_squared_residual_term", "individual_nll",
@@ -33,13 +35,12 @@ def nll_vectors(
     candidate_id = np.asarray(candidate_id)
     if not (y.shape == mu.shape == raw.shape == scaled.shape == candidate_id.shape):
         raise ValueError("diagnostic vectors must align")
-    if floor <= 0 or not all(
-        np.isfinite(vector).all() for vector in (y, mu, raw, scaled)
-    ):
+    if not np.isfinite(y).all() or not np.isfinite(mu).all():
         raise ValueError("finite y/mu/sigma vectors and positive floor required")
+    raw, _, raw_floor = validate_sigma(raw, floor=floor, name="sigma_raw")
+    scaled, effective, scaled_floor = validate_sigma(scaled, floor=floor, name="sigma_scaled")
     if len(np.unique(candidate_id.astype(str))) != len(candidate_id):
         raise ValueError("duplicate diagnostic candidate_id")
-    effective = np.maximum(scaled, floor)
     with np.errstate(over="ignore", divide="ignore", invalid="ignore"):
         z_unbounded = (y - mu) / effective
     z_limit = np.sqrt(np.finfo(float).max / 4.0)
@@ -53,8 +54,9 @@ def nll_vectors(
             "mu": mu,
             "sigma_raw": raw,
             "sigma_scaled": scaled,
-            "uncertainty_floor_before": raw < floor,
-            "uncertainty_floor_after": scaled < floor,
+            "sigma_effective": effective,
+            "uncertainty_floor_before": raw_floor,
+            "uncertainty_floor_after": scaled_floor,
             "standardized_residual": z,
             "gaussian_log_term": log_term,
             "gaussian_squared_residual_term": squared_term,
@@ -73,7 +75,11 @@ def nll_vectors(
 
 def nll_summary(frame: pd.DataFrame, trim_fraction: float = 0.01) -> dict[str, float]:
     nll = frame["individual_nll"].to_numpy(float)
-    sigma = np.maximum(frame["sigma_scaled"].to_numpy(float), 0)
+    raw_sigma = frame["sigma_raw"].to_numpy(float)
+    if "sigma_effective" in frame:
+        effective_sigma = frame["sigma_effective"].to_numpy(float)
+    else:  # Compatibility with immutable Stage-2 diagnostic artifacts.
+        effective_sigma = np.maximum(frame["sigma_scaled"].to_numpy(float), 1e-8)
     z = np.abs(frame["standardized_residual"].to_numpy(float))
     if not len(nll):
         raise ValueError("empty diagnostic frame")
@@ -90,9 +96,22 @@ def nll_summary(frame: pd.DataFrame, trim_fraction: float = 0.01) -> dict[str, f
         "p95": float(np.quantile(nll, 0.95)),
         "p99": float(np.quantile(nll, 0.99)),
         "p99p9": float(np.quantile(nll, 0.999)),
-        "sigma_minimum": float(np.min(sigma)),
-        "sigma_p01": float(np.quantile(sigma, 0.01)),
-        "sigma_median": float(np.median(sigma)),
+        "raw_sigma_minimum": float(np.min(raw_sigma)),
+        "raw_sigma_p01": float(np.quantile(raw_sigma, 0.01)),
+        "raw_sigma_p05": float(np.quantile(raw_sigma, 0.05)),
+        "raw_sigma_median": float(np.median(raw_sigma)),
+        "raw_sigma_p95": float(np.quantile(raw_sigma, 0.95)),
+        "raw_sigma_p99": float(np.quantile(raw_sigma, 0.99)),
+        "effective_sigma_minimum": float(np.min(effective_sigma)),
+        "effective_sigma_p01": float(np.quantile(effective_sigma, 0.01)),
+        "effective_sigma_p05": float(np.quantile(effective_sigma, 0.05)),
+        "effective_sigma_median": float(np.median(effective_sigma)),
+        "effective_sigma_p95": float(np.quantile(effective_sigma, 0.95)),
+        "effective_sigma_p99": float(np.quantile(effective_sigma, 0.99)),
+        # Legacy aliases retained for Stage-2 report compatibility.
+        "sigma_minimum": float(np.min(effective_sigma)),
+        "sigma_p01": float(np.quantile(effective_sigma, 0.01)),
+        "sigma_median": float(np.median(effective_sigma)),
         "fraction_at_floor": float(np.mean(frame["uncertainty_floor_after"])),
         "maximum_abs_standardized_residual": float(np.max(z)),
         "largest_observation_contribution_share": (
@@ -105,6 +124,11 @@ def atomic_parquet(frame: pd.DataFrame, path: str | Path) -> None:
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(path.suffix + ".tmp")
+    if path.exists():
+        existing = pd.read_parquet(path)
+        if not existing.equals(frame):
+            raise FileExistsError(f"refusing to overwrite a different committed artifact: {path}")
+        return
     try:
         frame.to_parquet(temporary, index=False, compression="zstd")
         pd.read_parquet(temporary)
@@ -148,6 +172,10 @@ def nll_contrast_stability(
         raise ValueError("NLL contrast frames lack required columns")
     if baseline.duplicated(list(key_columns)).any() or test.duplicated(list(key_columns)).any():
         raise ValueError("duplicate NLL contrast rows")
+    if not np.isfinite(baseline["individual_nll"].to_numpy(float)).all() or not np.isfinite(
+        test["individual_nll"].to_numpy(float)
+    ).all():
+        raise ValueError("NLL contrast contains non-finite individual NLL values")
     paired = baseline[list(key_columns) + ["individual_nll"]].merge(
         test[list(key_columns) + ["individual_nll"]],
         on=list(key_columns),
@@ -184,4 +212,54 @@ def nll_contrast_stability(
         "passes_seed_dominance_gate": largest_seed_share <= 0.20,
         "passes_trimmed_mean_direction_gate": direction_agreement,
         "passes_leave_one_environment_out_gate": loo_stable,
+    }
+
+
+def nll_stability_gate(
+    baseline: pd.DataFrame,
+    test: pd.DataFrame,
+    *,
+    floor_rate_maximum: float = 0.01,
+    observation_dominance_maximum: float = 0.10,
+    seed_dominance_maximum: float = 0.20,
+) -> dict[str, object]:
+    """Apply every registered NLL interpretability gate in one auditable result."""
+
+    if not 0 <= floor_rate_maximum <= 1 or not 0 < observation_dominance_maximum <= 1 or not 0 < seed_dominance_maximum <= 1:
+        raise ValueError("NLL stability thresholds are invalid")
+    required = {"individual_nll", "uncertainty_floor_after", "sigma_raw", "sigma_scaled"}
+    if not required <= set(baseline) or not required <= set(test):
+        raise ValueError("NLL stability gate requires complete NLL vectors")
+    baseline_summary = nll_summary(baseline)
+    test_summary = nll_summary(test)
+    contrast = nll_contrast_stability(baseline, test)
+    checks = {
+        "individual_nll_finite": bool(
+            np.isfinite(baseline["individual_nll"].to_numpy(float)).all()
+            and np.isfinite(test["individual_nll"].to_numpy(float)).all()
+        ),
+        "floor_rate": bool(
+            baseline_summary["fraction_at_floor"] <= floor_rate_maximum
+            and test_summary["fraction_at_floor"] <= floor_rate_maximum
+        ),
+        "observation_dominance": bool(
+            baseline_summary["largest_observation_contribution_share"] <= observation_dominance_maximum
+            and test_summary["largest_observation_contribution_share"] <= observation_dominance_maximum
+        ),
+        "seed_dominance": bool(contrast["largest_seed_contribution_share"] <= seed_dominance_maximum),
+        "trimmed_mean_direction": bool(contrast["passes_trimmed_mean_direction_gate"]),
+        "leave_one_environment_out": bool(contrast["passes_leave_one_environment_out_gate"]),
+    }
+    return {
+        "status": "stable" if all(checks.values()) else "numerically_unstable_descriptive_only",
+        "passes": all(checks.values()),
+        "checks": checks,
+        "baseline_summary": baseline_summary,
+        "test_summary": test_summary,
+        "contrast": contrast,
+        "thresholds": {
+            "floor_rate_maximum": floor_rate_maximum,
+            "observation_dominance_maximum": observation_dominance_maximum,
+            "seed_dominance_maximum": seed_dominance_maximum,
+        },
     }

@@ -5,6 +5,8 @@ from typing import Literal
 
 import numpy as np
 
+from .calibration import validate_sigma
+
 
 ScaleSource = Literal["raw", "global", "candidate"]
 BetaMode = Literal["raw", "fixed_matched", "stage_matched", "normalized_global"]
@@ -79,13 +81,15 @@ def score_round(
     mean = np.asarray(mean, dtype=float)
     raw_sigma = np.asarray(raw_sigma, dtype=float)
     stable_ids = np.asarray(stable_ids)
-    if mean.shape != raw_sigma.shape or mean.shape != stable_ids.shape:
+    if mean.ndim != 1 or mean.shape != raw_sigma.shape or mean.shape != stable_ids.shape:
         raise ValueError("mean, raw_sigma, and stable_ids must align")
-    if not np.isfinite(mean).all() or not np.isfinite(raw_sigma).all():
-        raise ValueError("predictions must be finite")
-    if sigma_floor <= 0:
-        raise ValueError("sigma_floor must be positive")
-    floored = np.maximum(raw_sigma, sigma_floor)
+    if not np.isfinite(mean).all():
+        raise ValueError("predictive mean must be finite")
+    _, floored, floor_event = validate_sigma(raw_sigma, floor=sigma_floor, name="raw_sigma")
+    if len(np.unique(stable_ids)) != len(stable_ids):
+        raise ValueError("stable_ids must be unique")
+    if not np.isfinite(beta_raw) or float(beta_raw) < 0:
+        raise ValueError("beta_raw must be finite and nonnegative")
     n = len(mean)
     global_vector = _positive_vector(global_scale, n, "global_scale")
     candidate_vector = (
@@ -125,6 +129,10 @@ def score_round(
         raise ValueError("beta must be finite and nonnegative")
     acquisition_sigma = floored * acquisition_scale
     evaluation_sigma = floored * evaluation_scale
+    if not np.isfinite(acquisition_sigma).all() or np.any(acquisition_sigma <= 0):
+        raise ValueError("acquisition sigma must be finite and positive")
+    if not np.isfinite(evaluation_sigma).all() or np.any(evaluation_sigma <= 0):
+        raise ValueError("evaluation sigma must be finite and positive")
     # Identity controls use the exact RAW arithmetic expression, not merely an
     # algebraically equivalent multiplication order.
     scores = (
@@ -137,6 +145,7 @@ def score_round(
         "scores": scores,
         "stable_order": order,
         "raw_sigma_floored": floored,
+        "raw_sigma_floor_event": floor_event,
         "acquisition_sigma": acquisition_sigma,
         "evaluation_sigma": evaluation_sigma,
         "acquisition_scale": acquisition_scale,

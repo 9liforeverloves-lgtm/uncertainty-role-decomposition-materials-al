@@ -9,6 +9,7 @@ from transportability_v6.calibration import (
     fit_selected_cs_equivalent_dof,
 )
 from transportability_v6.strategies import STRATEGIES
+from transportability_v6.registry_freeze import verify_frozen_document
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -75,3 +76,26 @@ def test_smoke_manifest_is_noninferential_and_uses_reserved_seeds() -> None:
     seeds = {int(job["campaign_seed"]) for job in manifest["jobs"]}
     assert seeds == {91000, 91001}
     assert not seeds & (set(range(5000, 5040)) | set(range(6000, 6010)) | set(range(7000, 7040)))
+
+
+def test_stage25_registry_documents_have_immutable_provenance_metadata() -> None:
+    for name in (
+        "v6_hypothesis_registry.json",
+        "v6_strategy_registry.json",
+        "v6_endpoint_registry.json",
+        "v6_multiplicity_families.json",
+        "v6_seed_registry.json",
+        "v6_failure_and_recovery_rules.json",
+    ):
+        document = _json(name)
+        assert verify_frozen_document(document), name
+        assert document["git_commit"]
+        assert document["source_hashes"]
+
+
+def test_h6_is_descriptive_and_p1_cannot_enter_p0_families() -> None:
+    hypotheses = _json("v6_hypothesis_registry.json")["hypotheses"]
+    h6 = next(item for item in hypotheses if item["id"] == "H6")
+    assert h6["classification"] == "descriptive_estimation_no_noninferiority_claim"
+    families = _json("v6_multiplicity_families.json")["families"]
+    assert all(not family["id"].startswith("P1") or not family["members"] for family in families)

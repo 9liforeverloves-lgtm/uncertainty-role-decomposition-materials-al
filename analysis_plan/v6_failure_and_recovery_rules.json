@@ -1,14 +1,27 @@
 {
-  "schema_version": "v6-failure-recovery-v1",
-  "status": "FREEZE_READY",
+  "schema_version": "v6-failure-recovery-v2",
+  "status": "STAGE_2_5_FROZEN_PRE_DEVELOPMENT",
   "required_paired_seed_count": 40,
-  "confirmation_seed_range": [7000, 7039],
-  "retry_rule": "retry unchanged configuration and identical seed after atomic-write cleanup",
+  "retry_rule": "retry the unchanged configuration and seed; retain attempt history",
   "maximum_automatic_retries": 2,
-  "fallback_rule": "method-specific prespecified identity/raw fallback with explicit status; never substitute guessed values",
-  "missing_data_handling": "no imputation of missing job endpoints; incomplete pairs block primary inference until completion or versioned exclusion sensitivity",
-  "failed_job_handling": "retain failed job row, error class, traceback digest, attempt count and last durable checkpoint",
+  "fallback_rule": "method-specific registered identity/raw fallback with explicit status only",
+  "missing_data_handling": "missing P0 rows are reported; incomplete pairs block any future primary inference",
+  "failed_job_handling": "retain failed registry row, traceback digest, attempt, and last durable checkpoint",
+  "legal_state_transitions": "PLANNED->RUNNING->{COMPLETED,RECOVERED,FAILED,PLANNED}; FAILED->PLANNED only with explicit unchanged retry",
+  "crash_boundaries": [
+    "before_model_checkpoint_write",
+    "after_temporary_write_before_rename"
+  ],
+  "restart_rule": "recover only a hash-validated temporary payload; resume from the last valid checkpoint",
   "silent_drop_prohibited": true,
-  "overwrite_rule": "no overwrite of committed artifact with a different hash",
-  "smoke_rule": "smoke failures may be rerun unchanged but cannot enter scientific evidence"
+  "overwrite_rule": "committed artifacts may be reused only when byte-identical and identity-matched",
+  "smoke_rule": "smoke artifacts remain non-inferential and cannot enter P0 evidence",
+  "creation_time_utc": "2026-07-27T11:10:14.012781+00:00",
+  "git_commit": "fa4ec4888fdaf4c24dc99e5386f12d6a3a7d6693",
+  "source_hashes": {
+    "v5_authority_lock_sha256": "dc7ef6077e6c9f87c85823268bcd1774d3733a904ca2e78b33dd4a646f73b315",
+    "v5_confirmation_protocol_sha256": "0c8991c1261799336eb7a1991cb004cc9e958f274031de05a3c964a27e897c29",
+    "v6_code_tree_sha256": "0e7cf14f0653245bf1b32868efa4301ccf038233ed2690d80ce36363678e16e9"
+  },
+  "immutable_freeze_hash": "b70fbe9d3be30d55a9a1f2be735381876be381fe7a1751a70e85a267cc40a310"
 }

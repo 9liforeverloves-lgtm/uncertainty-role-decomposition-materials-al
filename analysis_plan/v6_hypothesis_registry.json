@@ -1,16 +1,150 @@
 {
-  "schema_version": "v6-hypothesis-registry-v2",
-  "status": "FREEZE_READY_NO_CONFIRMATION_OUTCOMES",
-  "bootstrap_seed": 610001,
-  "sign_flip_seed": 610002,
+  "schema_version": "v6-hypothesis-registry-v3",
+  "status": "STAGE_2_5_FROZEN_PRE_DEVELOPMENT",
+  "bootstrap_root_seed": 610001,
+  "sign_flip_root_seed": 610002,
+  "paired_inference": "10,000 bootstrap; 10,000 sign flips; add-one p value",
   "hypotheses": [
-    {"id": "H1", "comparison": "GG_CALIBRATION_ONLY vs RAW", "baseline": "RAW", "endpoint": "L1", "effect_direction": "lower_is_better", "family": "P0_L1_DECOUPLING", "classification": "confirmatory", "evidence_class": "V6-MECH"},
-    {"id": "H2", "comparison": "GG_ACQUISITION_ONLY vs RAW", "baseline": "RAW", "endpoint": "L4", "effect_direction": "higher_is_better", "family": "P0_L4_MECHANISM", "classification": "confirmatory", "evidence_class": "V6-MECH"},
-    {"id": "H3", "comparison": "RAW_FIXED_BETA_MATCHED vs GG_JOINT", "baseline": "GG_JOINT", "endpoint": "L4", "effect_direction": "equivalence_descriptive", "family": "P0_L4_MECHANISM", "classification": "confirmatory", "evidence_class": "V6-MECH"},
-    {"id": "H4", "comparison": "RAW_STAGE_BETA_MATCHED vs GG_JOINT", "baseline": "GG_JOINT", "endpoint": "L4", "effect_direction": "equivalence_descriptive", "family": "P0_L4_MECHANISM", "classification": "confirmatory", "evidence_class": "V6-MECH"},
-    {"id": "H5A", "comparison": "CS_CALIBRATION_ONLY vs RAW", "baseline": "RAW", "endpoint": "L1", "effect_direction": "lower_is_better", "family": "P0_L1_DECOUPLING", "classification": "confirmatory", "evidence_class": "V6-MECH"},
-    {"id": "H5B", "comparison": "CS_ACQUISITION_ONLY vs RAW", "baseline": "RAW", "endpoint": "L4", "effect_direction": "higher_is_better", "family": "P0_L4_MECHANISM", "classification": "confirmatory", "evidence_class": "V6-MECH"},
-    {"id": "H6", "comparison": "frozen simple scaler vs frozen complex CS", "baseline": "frozen complex CS", "endpoint": "L1", "effect_direction": "noninferiority_requires_margin_freeze", "family": "P0_L1_SIMPLE_BASELINES", "classification": "secondary_until_margin_frozen", "evidence_class": "V6-MECH"},
-    {"id": "H7", "comparison": "paired L1 and L4 direction", "baseline": "RAW", "endpoint": "L1_L4_joint", "effect_direction": "descriptive_divergence", "family": "NONE_DESCRIPTIVE", "classification": "secondary", "evidence_class": "V6-MECH"}
-  ]
+    {
+      "id": "H1",
+      "comparison": "GG_CALIBRATION_ONLY vs RAW",
+      "baseline": "RAW",
+      "endpoint": "L1",
+      "effect_definition": "test minus baseline MACE",
+      "alternative": "less",
+      "family": "P0_L1_CALIBRATION_ONLY",
+      "classification": "confirmatory",
+      "evidence_class": "V6-MECH"
+    },
+    {
+      "id": "H5A",
+      "comparison": "CS_CALIBRATION_ONLY vs RAW",
+      "baseline": "RAW",
+      "endpoint": "L1",
+      "effect_definition": "test minus baseline MACE",
+      "alternative": "less",
+      "family": "P0_L1_CALIBRATION_ONLY",
+      "classification": "confirmatory",
+      "evidence_class": "V6-MECH"
+    },
+    {
+      "id": "H2A",
+      "comparison": "GG_ACQUISITION_ONLY vs RAW",
+      "baseline": "RAW",
+      "endpoint": "L4",
+      "effect_definition": "test minus baseline nAUC",
+      "alternative": "greater",
+      "family": "P0_L4_ACQUISITION_AND_JOINT",
+      "classification": "confirmatory",
+      "evidence_class": "V6-MECH"
+    },
+    {
+      "id": "H2B",
+      "comparison": "ORIGINAL_GG joint vs RAW",
+      "baseline": "RAW",
+      "endpoint": "L4",
+      "effect_definition": "test minus baseline nAUC",
+      "alternative": "greater",
+      "family": "P0_L4_ACQUISITION_AND_JOINT",
+      "classification": "confirmatory",
+      "evidence_class": "V6-MECH"
+    },
+    {
+      "id": "H5B",
+      "comparison": "CS_ACQUISITION_ONLY vs RAW",
+      "baseline": "RAW",
+      "endpoint": "L4",
+      "effect_definition": "test minus baseline nAUC",
+      "alternative": "greater",
+      "family": "P0_L4_ACQUISITION_AND_JOINT",
+      "classification": "confirmatory",
+      "evidence_class": "V6-MECH"
+    },
+    {
+      "id": "H5C",
+      "comparison": "SELECTED_CS joint vs RAW",
+      "baseline": "RAW",
+      "endpoint": "L4",
+      "effect_definition": "test minus baseline nAUC",
+      "alternative": "greater",
+      "family": "P0_L4_ACQUISITION_AND_JOINT",
+      "classification": "confirmatory",
+      "evidence_class": "V6-MECH"
+    },
+    {
+      "id": "H3",
+      "comparison": "RAW_FIXED_BETA_MATCHED vs SELECTED_GG",
+      "baseline": "SELECTED_GG",
+      "endpoint": "L4",
+      "effect_definition": "test minus baseline nAUC",
+      "alternative": "two-sided",
+      "family": "P0_L4_MATCHED_BETA_MECHANISM",
+      "classification": "confirmatory_mechanism",
+      "evidence_class": "V6-MECH"
+    },
+    {
+      "id": "H4",
+      "comparison": "RAW_STAGE_BETA_MATCHED vs SELECTED_GG",
+      "baseline": "SELECTED_GG",
+      "endpoint": "L4",
+      "effect_definition": "test minus baseline nAUC",
+      "alternative": "two-sided",
+      "family": "P0_L4_MATCHED_BETA_MECHANISM",
+      "classification": "confirmatory_mechanism",
+      "evidence_class": "V6-MECH"
+    },
+    {
+      "id": "H6A",
+      "comparison": "SCALAR_TEMPERATURE_NLL vs IDENTITY_CONTROL",
+      "baseline": "IDENTITY_CONTROL",
+      "endpoint": "L1",
+      "effect_definition": "test minus baseline MACE",
+      "alternative": "less",
+      "family": "P0_L1_SIMPLE_SCALING",
+      "classification": "confirmatory_simple_scaling",
+      "evidence_class": "V6-MECH"
+    },
+    {
+      "id": "H6B",
+      "comparison": "SCALAR_TEMPERATURE_RESIDUAL_RATIO vs IDENTITY_CONTROL",
+      "baseline": "IDENTITY_CONTROL",
+      "endpoint": "L1",
+      "effect_definition": "test minus baseline MACE",
+      "alternative": "less",
+      "family": "P0_L1_SIMPLE_SCALING",
+      "classification": "confirmatory_simple_scaling",
+      "evidence_class": "V6-MECH"
+    },
+    {
+      "id": "H6",
+      "comparison": "frozen simple scaler versus frozen complex CS",
+      "baseline": "complex CS",
+      "endpoint": "L1",
+      "effect_definition": "paired effect estimate and interval only",
+      "alternative": "none",
+      "family": "NONE_DESCRIPTIVE",
+      "classification": "descriptive_estimation_no_noninferiority_claim",
+      "binary_claim": false,
+      "evidence_class": "V6-MECH"
+    },
+    {
+      "id": "H7",
+      "comparison": "paired L1/L4 direction divergence",
+      "baseline": "RAW",
+      "endpoint": "L1_L4_joint",
+      "effect_definition": "descriptive direction table",
+      "alternative": "none",
+      "family": "NONE_DESCRIPTIVE",
+      "classification": "secondary_descriptive",
+      "evidence_class": "V6-MECH"
+    }
+  ],
+  "creation_time_utc": "2026-07-27T11:10:13.990363+00:00",
+  "git_commit": "fa4ec4888fdaf4c24dc99e5386f12d6a3a7d6693",
+  "source_hashes": {
+    "v5_authority_lock_sha256": "dc7ef6077e6c9f87c85823268bcd1774d3733a904ca2e78b33dd4a646f73b315",
+    "v5_confirmation_protocol_sha256": "0c8991c1261799336eb7a1991cb004cc9e958f274031de05a3c964a27e897c29",
+    "v6_code_tree_sha256": "0e7cf14f0653245bf1b32868efa4301ccf038233ed2690d80ce36363678e16e9"
+  },
+  "immutable_freeze_hash": "356c9658c6ab1c80faff8faa6cc7eefc3b6f839acdcc713139755eb62741b042"
 }
