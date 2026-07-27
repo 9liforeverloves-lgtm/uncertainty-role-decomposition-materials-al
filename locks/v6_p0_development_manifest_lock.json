@@ -1,14 +1,14 @@
 {
-  "created_utc": "2026-07-27T11:14:38.243146+00:00",
+  "created_utc": "2026-07-27T11:26:57.084722+00:00",
   "development_seed_range": [
     6000,
     6009
   ],
   "execution_boundary": "development only; no confirmation execution capability",
-  "execution_run_id": "rerun_after_seedsequence_fix",
-  "git_commit_before_stage_2_5_commit": "eba8d544bf84cdd01066d323662739155ed55e39",
-  "immutable_lock_sha256": "ef0607d55cd9f326abed7165f1c7ce1a681540b1a248e5c4f17353c23e1a0866",
-  "lock_revision": 2,
+  "execution_run_id": "rerun_after_calibration_mapping_fix",
+  "git_commit_before_stage_2_5_commit": "287c8bccb7f354d75d56fbef89dc5f7b61b6d29b",
+  "immutable_lock_sha256": "a4fb9cfa0aa848975329f83f5560e10c89586c434c019da2e93a03ba4c3354dd",
+  "lock_revision": 3,
   "manifest_job_count": 360,
   "manifest_path": "manifests/v6_p0_development_manifest.csv",
   "manifest_sha256": "d862b85f615b8d4525d9d580f00490b1d869adc097c96ac32ea5cae0f9e7b1fc",
@@ -19,9 +19,9 @@
   "schema_version": "v6-p0-development-manifest-lock-v1",
   "seed_collision_check": "passed_exactly_6000_6009",
   "status": "PRE_DEVELOPMENT_LOCK_REISSUED_AFTER_RECORDED_CANARY_FAILURE",
-  "superseded_lock_path": "locks/v6_p0_development_manifest_lock_superseded_a3bef9c4b87d.json",
-  "supersedes_immutable_lock_sha256": "a3bef9c4b87df895ee511b0a3bf9c1ea8834ee5fb5b556a3cd26a5b81d6f7164",
-  "supersession_reason": "Recorded P0 canary failure: V6 initial model SeedSequence used negative round key; corrected to canonical round-0 key before any model checkpoint write.",
+  "superseded_lock_path": "locks/v6_p0_development_manifest_lock_superseded_ef0607d55cd9.json",
+  "supersedes_immutable_lock_sha256": "ef0607d55cd9f326abed7165f1c7ce1a681540b1a248e5c4f17353c23e1a0866",
+  "supersession_reason": "Recorded P0 calibration-replay failure: equivalent-DoF controls were registered calibration-only but their production acquisition map was scaled_sigma; corrected to exact RAW acquisition before execution.",
   "v5_authority_lock": {
     "checked_files": 18,
     "checks": [
@@ -143,5 +143,5 @@
     "observed_overall_sha256": "09ce0e42bdf173b455e65165748a2653e8681fae207c2d4aa9b3d568b1aa6e08",
     "source_hashes_match": true
   },
-  "v6_code_tree_sha256": "fdf751726c8eb0e2f29bc301be508154488a21a315e2a9d61aa4fedea430fdb9"
+  "v6_code_tree_sha256": "09a64f0eadf0b40f458a6c7c08965c07d5a1266454ba3d35dc3bccdbec5467bd"
 }
