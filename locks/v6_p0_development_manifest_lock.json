@@ -1,14 +1,14 @@
 {
-  "created_utc": "2026-07-27T11:55:19.104334+00:00",
+  "created_utc": "2026-07-27T11:57:21.627138+00:00",
   "development_seed_range": [
     6000,
     6009
   ],
   "execution_boundary": "development only; no confirmation execution capability",
-  "execution_run_id": "rerun_after_matched_beta_fix",
-  "git_commit_before_stage_2_5_commit": "c096a454a5ea3029fbdaba3057f9ce38c56b49d6",
-  "immutable_lock_sha256": "3ae582ce4b8ae249a949c457c30dfaefe5b9c713c5cd606d2f8a21073e0e9ed2",
-  "lock_revision": 5,
+  "execution_run_id": "recovered_base_then_matched_beta_retry",
+  "git_commit_before_stage_2_5_commit": "ade26c790d9cc9a675424fc838e7cfecc4549325",
+  "immutable_lock_sha256": "4213e6a702b8e90f78c247296a42c2e4950eec590a8e34832a0d05cfdc11b973",
+  "lock_revision": 6,
   "manifest_job_count": 360,
   "manifest_path": "manifests/v6_p0_development_manifest.csv",
   "manifest_sha256": "d862b85f615b8d4525d9d580f00490b1d869adc097c96ac32ea5cae0f9e7b1fc",
@@ -16,12 +16,13 @@
     "matbench_expt_gap__iid_record__random_forest",
     "matbench_expt_gap__chemical_system_ood__random_forest"
   ],
+  "reuse_verified_base_from_run_id": "rerun_after_simple_scaler_mapping_fix",
   "schema_version": "v6-p0-development-manifest-lock-v1",
   "seed_collision_check": "passed_exactly_6000_6009",
   "status": "PRE_DEVELOPMENT_LOCK_REISSUED_AFTER_RECORDED_CANARY_FAILURE",
-  "superseded_lock_path": "locks/v6_p0_development_manifest_lock_superseded_a9c4b568069d.json",
-  "supersedes_immutable_lock_sha256": "a9c4b568069d27799f70cd3882990cc22c8b6bc7029ced4a911a69f1f9c29e4d",
-  "supersession_reason": "Recorded P0 post-selection failure: RAW_FIXED_BETA_MATCHED and RAW_STAGE_BETA_MATCHED were registered but omitted from the production identity-scale dispatch; added explicit RAW identity dispatch.",
+  "superseded_lock_path": "locks/v6_p0_development_manifest_lock_superseded_3ae582ce4b8a.json",
+  "supersedes_immutable_lock_sha256": "3ae582ce4b8ae249a949c457c30dfaefe5b9c713c5cd606d2f8a21073e0e9ed2",
+  "supersession_reason": "Verified recovery: 300 completed base P0 artifacts from rerun_after_simple_scaler_mapping_fix have matching registry and trajectory hashes; reuse them unchanged and rerun only the matched-beta post-selection jobs after dispatch fix.",
   "v5_authority_lock": {
     "checked_files": 18,
     "checks": [
@@ -143,5 +144,5 @@
     "observed_overall_sha256": "09ce0e42bdf173b455e65165748a2653e8681fae207c2d4aa9b3d568b1aa6e08",
     "source_hashes_match": true
   },
-  "v6_code_tree_sha256": "9dc9f9b995678f847bc710dd79c2ecbb02a29c381d86d1fe31df9f308ed96b55"
+  "v6_code_tree_sha256": "3295b351fc74b4df63a5ae3b43d9e41cbf51139b7c45a4e073edd1c0bd489ae0"
 }
