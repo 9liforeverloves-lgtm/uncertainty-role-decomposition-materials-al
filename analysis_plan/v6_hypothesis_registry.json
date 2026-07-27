@@ -139,12 +139,12 @@
       "evidence_class": "V6-MECH"
     }
   ],
-  "creation_time_utc": "2026-07-27T11:38:45.728981+00:00",
-  "git_commit": "c95a8aefd06487f610298691587eab37d352cfea",
+  "creation_time_utc": "2026-07-27T11:54:59.775464+00:00",
+  "git_commit": "fd39c399e72979e99d3c90beb0800bcdd8555929",
   "source_hashes": {
     "v5_authority_lock_sha256": "dc7ef6077e6c9f87c85823268bcd1774d3733a904ca2e78b33dd4a646f73b315",
     "v5_confirmation_protocol_sha256": "0c8991c1261799336eb7a1991cb004cc9e958f274031de05a3c964a27e897c29",
-    "v6_code_tree_sha256": "f45c7f9f5fdf3d8f3f6abb3648799902cc9570b300344d6ade320e89f183ed24"
+    "v6_code_tree_sha256": "9dc9f9b995678f847bc710dd79c2ecbb02a29c381d86d1fe31df9f308ed96b55"
   },
-  "immutable_freeze_hash": "3ba2fe446ef9099c2c3189051565c661b7f7d5ff25ab83cc1432fff96f95ba94"
+  "immutable_freeze_hash": "60f14916853c5c5932280ea2a8f1d78ff1c7f398360dae467a7863521fd6a230"
 }

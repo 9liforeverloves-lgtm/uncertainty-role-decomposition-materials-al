@@ -204,7 +204,7 @@ def fit_and_apply_production_scale(
             fit_metadata=metadata,
         )
 
-    if spec.id in {"RAW", "IDENTITY_CONTROL"}:
+    if spec.id in {"RAW", "IDENTITY_CONTROL", "RAW_FIXED_BETA_MATCHED", "RAW_STAGE_BETA_MATCHED"}:
         return identity("identity")
     if len(residual) < spec.min_oob:
         return identity("identity_insufficient_oob")
