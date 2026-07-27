@@ -18,6 +18,6 @@ Read-only RAW replay: `matbench_expt_gap__iid_record__random_forest__raw_ucb_bet
 - L1 campaign MACE (reference/replay): `0.047794516829533097` / `0.047794516829533097`
 - L4 top-1% recall nAUC (reference/replay): `0.46726190476190477` / `0.46726190476190477`
 - Logical trajectory hash: `a3638b035dbd1624933eb851ebe702f3583bc61bd7b610d949c22077816ac20c`
-- Temporary V6-owned replay output: `E:\贝叶斯优化\.tmp_stage25_raw_replay_report\matbench_expt_gap__iid_record__random_forest__raw_ucb_beta_1__seed5000`
+- Temporary V6-owned replay output: `.tmp_stage25_raw_replay_final_reports_78_relative/matbench_expt_gap__iid_record__random_forest__raw_ucb_beta_1__seed5000`
 
 V5-RC1 was read only and was not modified.

@@ -4,7 +4,7 @@
     6000,
     6009
   ],
-  "draft_selection_map_sha256": "0f1d4359e582d72e096fc9aa20f23151c8375f4724014bfc451d34c9fc461c02",
+  "draft_selection_map_sha256": "c1f5494819bca24f5a3405caa1fe6178f06e4fa19143b0b2599bf0c1c49354be",
   "manifest_sha256": "d862b85f615b8d4525d9d580f00490b1d869adc097c96ac32ea5cae0f9e7b1fc",
   "schema_version": "v6-selection-map-draft-v2",
   "selection": {
@@ -126,9 +126,9 @@
   },
   "source_hashes": {
     "v5_authority_lock_sha256": "dc7ef6077e6c9f87c85823268bcd1774d3733a904ca2e78b33dd4a646f73b315",
-    "v6_code_tree_sha256": "f45c7f9f5fdf3d8f3f6abb3648799902cc9570b300344d6ade320e89f183ed24"
+    "v6_code_tree_sha256": "3295b351fc74b4df63a5ae3b43d9e41cbf51139b7c45a4e073edd1c0bd489ae0"
   },
-  "status": "DRAFT_BETA_MAP_READY_P0_POST_SELECTION_PENDING",
+  "status": "DRAFT_P0_DEVELOPMENT_ANALYSIS_COMPLETE_NOT_CONFIRMATION_FROZEN",
   "unresolved": [
     "DRAFT only: no confirmation selection map has been frozen.",
     "P0 sentinel coverage does not establish transfer to the remaining V5 task/model universe."
