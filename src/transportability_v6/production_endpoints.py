@@ -28,7 +28,11 @@ def campaign_mace(
         if label not in checkpoint_rounds:
             raise ValueError(f"missing checkpoint definition: {label}")
         row = int(checkpoint_rounds[label])
-        if row < 0 or row >= len(diagnostic_metrics):
+        # The frozen V5 runner records no separate initial-state diagnostic
+        # row.  Its historical L1 implementation indexes ``iloc[-1]`` for
+        # the initial checkpoint, so preserve that execution-semantic detail
+        # for canonical compatibility while still rejecting arbitrary bounds.
+        if row < -len(diagnostic_metrics) or row >= len(diagnostic_metrics):
             raise ValueError(f"checkpoint round is invalid for {label}")
         value = float(diagnostic_metrics.iloc[row]["mean_absolute_coverage_error"])
         if not np.isfinite(value):
@@ -93,4 +97,3 @@ def diagnostic_quality(
     """Call the canonical V5 four-coverage calibration evaluator."""
 
     return dict((adapter or CanonicalV5Adapter()).modules["layers"].uncertainty_quality(y, mu, sigma, floor))
-

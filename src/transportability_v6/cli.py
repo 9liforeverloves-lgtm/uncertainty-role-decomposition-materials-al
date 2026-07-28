@@ -18,6 +18,12 @@ from .development import (
     reissue_p0_manifest_lock,
     selection_stability_summary,
 )
+from .broad_development import (
+    create_broad_development_design,
+    execute_broad_development,
+    issue_final_broad_lock,
+    run_broad_canary,
+)
 
 
 WORKSPACE = Path(__file__).resolve().parents[2]
@@ -208,6 +214,20 @@ def main() -> None:
     p0_run.add_argument("--workspace", default=str(WORKSPACE))
     p0_stability = subparsers.add_parser("p0-selection-stability", help="write the descriptive P0 selection-stability summary")
     p0_stability.add_argument("--workspace", default=str(WORKSPACE))
+    broad_design = subparsers.add_parser("p0-broad-design", help="write the prospective broad-development plan and manifest only")
+    broad_design.add_argument("--workspace", default=str(WORKSPACE))
+    broad_canary = subparsers.add_parser("p0-broad-canary", help="run the out-of-range broad-development engineering canary only")
+    broad_canary.add_argument("--workspace", default=str(WORKSPACE))
+    broad_lock = subparsers.add_parser("p0-broad-lock", help="issue the one final broad-development lock after a passing canary")
+    broad_lock.add_argument("--workspace", default=str(WORKSPACE))
+    broad_run = subparsers.add_parser("p0-broad-run", help="execute only the final locked broad-development manifest")
+    broad_run.add_argument("--workspace", default=str(WORKSPACE))
+    broad_run.add_argument("--workers", type=int, default=2, help="isolated process workers for the locked broad run")
+    broad_run.add_argument(
+        "--recover-stale-after-seconds",
+        type=int,
+        help="explicitly recover only RUNNING jobs older than this threshold; preserves the final lock",
+    )
     args = parser.parse_args()
     if args.command == "smoke":
         print(json.dumps(run_smoke(args.manifest), indent=2))
@@ -221,6 +241,23 @@ def main() -> None:
         print(json.dumps(execute_p0_development(workspace=args.workspace), indent=2))
     elif args.command == "p0-selection-stability":
         print(json.dumps(selection_stability_summary(workspace=args.workspace), indent=2))
+    elif args.command == "p0-broad-design":
+        print(json.dumps(create_broad_development_design(workspace=args.workspace), indent=2))
+    elif args.command == "p0-broad-canary":
+        print(json.dumps(run_broad_canary(workspace=args.workspace), indent=2))
+    elif args.command == "p0-broad-lock":
+        print(json.dumps(issue_final_broad_lock(workspace=args.workspace), indent=2))
+    elif args.command == "p0-broad-run":
+        print(
+            json.dumps(
+                execute_broad_development(
+                    workspace=args.workspace,
+                    workers=args.workers,
+                    recover_stale_after_seconds=args.recover_stale_after_seconds,
+                ),
+                indent=2,
+            )
+        )
 
 
 if __name__ == "__main__":

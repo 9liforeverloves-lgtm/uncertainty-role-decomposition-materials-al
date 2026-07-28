@@ -1,0 +1,23 @@
+{
+  "columns": [
+    "job_id",
+    "final_status",
+    "final_output_path",
+    "final_output_sha256",
+    "reuse_class",
+    "source_run_id",
+    "source_status",
+    "source_output_path",
+    "source_output_sha256",
+    "source_final_hash_match"
+  ],
+  "evidence_class": "V6-P0-SENTINEL-DEVELOPMENT",
+  "final_sentinel_lock_sha256": "4213e6a702b8e90f78c247296a42c2e4950eec590a8e34832a0d05cfdc11b973",
+  "row_count": 360,
+  "schema_version": "v6-p0-sentinel-compact-table-lock-v1",
+  "source_v6_code_tree_sha256": "3295b351fc74b4df63a5ae3b43d9e41cbf51139b7c45a4e073edd1c0bd489ae0",
+  "status": "V6_P0_SENTINEL_DEVELOPMENT_COMPACT_TABLE_LOCKED",
+  "table_lock_sha256": "70807db9c3e145913aada5d08b5261cecb4b0e7c472f1174be168e7848e12e99",
+  "table_path": "tables/v6_p0_sentinel_recovery_hash_inventory.csv",
+  "table_sha256": "061aba363c403995f1c174b949b0e7f07d1ddafdf042655871777942d6f6f023"
+}

@@ -53,17 +53,19 @@ def main() -> None:
         reports / "04_p0_development_execution.md",
         f"""# P0 development execution
 
-Status: **COMPLETED - development only**. The locked manifest `{summary['manifest_sha256']}` planned {summary['planned']} jobs and the final registry records {summary['completed']} completed, {summary['failed']} failed, and {summary['excluded']} excluded jobs.
+Status: **V6-P0-SENTINEL-DEVELOPMENT, completed development-only**. The locked manifest `{summary['manifest_sha256']}` planned {summary['planned']} jobs and the final registry records {summary['completed']} completed, {summary['failed']} failed, and {summary['excluded']} excluded jobs.
 
 - Final execution root: `{summary['execution_run_root']}`
 - Required final snapshot: `{summary['registry_snapshot']}`
-- Environments: IID-record and chemical-system-OOD `matbench_expt_gap`, Random Forest only.
-- Seeds: the registered ten development seeds only.
+- Scope: `matbench_expt_gap` only; IID-record and chemical-system group-disjoint splits; Random Forest only.
+- Seeds: 6000–6009 only.
+- Inferential status: development-only and non-confirmatory; this sentinel cohort is not transferable to all 16 V5 environments.
+- The accepted DRAFT remains unchanged at `analysis_plan/v6_selection_map_SENTINEL_DRAFT.json`; it is not a confirmation selection map.
 - No confirmation manifest was created and no confirmation job was run.
 
 ## Recovery audit
 
-Three pre-final canary runs exposed deterministic engineering defects before a final result was accepted: a negative SeedSequence round key, calibration-only strategies inheriting a scaled acquisition map, and omitted matched-beta identity dispatch. Their registries and superseded locks remain on disk. The final run used verified recovery: all 300 completed base artifacts from `rerun_after_simple_scaler_mapping_fix` had matching registry and trace hashes before copying into the final run ledger; only the 60 matched-beta paths were recomputed.
+Five superseded prospective locks recorded deterministic engineering defects or a recovery transition before the final executed development lock was accepted: a negative SeedSequence round key, calibration-only acquisition-map mismatches, omitted matched-beta identity dispatch, and the final verified-recovery handoff. Their registries and lock lineage remain on disk. The final run used verified recovery: all 300 completed base artifacts from `rerun_after_simple_scaler_mapping_fix` had matching registry and trace hashes before copying into the final run ledger; only the 60 matched-beta paths were recomputed.
 
 - Source recovery-run registry counts: `{recovered_counts}`
 - Final registry counts: `{final_counts}`
@@ -78,7 +80,7 @@ This is an execution/recovery record, not inferential evidence.
         reports / "04a_p0_selection_stability.md",
         f"""# P0 selection stability
 
-Status: **DRAFT, descriptive development-only**. No confirmation selection map has been frozen.
+Status: **sentinel DRAFT, descriptive development-only**. No confirmation selection map has been frozen; this two-environment expt-gap result cannot define a full-universe policy.
 
 ## Matched-beta map
 
@@ -89,13 +91,13 @@ Status: **DRAFT, descriptive development-only**. No confirmation selection map h
 
 ## Simple-scaling draft selection
 
-The predeclared environment-balanced median L1 rule selected `{simple['selected_strategy_draft']}`. Development summaries were `{simple['environment_balanced_median_l1']}`. Leave-one-seed-out winner counts were `{winner_counts}`.
+The sentinel descriptive minimum was `{simple['selected_strategy_draft']}`. Development summaries were `{simple['environment_balanced_median_l1']}`. Leave-one-seed-out winner counts were `{winner_counts}`. Identity remains a negative implementation control, not a scaling winner; residual-ratio remains the candidate simple non-identity scalar baseline, and NLL remains the prespecified mechanistic scalar baseline. No post-hoc winner selection across all simple scalers is made from these sentinel outcomes.
 
 ## Scope limits
 
-The result is limited to the two declared expt-gap sentinel environments and ten development seeds. It is suitable only to form a DRAFT selection map. The 40-pair completeness gate, multiplicity-adjusted confirmation inference, confirmation manifest, and all P1 work remain deliberately unperformed.
+The result is limited to the two declared expt-gap sentinel environments and ten development seeds. It is suitable only to form the archived sentinel DRAFT, not a confirmation policy. The 40-pair completeness gate, multiplicity-adjusted confirmation inference, confirmation manifest, and all P1 work remain deliberately unperformed.
 
-DRAFT map: `analysis_plan/v6_selection_map_DRAFT.json` (hash `{selection['draft_selection_map_sha256']}`).
+DRAFT map: `analysis_plan/v6_selection_map_SENTINEL_DRAFT.json` (byte-identical archive; hash `{selection['draft_selection_map_sha256']}`).
 """,
     )
 

@@ -154,6 +154,60 @@ class DurableCheckpointStore:
         os.replace(temporary_metadata, metadata)
         return "committed"
 
+    def write_model(
+        self,
+        label: str,
+        model: Any,
+        identity: dict[str, Any],
+        *,
+        realized_progress: float = 0.0,
+        acquisition_round: int = -1,
+        queried_count: int = 0,
+        crash_at: str | None = None,
+    ) -> str:
+        """Commit a model checkpoint through the frozen V5 file serializer.
+
+        V5 calls ``model.save_state(path)`` rather than serializing to an
+        in-memory stream.  That distinction is byte-visible for the
+        ExtraTrees-compatible Bagging surrogate, so production checkpoints
+        must use the same file path mechanism when their hashes are part of a
+        historical compatibility assertion.
+        """
+
+        final, metadata, temporary, temporary_metadata = self._paths(label)
+        if final.exists() or metadata.exists():
+            if not (final.exists() and metadata.exists()):
+                raise RuntimeError(f"partial committed checkpoint exists for {label}")
+            old = json.loads(metadata.read_text(encoding="utf-8"))
+            if old.get("model_state_hash") != sha256_file(final):
+                raise RuntimeError(f"checkpoint hash mismatch for {label}")
+            for key in ("protocol_sha256", "run_config_sha256", "job_id"):
+                if old.get(key) != identity.get(key):
+                    raise RuntimeError(f"checkpoint identity mismatch for {label}: {key}")
+            return "existing_identical"
+        if not callable(getattr(model, "save_state", None)):
+            raise TypeError("canonical checkpoint model lacks save_state")
+        if crash_at == "before_model_checkpoint_write":
+            raise CrashInjected("before_model_checkpoint_write")
+        model.save_state(temporary)
+        new_hash = sha256_file(temporary)
+        document = self._metadata(
+            label,
+            temporary,
+            identity,
+            realized_progress=realized_progress,
+            acquisition_round=acquisition_round,
+            queried_count=queried_count,
+        )
+        if document["model_state_hash"] != new_hash:
+            raise RuntimeError("temporary checkpoint hash mismatch")
+        temporary_metadata.write_text(json.dumps(document, indent=2, sort_keys=True), encoding="utf-8")
+        if crash_at == "after_temporary_write_before_rename":
+            raise CrashInjected("after_temporary_write_before_rename")
+        os.replace(temporary, final)
+        os.replace(temporary_metadata, metadata)
+        return "committed"
+
     def recover(self, identity: dict[str, Any]) -> list[str]:
         """Promote valid temporary payloads and discard only superseded temporary files."""
 

@@ -1,0 +1,6 @@
+cohort,strategy,environment_count,seed_count,nominal_beta,fitted_scale_environment_balanced_median,effective_beta_environment_balanced_median,aggregation
+V5 frozen full universe,Original GG,16,40,1,3.0141121699142275,3.0141121699142275,"median within each of 16 task/split/model environments, then median across environments"
+V6 historical adapter paired V5 seed-5000 audit,Original GG,16,1,1,2.9816780405987773,2.9816780405987773,"one per environment median over retained active rounds, then median across 16 environments"
+V6-P0-SENTINEL-DEVELOPMENT pre-correction aligned-OOB artifact,Original GG label retained for provenance only,2,10,1,0.94214015194137402,0.94214015194137402,"median within the two expt-gap/RF environments, then median across those environments"
+V5 frozen full universe,Selected GG,16,40,0.5,2.721374058711993,1.3606870293559965,"median within each of 16 task/split/model environments, then median across environments"
+V6 historical adapter paired V5 seed-5000 audit,Selected GG,16,1,0.5,2.6919878567172568,1.3459939283586284,"one per environment median over retained active rounds, then median across 16 environments"

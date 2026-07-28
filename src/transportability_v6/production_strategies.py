@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+from contextlib import contextmanager
 from dataclasses import dataclass
+from threading import RLock
 from typing import Any
 
 import numpy as np
@@ -74,11 +76,11 @@ PRODUCTION_STRATEGIES = {
         _spec("RAW_FIXED_BETA_MATCHED", fitting_data="development-only Original GG effective-beta summaries", min_oob=0, fallback="block_if_selection_map_missing", bounds=None, acquisition="raw_sigma", evaluation="raw_gaussian_sigma", parameters=0, objective="fixed development-matched beta"),
         _spec("RAW_STAGE_BETA_MATCHED", fitting_data="development-only Original GG effective-beta summaries by frozen budget stage", min_oob=0, fallback="block_if_selection_map_missing", bounds=None, acquisition="raw_sigma", evaluation="raw_gaussian_sigma", parameters=0, objective="stagewise development-matched beta"),
         _spec("ORIGINAL_GG", min_oob=8, bounds=None, objective="V5 Gaussian-consistent median residual-ratio"),
-        _spec("SELECTED_GG", min_oob=8, bounds=None, objective="V5 Gaussian-global scaler with development-selected beta"),
+        _spec("SELECTED_GG", min_oob=8, bounds=None, evaluation="raw_gaussian_sigma", objective="V5 Gaussian-global selected-beta acquisition with raw diagnostic sigma"),
         _spec("GG_CALIBRATION_ONLY", min_oob=8, bounds=None, acquisition="raw_sigma", objective="V5 Gaussian-global calibration; exact RAW acquisition"),
         _spec("GG_ACQUISITION_ONLY", min_oob=8, bounds=None, evaluation="raw_gaussian_sigma", objective="V5 Gaussian-global acquisition; raw evaluation"),
-        _spec("HISTORICAL_CS", min_oob=3, bounds=(0.25, 4.0), parameters=7, objective="V5 six-feature pairwise candidate-specific ranking"),
-        _spec("SELECTED_CS", min_oob=10, bounds=(0.25, 4.0), parameters=2, objective="V5 parsimonious F1 pairwise candidate-specific ranking"),
+        _spec("HISTORICAL_CS", min_oob=3, bounds=(0.25, 4.0), evaluation="raw_gaussian_sigma", parameters=7, objective="V5 six-feature pairwise candidate-specific ranking; raw diagnostic sigma"),
+        _spec("SELECTED_CS", min_oob=10, bounds=(0.25, 4.0), evaluation="raw_gaussian_sigma", parameters=2, objective="V5 parsimonious F1 pairwise candidate-specific ranking; raw diagnostic sigma"),
         _spec("CS_CALIBRATION_ONLY", min_oob=10, bounds=(0.25, 4.0), acquisition="raw_sigma", parameters=2, objective="V5 selected CS calibration; exact RAW acquisition"),
         _spec("CS_ACQUISITION_ONLY", min_oob=10, bounds=(0.25, 4.0), evaluation="raw_gaussian_sigma", parameters=2, objective="V5 selected CS acquisition; raw evaluation"),
         _spec("SCALAR_TEMPERATURE_NLL", min_oob=3, bounds=(0.05, 20.0), acquisition="raw_sigma", parameters=1, objective="Gaussian OOB NLL; calibration-only simple scaler"),
@@ -91,6 +93,166 @@ PRODUCTION_STRATEGIES = {
         _spec("HISTORICAL_CS_EQUIVALENT_DOF_CONTROL", min_oob=20, bounds=(0.25, 4.0), acquisition="raw_sigma", parameters=7, objective="OOB ridge intercept plus six V5 local features; calibration-only control"),
     )
 }
+
+
+# Frozen V5 GG/CS trajectories passed ``y[queried]`` to their OOB fitting
+# functions after the surrogate had sorted training records by stable ID.  The
+# ordering is therefore part of the historical strategy identity, even though
+# it is not a statistically desirable residual pairing.  Preserve it only for
+# named V5-derived strategies; new scalar and conformal methods use aligned
+# OOB targets.
+V5_LEGACY_OOB_ORDER_STRATEGIES = frozenset(
+    {
+        "ORIGINAL_GG",
+        "SELECTED_GG",
+        "GG_CALIBRATION_ONLY",
+        "GG_ACQUISITION_ONLY",
+        "HISTORICAL_CS",
+        "SELECTED_CS",
+        "CS_CALIBRATION_ONLY",
+        "CS_ACQUISITION_ONLY",
+    }
+)
+
+
+# The frozen V5 implementation performs an independent stable sort of the
+# same valid OOB ratios for every candidate.  Candidate-specific calibration
+# can therefore become dominated by repeated sorting rather than its frozen
+# V5 objective.  The helper below preserves V5's arithmetic and calls its
+# optimizer unchanged; it only reuses the one globally stable ordering that
+# V5 would obtain after masking each candidate's nonzero leaf-proximity rows.
+#
+# The V5 strategy module is process-global, so installing the temporary helper
+# is protected by a re-entrant lock and restored in ``finally``.  Every use is
+# validated against the unmodified V5 path before a production campaign is
+# permitted to rely on it (see the dedicated validation script).
+_V5_LOCAL_FEATURE_PATCH_LOCK = RLock()
+_V5_LOCAL_FEATURE_BLOCK_SIZE = 128
+
+
+def _make_exact_v5_local_feature_accelerator(v5: Any):
+    """Return a byte-for-byte arithmetic equivalent of V5 ``_local_features``.
+
+    It retains V5's descriptor-distance and rank transforms.  For a fixed
+    ``ratios``/``valid`` pair, a stable global ratio order is equivalent to
+    V5's per-candidate stable sort because each candidate mask only removes
+    rows.  The sums, cumulative sums, and weighted average are still evaluated
+    in precisely that V5 sorted order.
+    """
+
+    reference_cache: dict[tuple[int, int, int, int], tuple[np.ndarray, np.ndarray]] = {}
+
+    def accelerated_local_features(
+        model: Any,
+        Xref: np.ndarray,
+        ratios: np.ndarray,
+        valid: np.ndarray,
+        Xq: np.ndarray,
+        raw_std: np.ndarray,
+        mean: np.ndarray,
+        training: bool = False,
+    ) -> np.ndarray:
+        key = (id(model), id(Xref), id(ratios), id(valid))
+        cached = reference_cache.get(key)
+        if cached is None:
+            reference_leaf = np.asarray(model.leaf_or_local_representation(Xref))
+            ratios_array = np.asarray(ratios, float)
+            valid_array = np.asarray(valid, bool)
+            stable_valid_rows = np.flatnonzero(valid_array)
+            # ``kind='stable'`` retains V5's original-row tie resolution.
+            stable_valid_rows = stable_valid_rows[
+                np.argsort(ratios_array[stable_valid_rows], kind="stable")
+            ]
+            cached = (reference_leaf, stable_valid_rows)
+            reference_cache[key] = cached
+        reference_leaf, stable_valid_rows = cached
+        ratios_array = np.asarray(ratios, float)
+        query_leaf = np.asarray(model.leaf_or_local_representation(Xq))
+
+        local = np.ones(len(Xq))
+        dispersion = np.zeros(len(Xq))
+        density = np.zeros(len(Xq))
+        for start in range(0, len(Xq), _V5_LOCAL_FEATURE_BLOCK_SIZE):
+            stop = min(start + _V5_LOCAL_FEATURE_BLOCK_SIZE, len(Xq))
+            # This evaluates exactly V5's ``mean(ref_leaf == q_leaf[row])``
+            # for each row, while moving the independent rows into one NumPy
+            # operation.  The per-row scalar reductions below retain V5's
+            # original arithmetic sequence.
+            proximity_block = np.mean(
+                reference_leaf[None, :, :] == query_leaf[start:stop, None, :], axis=2
+            )
+            for offset, proximity in enumerate(proximity_block):
+                row = start + offset
+                rows = stable_valid_rows[proximity[stable_valid_rows] > 0]
+                # V5 removes the matching row only for training features.
+                if training and row < len(proximity):
+                    rows = rows[rows != row]
+                if len(rows):
+                    weights = proximity[rows] ** 2
+                    values = ratios_array[rows]
+                    local[row] = values[np.searchsorted(np.cumsum(weights), 0.5 * weights.sum())]
+                    dispersion[row] = np.average(np.abs(values - local[row]), weights=weights)
+                    density[row] = weights.sum()
+        knn = v5._descriptor_distance(Xref, Xq, training=training)
+        percentile = v5.rankdata(mean, method="average") / max(1, len(mean))
+        return np.column_stack(
+            [
+                np.log(np.maximum(raw_std, 1e-12)),
+                np.log1p(density),
+                np.log1p(knn),
+                percentile,
+                np.log(np.maximum(local, 1e-12)),
+                np.log1p(dispersion),
+            ]
+        )
+
+    return accelerated_local_features
+
+
+@contextmanager
+def _exact_v5_local_feature_acceleration(v5: Any):
+    """Temporarily accelerate only V5's deterministic local-feature helper."""
+
+    with _V5_LOCAL_FEATURE_PATCH_LOCK:
+        original = v5._local_features
+        v5._local_features = _make_exact_v5_local_feature_accelerator(v5)
+        try:
+            yield
+        finally:
+            v5._local_features = original
+
+
+def _candidate_specific_scale_with_exact_v5_local_features(
+    v5: Any,
+    model: Any,
+    oob_mean: np.ndarray,
+    oob_sigma: np.ndarray,
+    counts: np.ndarray,
+    oob_targets: np.ndarray,
+    X_query: np.ndarray,
+    query_mean: np.ndarray,
+    query_raw_sigma: np.ndarray,
+    seed: int,
+    config: dict[str, Any],
+    floor: float,
+) -> tuple[np.ndarray, str]:
+    """Run the frozen V5 CS optimizer with its exact accelerated helper."""
+
+    with _exact_v5_local_feature_acceleration(v5):
+        scale, status = v5.candidate_specific_scale(
+            model,
+            oob_mean,
+            oob_sigma,
+            counts,
+            oob_targets,
+            X_query,
+            query_mean,
+            query_raw_sigma,
+            int(seed),
+            config,
+            floor,
+        )
+    return np.asarray(scale, float), str(status)
 
 
 @dataclass
@@ -108,7 +270,13 @@ class AppliedProductionScale:
     fit_metadata: dict[str, Any] | None = None
 
 
-def _valid_oob(model: Any, floor: float, min_count: int) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+def _valid_oob(
+    model: Any,
+    floor: float,
+    min_count: int,
+    *,
+    target_values: np.ndarray | None = None,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     mean, sigma, count = model.oob_or_crossfit_predict_mean_std()
     mean = np.asarray(mean, float)
     sigma = np.asarray(sigma, float)
@@ -120,7 +288,10 @@ def _valid_oob(model: Any, floor: float, min_count: int) -> tuple[np.ndarray, np
         raise ValueError("canonical OOB sigma contains a negative value")
     effective = np.full_like(sigma, np.nan)
     effective[valid] = np.maximum(sigma[valid], floor)
-    residual = model.y_train_[valid] - mean[valid]
+    target = model.y_train_ if target_values is None else np.asarray(target_values, float)
+    if target.shape != model.y_train_.shape or not np.isfinite(target).all():
+        raise ValueError("OOB target values must be finite and match the trained-record count")
+    residual = target[valid] - mean[valid]
     return mean, sigma, count, valid, residual
 
 
@@ -179,6 +350,7 @@ def fit_and_apply_production_scale(
     diagnostic_raw_sigma: np.ndarray | None = None,
     seed: int,
     floor: float = 1e-8,
+    oob_target_values: np.ndarray | None = None,
 ) -> AppliedProductionScale:
     """Fit only on model OOB records and map to query/diagnostic predictions."""
 
@@ -189,9 +361,22 @@ def fit_and_apply_production_scale(
         _, diagnostic_effective, _ = validate_sigma(diagnostic_raw_sigma, floor=floor, name="diagnostic raw sigma")
     else:
         diagnostic_effective = None
-    oob_mean, oob_sigma, counts, valid, residual = _valid_oob(model, floor, spec.min_oob)
+    legacy_order = spec.id in V5_LEGACY_OOB_ORDER_STRATEGIES
+    if legacy_order and oob_target_values is None:
+        raise ValueError("V5-derived strategy requires the ordered queried targets used for OOB fitting")
+    oob_targets = np.asarray(oob_target_values, float) if legacy_order else model.y_train_
+    oob_mean, oob_sigma, counts, valid, residual = _valid_oob(
+        model,
+        floor,
+        spec.min_oob,
+        target_values=oob_targets,
+    )
     valid_sigma = np.maximum(oob_sigma[valid], floor)
-    metadata: dict[str, Any] = {"valid_oob_count": int(valid.sum()), "min_oob_trees": int(spec.min_oob)}
+    metadata: dict[str, Any] = {
+        "valid_oob_count": int(valid.sum()),
+        "min_oob_trees": int(spec.min_oob),
+        "oob_residual_target_order": "v5_queried_order" if legacy_order else "aligned_model_training_order",
+    }
 
     def identity(status: str) -> AppliedProductionScale:
         return AppliedProductionScale(
@@ -213,20 +398,24 @@ def fit_and_apply_production_scale(
         scalar_scale, status = adapter.modules["strategies"].gaussian_global_scale(
             oob_mean,
             oob_sigma,
-            model.y_train_,
+            oob_targets,
             counts,
             spec.min_oob,
             floor,
         )
         scalar_scale = float(scalar_scale)
         scale = _ensure_positive(np.full(len(query_effective), scalar_scale), "global scale")
-        diagnostic_scale = (
-            None
-            if diagnostic_effective is None
-            else _ensure_positive(
+        if diagnostic_effective is None:
+            diagnostic_scale = None
+        elif spec.evaluation_mapping == "raw_gaussian_sigma":
+            # The frozen selected-beta GG label is absent from V5's
+            # diagnostic-scaling allowlist: it scales acquisition, while its
+            # retained diagnostic metric is evaluated on raw effective sigma.
+            diagnostic_scale = np.ones(len(diagnostic_effective))
+        else:
+            diagnostic_scale = _ensure_positive(
                 np.full(len(diagnostic_effective), scalar_scale), "global diagnostic scale"
             )
-        )
         return AppliedProductionScale(
             spec,
             str(status),
@@ -241,16 +430,42 @@ def fit_and_apply_production_scale(
         selected = spec.id in {"SELECTED_CS", "CS_CALIBRATION_ONLY", "CS_ACQUISITION_ONLY"}
         config = _candidate_config(adapter, selected)
         v5 = adapter.modules["strategies"]
-        query_scale, status = v5.candidate_specific_scale(
-            model, oob_mean, oob_sigma, counts, model.y_train_, X_query, query_mean, query_raw_sigma,
-            int(seed), config, floor,
+        query_scale, status = _candidate_specific_scale_with_exact_v5_local_features(
+            v5,
+            model,
+            oob_mean,
+            oob_sigma,
+            counts,
+            oob_targets,
+            X_query,
+            query_mean,
+            query_raw_sigma,
+            int(seed),
+            config,
+            floor,
         )
         query_scale = _ensure_positive(query_scale, "candidate-specific query scale")
         diagnostic_scale = None
-        if diagnostic_effective is not None:
-            diagnostic_scale, diagnostic_status = v5.candidate_specific_scale(
-                model, oob_mean, oob_sigma, counts, model.y_train_, X_diagnostic, diagnostic_mean, diagnostic_raw_sigma,
-                int(seed), config, floor,
+        if diagnostic_effective is not None and spec.evaluation_mapping == "raw_gaussian_sigma":
+            # Frozen V5 CS trajectories calibrate candidate uncertainty only
+            # for acquisition.  Their checkpoint diagnostics use the raw
+            # effective ensemble sigma, so fitting a second candidate model
+            # here would change L1 despite an identical acquisition path.
+            diagnostic_scale = np.ones(len(diagnostic_effective))
+        elif diagnostic_effective is not None:
+            diagnostic_scale, diagnostic_status = _candidate_specific_scale_with_exact_v5_local_features(
+                v5,
+                model,
+                oob_mean,
+                oob_sigma,
+                counts,
+                oob_targets,
+                X_diagnostic,
+                diagnostic_mean,
+                diagnostic_raw_sigma,
+                int(seed),
+                config,
+                floor,
             )
             diagnostic_scale = _ensure_positive(diagnostic_scale, "candidate-specific diagnostic scale")
             if diagnostic_status != status:
@@ -262,7 +477,11 @@ def fit_and_apply_production_scale(
             None if diagnostic_effective is None else diagnostic_effective * diagnostic_scale,
             query_scale,
             diagnostic_scale,
-            fit_metadata={**metadata, "candidate_specific_config": config},
+            fit_metadata={
+                **metadata,
+                "candidate_specific_config": config,
+                "local_feature_implementation": "v5_exact_stable_order_leaf_proximity_v1",
+            },
         )
 
     if spec.id == "SCALAR_TEMPERATURE_NLL":

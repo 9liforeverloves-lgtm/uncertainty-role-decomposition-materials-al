@@ -22,7 +22,10 @@ from .canonical_adapter import CanonicalV5Adapter
 from .diagnostics import atomic_parquet
 from .execution_registry import atomic_write_json_no_overwrite, sha256_file
 from .production_campaign import (
+    BROAD_DEVELOPMENT_SEEDS,
+    CANARY_SEEDS,
     PRODUCTION_EVIDENCE_CLASSES,
+    SENTINEL_DEVELOPMENT_SEEDS,
     _assert_production_config,
     _diagnostic_row,
 )
@@ -56,8 +59,13 @@ def _hash(payload: Any) -> str:
 def _validate(config: CalibrationReplayConfig):
     if config.evidence_class not in PRODUCTION_EVIDENCE_CLASSES:
         raise ValueError("calibration replay requires a registered V6 evidence class")
-    if config.phase != "development" or int(config.seed) not in range(6000, 6010):
-        raise PermissionError("calibration replay is restricted to P0 development seeds 6000-6009")
+    permitted = {
+        "development": SENTINEL_DEVELOPMENT_SEEDS,
+        "broad_development": BROAD_DEVELOPMENT_SEEDS,
+        "canary": CANARY_SEEDS,
+    }
+    if config.phase not in permitted or int(config.seed) not in permitted[config.phase]:
+        raise PermissionError("calibration replay uses an unregistered non-confirmation development seed")
     # Reuse production configuration guards, including registered strategies.
     from .production_campaign import ProductionCampaignConfig
 
@@ -77,6 +85,44 @@ def _validate(config: CalibrationReplayConfig):
     if spec.acquisition_mapping != "raw_sigma":
         raise ValueError("only exact-RAW-acquisition strategies may use calibration replay")
     return spec
+
+
+def _as_id_list(value: object) -> list[str]:
+    if isinstance(value, str):
+        parsed = json.loads(value)
+    else:
+        parsed = np.asarray(value, dtype=object).tolist()
+    return [str(item) for item in parsed]
+
+
+def _ordered_targets_at_checkpoint(
+    *,
+    source: dict[str, Any],
+    source_rounds: pd.DataFrame,
+    metadata: dict[str, Any],
+    ids: np.ndarray,
+    y: np.ndarray,
+) -> np.ndarray:
+    """Reconstruct the V5-legacy queried order for a RAW checkpoint."""
+
+    initial = [str(value) for value in source["initial_labeled_ids"]]
+    ordered = list(initial)
+    count = int(metadata["queried_count"])
+    if len(ordered) > count:
+        raise ValueError("RAW initial labels exceed the checkpoint queried count")
+    if len(ordered) < count:
+        for row in source_rounds.sort_values("round", kind="stable").itertuples(index=False):
+            if int(row.round) < 0:
+                continue
+            ordered.extend(_as_id_list(getattr(row, "selected_batch_ids")))
+            if len(ordered) >= count:
+                break
+    if len(ordered) != count:
+        raise ValueError("RAW trajectory cannot reconstruct the checkpoint queried order")
+    lookup = {str(value): index for index, value in enumerate(ids)}
+    if len(set(ordered)) != len(ordered) or any(value not in lookup for value in ordered):
+        raise ValueError("RAW trajectory checkpoint contains invalid material IDs")
+    return y[np.asarray([lookup[value] for value in ordered], int)]
 
 
 def run_calibration_replay(
@@ -117,15 +163,24 @@ def run_calibration_replay(
         }
 
     frame, X, split, canonical = adapter.v5_run_config(
-        config.task, config.split_protocol, config.seed, "raw_ucb_beta_1"
+        config.task,
+        config.split_protocol,
+        config.seed,
+        "raw_ucb_beta_1",
+        model=config.model,
     )
     floor = float(canonical["oob"]["uncertainty_floor"])
     y = frame.target.to_numpy(float)
+    ids = frame.material_id.to_numpy(str)
     target = np.asarray(split.target, int)
     diagnostic = np.asarray(split.diagnostic, int)
     rows: list[dict[str, object]] = []
     checkpoint_rows: dict[str, int] = {}
     source_checkpoints: dict[str, str] = {}
+    source_rounds_path = source_dir / "rounds.parquet"
+    if not source_rounds_path.is_file():
+        raise FileNotFoundError("RAW source trajectory lacks its canonical round ledger")
+    source_rounds = pd.read_parquet(source_rounds_path)
     for index, label in enumerate(CHECKPOINT_ORDER):
         checkpoint_path = source_dir / f"checkpoint_{label}.joblib"
         metadata_path = source_dir / f"checkpoint_{label}.json"
@@ -136,6 +191,15 @@ def run_calibration_replay(
         model = joblib.load(checkpoint_path)
         target_mean, target_sigma = model.predict_mean_std(X[target])
         diagnostic_mean, diagnostic_sigma = model.predict_mean_std(X[diagnostic])
+        # V5 saves an initial model trained with round key 0 and later
+        # checkpoints with the post-acquisition model key r + 1.  Its
+        # candidate-specific optimizer consumes that same surrogate seed.
+        # Do not substitute an evaluation-only RNG stream here.
+        checkpoint_model_round = int(checkpoint_metadata["acquisition_round"]) + 1
+        model_code = 11 if config.model == "random_forest" else 17
+        fit_seed = int(
+            np.random.SeedSequence([config.seed, checkpoint_model_round, model_code]).generate_state(1)[0]
+        )
         application = fit_and_apply_production_scale(
             spec,
             adapter=adapter,
@@ -146,8 +210,15 @@ def run_calibration_replay(
             X_diagnostic=X[diagnostic],
             diagnostic_mean=diagnostic_mean,
             diagnostic_raw_sigma=diagnostic_sigma,
-            seed=int(np.random.SeedSequence([config.seed, index, 71]).generate_state(1)[0]),
+            seed=fit_seed,
             floor=floor,
+            oob_target_values=_ordered_targets_at_checkpoint(
+                source=source,
+                source_rounds=source_rounds,
+                metadata=checkpoint_metadata,
+                ids=ids,
+                y=y,
+            ),
         )
         row = _diagnostic_row(
             spec=spec,

@@ -1,0 +1,26 @@
+{
+  "columns": [
+    "source_row_order",
+    "environment",
+    "task",
+    "split",
+    "model",
+    "seed",
+    "strategy",
+    "l1_campaign_mace",
+    "l1_campaign_mace_hex",
+    "source_job_id",
+    "source_trajectory_sha256",
+    "calibration_trace_sha256",
+    "evidence_class"
+  ],
+  "evidence_class": "V6-P0-SENTINEL-DEVELOPMENT",
+  "final_sentinel_lock_sha256": "4213e6a702b8e90f78c247296a42c2e4950eec590a8e34832a0d05cfdc11b973",
+  "row_count": 60,
+  "schema_version": "v6-p0-sentinel-compact-table-lock-v1",
+  "source_v6_code_tree_sha256": "3295b351fc74b4df63a5ae3b43d9e41cbf51139b7c45a4e073edd1c0bd489ae0",
+  "status": "V6_P0_SENTINEL_DEVELOPMENT_COMPACT_TABLE_LOCKED",
+  "table_lock_sha256": "d90afb5c36782f1c636661c80bc3105bd416dfb8a38fe8c46c6fbb4a98e25460",
+  "table_path": "tables/v6_p0_sentinel_simple_scaler_inputs.csv",
+  "table_sha256": "702e67793c6f3a3eb3c1de3be33bff7de3050983c6099a839d7818878dec0d8f"
+}

@@ -1,0 +1,30 @@
+{
+  "columns": [
+    "source_row_order",
+    "environment",
+    "strategy",
+    "seed",
+    "round",
+    "budget_fraction",
+    "budget_fraction_hex",
+    "fitted_scale",
+    "fitted_scale_hex",
+    "nominal_beta",
+    "nominal_beta_hex",
+    "effective_beta",
+    "effective_beta_hex",
+    "valid_oob_observation_count",
+    "fallback_status",
+    "source_trajectory_sha256",
+    "oob_residual_order"
+  ],
+  "evidence_class": "V6-P0-SENTINEL-DEVELOPMENT",
+  "final_sentinel_lock_sha256": "4213e6a702b8e90f78c247296a42c2e4950eec590a8e34832a0d05cfdc11b973",
+  "row_count": 240,
+  "schema_version": "v6-p0-sentinel-compact-table-lock-v1",
+  "source_v6_code_tree_sha256": "3295b351fc74b4df63a5ae3b43d9e41cbf51139b7c45a4e073edd1c0bd489ae0",
+  "status": "V6_P0_SENTINEL_DEVELOPMENT_COMPACT_TABLE_LOCKED",
+  "table_lock_sha256": "a4ba4806f273cc3db9c8991c00a356d417bdb51779a377e807fec41fb7b501ef",
+  "table_path": "tables/v6_p0_sentinel_round_effective_beta.csv",
+  "table_sha256": "78b93c64bfc48df482d336aeeb0a297843420ddc03575a3bd691457e62a520e5"
+}

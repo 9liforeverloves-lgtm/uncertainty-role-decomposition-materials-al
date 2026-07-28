@@ -1,0 +1,213 @@
+{
+  "evidence_class": "V6-P0-SENTINEL-DEVELOPMENT",
+  "lineage_sha256": "c5bc32d0ee406977dac1a9f7e79bc587ef2e45cfc75a02fe9b6859eed7a0a1ad",
+  "records": [
+    {
+      "code_tree_sha256": "0e7cf14f0653245bf1b32868efa4301ccf038233ed2690d80ce36363678e16e9",
+      "endpoint_outcomes_computed": false,
+      "endpoint_outcomes_viewed": false,
+      "execution_run_id": "initial_p0_execution",
+      "failed_engineering_assertion": "Initial model construction supplied a negative SeedSequence round key before any durable checkpoint write.",
+      "files_recomputed": [],
+      "files_reused": [],
+      "git_commit": "fa4ec4888fdaf4c24dc99e5386f12d6a3a7d6693",
+      "lock_kind": "superseded prospective lock",
+      "lock_path": "locks/v6_p0_development_manifest_lock_superseded_a3bef9c4b87d.json",
+      "lock_sha256": "a3bef9c4b87df895ee511b0a3bf9c1ea8834ee5fb5b556a3cd26a5b81d6f7164",
+      "manifest_job_count": 360,
+      "manifest_sha256": "d862b85f615b8d4525d9d580f00490b1d869adc097c96ac32ea5cae0f9e7b1fc",
+      "ordinal": 1,
+      "outcome_view_evidence": "No completed jobs and no P0 selection-map write were produced by this run.",
+      "registry_status_counts": {
+        "FAILED": 60,
+        "PLANNED": 299,
+        "RUNNING": 1
+      },
+      "selection_rule_invariance_evidence": {
+        "interpretation": "Supersessions repaired deterministic seeding, exact-RAW calibration mapping, or registered dispatch/recovery mechanics; none adds, removes, or picks a method from endpoint outcomes.",
+        "manifest_sha256_constant_across_all_six": "d862b85f615b8d4525d9d580f00490b1d869adc097c96ac32ea5cae0f9e7b1fc",
+        "same_registered_scope": [
+          "matbench_expt_gap__iid_record__random_forest",
+          "matbench_expt_gap__chemical_system_ood__random_forest"
+        ]
+      },
+      "supersession_reason": "Recorded P0 canary failure: V6 initial model SeedSequence used negative round key; corrected to canonical round-0 key before any model checkpoint write."
+    },
+    {
+      "code_tree_sha256": "fdf751726c8eb0e2f29bc301be508154488a21a315e2a9d61aa4fedea430fdb9",
+      "endpoint_outcomes_computed": true,
+      "endpoint_outcomes_viewed": false,
+      "execution_run_id": "rerun_after_seedsequence_fix",
+      "failed_engineering_assertion": "Equivalent-DoF calibration-only controls were registered with scaled acquisition rather than exact RAW acquisition.",
+      "files_recomputed": [
+        "124 completed job artifact directories recorded in rerun_after_seedsequence_fix"
+      ],
+      "files_reused": [],
+      "git_commit": "eba8d544bf84cdd01066d323662739155ed55e39",
+      "lock_kind": "superseded prospective lock",
+      "lock_path": "locks/v6_p0_development_manifest_lock_superseded_ef0607d55cd9.json",
+      "lock_sha256": "ef0607d55cd9f326abed7165f1c7ce1a681540b1a248e5c4f17353c23e1a0866",
+      "manifest_job_count": 360,
+      "manifest_sha256": "d862b85f615b8d4525d9d580f00490b1d869adc097c96ac32ea5cae0f9e7b1fc",
+      "ordinal": 2,
+      "outcome_view_evidence": "The base phase failed before the predeclared beta-selection routine was reached; no selection-map write is attributable to this run.",
+      "registry_status_counts": {
+        "COMPLETED": 124,
+        "FAILED": 52,
+        "PLANNED": 183,
+        "RUNNING": 1
+      },
+      "selection_rule_invariance_evidence": {
+        "interpretation": "Supersessions repaired deterministic seeding, exact-RAW calibration mapping, or registered dispatch/recovery mechanics; none adds, removes, or picks a method from endpoint outcomes.",
+        "manifest_sha256_constant_across_all_six": "d862b85f615b8d4525d9d580f00490b1d869adc097c96ac32ea5cae0f9e7b1fc",
+        "same_registered_scope": [
+          "matbench_expt_gap__iid_record__random_forest",
+          "matbench_expt_gap__chemical_system_ood__random_forest"
+        ]
+      },
+      "supersession_reason": "Recorded P0 calibration-replay failure: equivalent-DoF controls were registered calibration-only but their production acquisition map was scaled_sigma; corrected to exact RAW acquisition before execution."
+    },
+    {
+      "code_tree_sha256": "09a64f0eadf0b40f458a6c7c08965c07d5a1266454ba3d35dc3bccdbec5467bd",
+      "endpoint_outcomes_computed": true,
+      "endpoint_outcomes_viewed": false,
+      "execution_run_id": "rerun_after_calibration_mapping_fix",
+      "failed_engineering_assertion": "Simple scalar calibration replays inherited scaled acquisition rather than exact RAW acquisition.",
+      "files_recomputed": [
+        "128 completed job artifact directories recorded in rerun_after_calibration_mapping_fix"
+      ],
+      "files_reused": [],
+      "git_commit": "287c8bccb7f354d75d56fbef89dc5f7b61b6d29b",
+      "lock_kind": "superseded prospective lock",
+      "lock_path": "locks/v6_p0_development_manifest_lock_superseded_a4fb9cfa0aa8.json",
+      "lock_sha256": "a4fb9cfa0aa848975329f83f5560e10c89586c434c019da2e93a03ba4c3354dd",
+      "manifest_job_count": 360,
+      "manifest_sha256": "d862b85f615b8d4525d9d580f00490b1d869adc097c96ac32ea5cae0f9e7b1fc",
+      "ordinal": 3,
+      "outcome_view_evidence": "The base phase failed before the predeclared beta-selection routine was reached; no selection-map write is attributable to this run.",
+      "registry_status_counts": {
+        "COMPLETED": 128,
+        "FAILED": 28,
+        "PLANNED": 203,
+        "RUNNING": 1
+      },
+      "selection_rule_invariance_evidence": {
+        "interpretation": "Supersessions repaired deterministic seeding, exact-RAW calibration mapping, or registered dispatch/recovery mechanics; none adds, removes, or picks a method from endpoint outcomes.",
+        "manifest_sha256_constant_across_all_six": "d862b85f615b8d4525d9d580f00490b1d869adc097c96ac32ea5cae0f9e7b1fc",
+        "same_registered_scope": [
+          "matbench_expt_gap__iid_record__random_forest",
+          "matbench_expt_gap__chemical_system_ood__random_forest"
+        ]
+      },
+      "supersession_reason": "Recorded P0 calibration-replay failure: simple scalers in the calibration-only manifest inherited scaled_sigma acquisition; all calibration replay specifications now explicitly use exact RAW acquisition."
+    },
+    {
+      "code_tree_sha256": "f45c7f9f5fdf3d8f3f6abb3648799902cc9570b300344d6ade320e89f183ed24",
+      "endpoint_outcomes_computed": true,
+      "endpoint_outcomes_viewed": false,
+      "execution_run_id": "rerun_after_simple_scaler_mapping_fix",
+      "failed_engineering_assertion": "RAW_FIXED_BETA_MATCHED and RAW_STAGE_BETA_MATCHED were registered but absent from the production identity-scale dispatch.",
+      "files_recomputed": [
+        "309 completed job artifacts recorded in rerun_after_simple_scaler_mapping_fix"
+      ],
+      "files_reused": [],
+      "git_commit": "c35ada9c895b818e2a95b09a4647f3e1bf7159c2",
+      "lock_kind": "superseded prospective lock",
+      "lock_path": "locks/v6_p0_development_manifest_lock_superseded_a9c4b568069d.json",
+      "lock_sha256": "a9c4b568069d27799f70cd3882990cc22c8b6bc7029ced4a911a69f1f9c29e4d",
+      "manifest_job_count": 360,
+      "manifest_sha256": "d862b85f615b8d4525d9d580f00490b1d869adc097c96ac32ea5cae0f9e7b1fc",
+      "ordinal": 4,
+      "outcome_view_evidence": "The predeclared routine programmatically formed a DRAFT beta map after the base phase; no human outcome-view event is recorded, and the method list/rule was not altered.",
+      "registry_status_counts": {
+        "COMPLETED": 309,
+        "FAILED": 16,
+        "PLANNED": 34,
+        "RUNNING": 1
+      },
+      "selection_rule_invariance_evidence": {
+        "interpretation": "Supersessions repaired deterministic seeding, exact-RAW calibration mapping, or registered dispatch/recovery mechanics; none adds, removes, or picks a method from endpoint outcomes.",
+        "manifest_sha256_constant_across_all_six": "d862b85f615b8d4525d9d580f00490b1d869adc097c96ac32ea5cae0f9e7b1fc",
+        "same_registered_scope": [
+          "matbench_expt_gap__iid_record__random_forest",
+          "matbench_expt_gap__chemical_system_ood__random_forest"
+        ]
+      },
+      "supersession_reason": "Recorded P0 post-selection failure: RAW_FIXED_BETA_MATCHED and RAW_STAGE_BETA_MATCHED were registered but omitted from the production identity-scale dispatch; added explicit RAW identity dispatch."
+    },
+    {
+      "code_tree_sha256": "9dc9f9b995678f847bc710dd79c2ecbb02a29c381d86d1fe31df9f308ed96b55",
+      "endpoint_outcomes_computed": false,
+      "endpoint_outcomes_viewed": false,
+      "execution_run_id": "rerun_after_matched_beta_fix",
+      "failed_engineering_assertion": "No execution was started under this prospective lock; the dispatch correction was replaced by a verified-artifact recovery protocol.",
+      "files_recomputed": [],
+      "files_reused": [],
+      "git_commit": "c096a454a5ea3029fbdaba3057f9ce38c56b49d6",
+      "lock_kind": "superseded prospective lock",
+      "lock_path": "locks/v6_p0_development_manifest_lock_superseded_3ae582ce4b8a.json",
+      "lock_sha256": "3ae582ce4b8ae249a949c457c30dfaefe5b9c713c5cd606d2f8a21073e0e9ed2",
+      "manifest_job_count": 360,
+      "manifest_sha256": "d862b85f615b8d4525d9d580f00490b1d869adc097c96ac32ea5cae0f9e7b1fc",
+      "ordinal": 5,
+      "outcome_view_evidence": "No run directory exists for rerun_after_matched_beta_fix.",
+      "registry_status_counts": {},
+      "selection_rule_invariance_evidence": {
+        "interpretation": "Supersessions repaired deterministic seeding, exact-RAW calibration mapping, or registered dispatch/recovery mechanics; none adds, removes, or picks a method from endpoint outcomes.",
+        "manifest_sha256_constant_across_all_six": "d862b85f615b8d4525d9d580f00490b1d869adc097c96ac32ea5cae0f9e7b1fc",
+        "same_registered_scope": [
+          "matbench_expt_gap__iid_record__random_forest",
+          "matbench_expt_gap__chemical_system_ood__random_forest"
+        ]
+      },
+      "supersession_reason": "Verified recovery: 300 completed base P0 artifacts from rerun_after_simple_scaler_mapping_fix have matching registry and trajectory hashes; reuse them unchanged and rerun only the matched-beta post-selection jobs after dispatch fix."
+    },
+    {
+      "code_tree_sha256": "3295b351fc74b4df63a5ae3b43d9e41cbf51139b7c45a4e073edd1c0bd489ae0",
+      "endpoint_outcomes_computed": true,
+      "endpoint_outcomes_viewed": true,
+      "execution_run_id": "recovered_base_then_matched_beta_retry",
+      "failed_engineering_assertion": "None; this is the final executed development lock.",
+      "files_recomputed": [
+        "60 matched-beta post-selection artifacts under recovered_base_then_matched_beta_retry"
+      ],
+      "files_reused": [
+        "300 verified base artifacts from rerun_after_simple_scaler_mapping_fix"
+      ],
+      "git_commit": "ade26c790d9cc9a675424fc838e7cfecc4549325",
+      "lock_kind": "final executed development lock",
+      "lock_path": "locks/v6_p0_development_manifest_lock.json",
+      "lock_sha256": "4213e6a702b8e90f78c247296a42c2e4950eec590a8e34832a0d05cfdc11b973",
+      "manifest_job_count": 360,
+      "manifest_sha256": "d862b85f615b8d4525d9d580f00490b1d869adc097c96ac32ea5cae0f9e7b1fc",
+      "ordinal": 6,
+      "outcome_view_evidence": "The accepted DRAFT and execution report were generated only after the 360-job registry completed.",
+      "registry_status_counts": {
+        "COMPLETED": 360
+      },
+      "selection_rule_invariance_evidence": {
+        "interpretation": "Supersessions repaired deterministic seeding, exact-RAW calibration mapping, or registered dispatch/recovery mechanics; none adds, removes, or picks a method from endpoint outcomes.",
+        "manifest_sha256_constant_across_all_six": "d862b85f615b8d4525d9d580f00490b1d869adc097c96ac32ea5cae0f9e7b1fc",
+        "same_registered_scope": [
+          "matbench_expt_gap__iid_record__random_forest",
+          "matbench_expt_gap__chemical_system_ood__random_forest"
+        ]
+      },
+      "supersession_reason": "Accepted final execution after hash-verified recovery of 300 base artifacts and recomputation of 60 post-selection paths."
+    }
+  ],
+  "schema_version": "v6-p0-sentinel-lock-lineage-v1",
+  "scope": {
+    "inferential_status": "development_only_non_confirmatory",
+    "model": "random_forest",
+    "seeds": [
+      6000,
+      6009
+    ],
+    "splits": [
+      "iid_record",
+      "chemical_system_ood"
+    ],
+    "task": "matbench_expt_gap"
+  }
+}

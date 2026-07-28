@@ -94,6 +94,24 @@ class RawReplayResult:
     output_dir: str
 
 
+@dataclass(frozen=True)
+class HistoricalStrategyReplayResult:
+    """Read-only exact replay result for a frozen non-RAW V5 strategy."""
+
+    job_id: str
+    v5_strategy: str
+    passed: bool
+    first_divergence: str | None
+    checks: dict[str, bool]
+    reference_hashes: dict[str, str]
+    replay_hashes: dict[str, str]
+    reference_l1: float
+    replay_l1: float
+    reference_l4: float
+    replay_l4: float
+    output_dir: str
+
+
 def default_paths(workspace: str | Path | None = None) -> CanonicalPaths:
     root = Path(workspace) if workspace is not None else Path(__file__).resolve().parents[2]
     root = root.resolve()
@@ -125,6 +143,13 @@ class CanonicalV5Adapter:
 
     def __init__(self, workspace: str | Path | None = None) -> None:
         self.paths = default_paths(workspace)
+        # Descriptor construction is deterministic, task-wide, and shared by
+        # every seed/split/strategy in a worker.  Retain it only in-process:
+        # the frozen CSV is still validated on the first load and every
+        # ``v5_run_config`` call still reconstructs its own split/geometry.
+        # This avoids repeatedly parsing the same large Matbench task without
+        # changing any scientific input or random state.
+        self._dataset_cache: dict[str, tuple[pd.DataFrame, np.ndarray]] = {}
 
     def _require_paths(self) -> None:
         required = (
@@ -348,10 +373,34 @@ class CanonicalV5Adapter:
             floor_grid=floor_grid,
         )
 
-    def v5_run_config(self, task: str, split: Any, seed: int, strategy: str) -> tuple[pd.DataFrame, np.ndarray, Any, dict[str, Any]]:
+    def v5_run_config(
+        self,
+        task: str,
+        split: Any,
+        seed: int,
+        strategy: str,
+        *,
+        model: str | None = None,
+    ) -> tuple[pd.DataFrame, np.ndarray, Any, dict[str, Any]]:
         """Build the exact V5 ``run_job.py`` configuration for one frozen job."""
 
-        frame = self.load_task(task)
+        cache_key = str(task)
+        cached = self._dataset_cache.get(cache_key)
+        if cached is None:
+            cached_frame = self.load_task(cache_key)
+            cached_X = np.ascontiguousarray(
+                self.featurize_dataset_wide(cached_frame.formula.to_numpy(str)), dtype=float
+            )
+            # V6 treats canonical descriptors as read-only input.  Marking the
+            # cache immutable protects subsequent jobs from accidental mutation
+            # while allowing the surrogate to consume the same exact values.
+            cached_X.setflags(write=False)
+            self._dataset_cache[cache_key] = (cached_frame.copy(deep=True), cached_X)
+            cached = self._dataset_cache[cache_key]
+        cached_frame, X = cached
+        # DataFrame callers are allowed to manipulate their returned frame;
+        # isolate that convenience from the reusable, frozen task cache.
+        frame = cached_frame.copy(deep=True)
         formulas = frame.formula.to_numpy(str)
         ids = frame.material_id.to_numpy(str)
         split_result = self.split(formulas, ids, split, seed)
@@ -364,6 +413,16 @@ class CanonicalV5Adapter:
             candidate["min_oob_trees_per_sample"] = 10
         else:
             candidate["min_oob_trees_per_sample"] = geometry.min_oob_trees_per_sample
+        # Frozen V5 jobs retain any historical candidate-specific override in
+        # the manifest.  Broad V6 jobs deliberately have no V5 manifest row
+        # and therefore keep the canonical protocol defaults above.
+        historical_row = self.v5_manifest_row(task, split, seed, strategy, model=model)
+        if historical_row is not None:
+            raw_override = str(historical_row.get("candidate_specific_config_json", "") or "{}")
+            override = json.loads(raw_override)
+            if not isinstance(override, dict):
+                raise CanonicalAdapterError("V5 candidate-specific manifest override is malformed")
+            candidate.update(override)
         config = {
             "task": str(task),
             "campaign": {
@@ -391,7 +450,33 @@ class CanonicalV5Adapter:
             float(1.4826 * np.median(np.abs(values - median))),
             1e-12,
         )
-        return frame, self.featurize_dataset_wide(formulas), split_result, config
+        return frame, X, split_result, config
+
+    def v5_manifest_row(
+        self,
+        task: str,
+        split: str,
+        seed: int,
+        strategy: str,
+        *,
+        model: str | None = None,
+    ) -> dict[str, Any] | None:
+        """Return one frozen V5 manifest row, or ``None`` for V6-only jobs."""
+
+        table = pd.read_csv(self.paths.v5_manifest)
+        matches = table.loc[
+            (table.task.astype(str) == str(task))
+            & (table.split_protocol.astype(str) == str(split))
+            & (table.seed.astype(int) == int(seed))
+            & (table.strategy.astype(str) == str(strategy))
+        ]
+        if model is not None:
+            matches = matches.loc[matches.model.astype(str) == str(model)]
+        if len(matches) > 1:
+            overrides = matches.candidate_specific_config_json.astype(str).drop_duplicates().tolist()
+            if len(overrides) != 1:
+                raise CanonicalAdapterError("frozen V5 manifest has inconsistent historical strategy overrides")
+        return None if matches.empty else dict(matches.iloc[0])
 
     def v5_identity(self, job_id: str, config: dict[str, Any]) -> tuple[dict[str, Any], bytes]:
         manifest_hash = _sha256_file(self.paths.v5_manifest)
@@ -468,7 +553,9 @@ class CanonicalV5Adapter:
         row = rows.iloc[0]
         if str(row.strategy) != "raw_ucb_beta_1":
             raise CanonicalAdapterError("canonical replay is intentionally restricted to V5 RAW beta=1")
-        frame, X, split, config = self.v5_run_config(str(row.task), str(row.split_protocol), int(row.seed), str(row.strategy))
+        frame, X, split, config = self.v5_run_config(
+            str(row.task), str(row.split_protocol), int(row.seed), str(row.strategy), model=str(row.model)
+        )
         identity, protocol_raw = self.v5_identity(str(row.job_id), config)
         reference = self.paths.v5_root / str(row.expected_output_relative_path)
         if not reference.is_dir():
@@ -544,6 +631,162 @@ class CanonicalV5Adapter:
             checks=checks,
             reference_hashes=reference_hashes,
             replay_hashes=replay_hashes,
+            reference_l1=self._l1(reference),
+            replay_l1=self._l1(replay),
+            reference_l4=self._l4(reference),
+            replay_l4=self._l4(replay),
+            output_dir=str(replay),
+        )
+
+    @staticmethod
+    def _frame_hash(frame: pd.DataFrame) -> str:
+        return _stable_hash(json.loads(frame.to_json(orient="split", date_format="iso", double_precision=15)))
+
+    def replay_historical_strategy(
+        self,
+        *,
+        job_id: str,
+        output_root: str | Path,
+    ) -> HistoricalStrategyReplayResult:
+        """Exactly re-run one frozen GG/CS strategy into V6-owned storage.
+
+        This is intentionally a thin call to the frozen V5 runner.  It is not
+        a replacement implementation, and it never writes under ``revision_v5``.
+        """
+
+        allowed = {
+            "gg_ucb_beta_1",
+            "gg_ucb_beta_0p5",
+            "cs_da_oob_hist",
+            "cs_da_oob_parsimonious_f1",
+        }
+        self.assert_source_lock()
+        self.validate_pymatgen()
+        table = pd.read_csv(self.paths.v5_manifest)
+        rows = table.loc[table.job_id.astype(str) == str(job_id)]
+        if len(rows) != 1:
+            raise CanonicalAdapterError(f"V5 manifest requires exactly one replay row for {job_id!r}")
+        row = rows.iloc[0]
+        strategy = str(row.strategy)
+        if strategy not in allowed:
+            raise CanonicalAdapterError(f"unsupported historical strategy replay: {strategy}")
+        frame, X, split, config = self.v5_run_config(
+            str(row.task), str(row.split_protocol), int(row.seed), strategy, model=str(row.model)
+        )
+        identity, protocol_raw = self.v5_identity(str(row.job_id), config)
+        reference = self.paths.v5_root / str(row.expected_output_relative_path)
+        if not reference.is_dir():
+            raise CanonicalAdapterError(f"frozen V5 trajectory is unavailable: {reference}")
+        root = Path(output_root).resolve()
+        root.mkdir(parents=True, exist_ok=True)
+        result = self.modules["runner"].run_trajectory(
+            X,
+            frame.target.to_numpy(float),
+            frame.formula.to_numpy(str),
+            frame.material_id.to_numpy(str),
+            split,
+            strategy,
+            str(row.model),
+            int(row.seed),
+            config,
+            root,
+            identity,
+            protocol_raw,
+            True,
+        )
+        replay = root / str(result["key"])
+        ids = frame.material_id.to_numpy(str)
+        reference_rounds = pd.read_parquet(reference / "rounds.parquet").sort_values("round")
+        replay_rounds = pd.read_parquet(replay / "rounds.parquet").sort_values("round")
+        reference_selected = pd.read_parquet(reference / "selected.parquet").sort_values(
+            ["round", "rank"], kind="stable"
+        )
+        replay_selected = pd.read_parquet(replay / "selected.parquet").sort_values(
+            ["round", "rank"], kind="stable"
+        )
+        predictive_columns = [
+            column
+            for column in (
+                "round",
+                "rank",
+                "candidate_id",
+                "predicted_mean",
+                "raw_predicted_std",
+                "effective_predicted_std",
+            )
+            if column in reference_selected and column in replay_selected
+        ]
+        scale_columns = [
+            column
+            for column in ("round", "global_scale", "scale_status", "candidate_scale_status")
+            if column in reference_rounds and column in replay_rounds
+        ]
+        score_columns = [
+            column
+            for column in ("round", "rank", "candidate_id", "scale", "score")
+            if column in reference_selected and column in replay_selected
+        ]
+        rank_columns = [
+            column
+            for column in ("round", "rank", "candidate_id", "stable_candidate_id", "selected")
+            if column in reference_selected and column in replay_selected
+        ]
+        reference_initial = json.loads(reference_rounds.iloc[0]["queried_ids_before"])
+        replay_initial = json.loads(replay_rounds.iloc[0]["queried_ids_before"])
+        checks = {
+            "source_split_hash": True,
+            "target_split_hash": True,
+            "diagnostic_split_hash": True,
+            "initial_labeled_ids": reference_initial == replay_initial,
+            "per_round_predictive_mean_raw_sigma": self._frame_hash(reference_selected[predictive_columns])
+            == self._frame_hash(replay_selected[predictive_columns]),
+            "fitted_scale_or_cs_parameters": self._frame_hash(reference_rounds[scale_columns])
+            == self._frame_hash(replay_rounds[scale_columns]),
+            "acquisition_scores": self._frame_hash(reference_selected[score_columns])
+            == self._frame_hash(replay_selected[score_columns]),
+            "stable_ranking": self._frame_hash(reference_selected[rank_columns])
+            == self._frame_hash(replay_selected[rank_columns]),
+            "selected_batch": reference_rounds.loc[reference_rounds["round"] >= 0, "selected_batch_ids"].tolist()
+            == replay_rounds.loc[replay_rounds["round"] >= 0, "selected_batch_ids"].tolist(),
+            "checkpoint_values": self._checkpoint_rounds(reference) == self._checkpoint_rounds(replay),
+            "l1_campaign_mace": bool(np.isclose(self._l1(reference), self._l1(replay), rtol=0.0, atol=0.0)),
+            "l4_top1pct_recall_nauc": bool(np.isclose(self._l4(reference), self._l4(replay), rtol=0.0, atol=0.0)),
+            "logical_trajectory_hash": self._logical_trajectory_hash(reference) == self._logical_trajectory_hash(replay),
+        }
+        frozen_split = self.split(frame.formula.to_numpy(str), ids, str(row.split_protocol), int(row.seed))
+        checks["source_split_hash"] = _id_hash(ids[frozen_split.source]) == _id_hash(ids[split.source])
+        checks["target_split_hash"] = _id_hash(ids[frozen_split.target]) == _id_hash(ids[split.target])
+        checks["diagnostic_split_hash"] = _id_hash(ids[frozen_split.diagnostic]) == _id_hash(ids[split.diagnostic])
+        ordered = (
+            "source_split_hash",
+            "target_split_hash",
+            "diagnostic_split_hash",
+            "initial_labeled_ids",
+            "per_round_predictive_mean_raw_sigma",
+            "fitted_scale_or_cs_parameters",
+            "acquisition_scores",
+            "stable_ranking",
+            "selected_batch",
+            "checkpoint_values",
+            "l1_campaign_mace",
+            "l4_top1pct_recall_nauc",
+            "logical_trajectory_hash",
+        )
+        first = next((name for name in ordered if not checks[name]), None)
+        return HistoricalStrategyReplayResult(
+            job_id=str(job_id),
+            v5_strategy=strategy,
+            passed=all(checks.values()),
+            first_divergence=first,
+            checks=checks,
+            reference_hashes={
+                "logical_trajectory_sha256": self._logical_trajectory_hash(reference),
+                "source_code_sha256": _sha256_file(reference / "source_code_hashes.json"),
+            },
+            replay_hashes={
+                "logical_trajectory_sha256": self._logical_trajectory_hash(replay),
+                "source_code_sha256": _sha256_file(replay / "source_code_hashes.json"),
+            },
             reference_l1=self._l1(reference),
             replay_l1=self._l1(replay),
             reference_l4=self._l4(reference),

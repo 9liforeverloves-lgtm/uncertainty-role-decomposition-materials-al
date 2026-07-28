@@ -1,0 +1,31 @@
+{
+  "archived_sentinel_path": "analysis_plan/v6_selection_map_SENTINEL_DRAFT.json",
+  "checks": {
+    "draft_hash_equal": true,
+    "fixed_beta_equal": true,
+    "loo_winner_counts_equal": true,
+    "observed_descriptive_minimum_equal": true,
+    "semantic_payload_equal": true,
+    "simple_scores_equal": true,
+    "stage_betas_equal": true
+  },
+  "fixed_matched_beta": 0.9421401519413739,
+  "leave_one_seed_out_winner_count": {
+    "IDENTITY_CONTROL": 8,
+    "SCALAR_TEMPERATURE_RESIDUAL_RATIO": 2
+  },
+  "regenerated_path": "tables/v6_p0_sentinel_selection_map_regenerated.json",
+  "schema_version": "v6-p0-sentinel-selection-regeneration-audit-v1",
+  "simple_scaler_l1": {
+    "IDENTITY_CONTROL": 0.057559717698154184,
+    "SCALAR_TEMPERATURE_NLL": 0.1428864685124864,
+    "SCALAR_TEMPERATURE_RESIDUAL_RATIO": 0.05795331161780673
+  },
+  "stage_matched_beta": {
+    "0_25": 0.9343240597159675,
+    "25_50": 0.9366288815902486,
+    "50_75": 0.9400307515273713,
+    "75_100": 0.9508220750692857
+  },
+  "status": "PASS"
+}

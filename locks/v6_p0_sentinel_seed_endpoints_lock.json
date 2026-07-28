@@ -1,0 +1,27 @@
+{
+  "columns": [
+    "job_id",
+    "task",
+    "split",
+    "model",
+    "strategy",
+    "seed",
+    "evidence_class",
+    "l1_campaign_mace",
+    "l4_top1pct_recall_nauc",
+    "fixed_budget_discovery_counts",
+    "completion_status",
+    "source_trajectory_sha256",
+    "artifact_trace_sha256",
+    "endpoint_generation_code_sha256"
+  ],
+  "evidence_class": "V6-P0-SENTINEL-DEVELOPMENT",
+  "final_sentinel_lock_sha256": "4213e6a702b8e90f78c247296a42c2e4950eec590a8e34832a0d05cfdc11b973",
+  "row_count": 360,
+  "schema_version": "v6-p0-sentinel-compact-table-lock-v1",
+  "source_v6_code_tree_sha256": "3295b351fc74b4df63a5ae3b43d9e41cbf51139b7c45a4e073edd1c0bd489ae0",
+  "status": "V6_P0_SENTINEL_DEVELOPMENT_COMPACT_TABLE_LOCKED",
+  "table_lock_sha256": "93d182c6e57d1adfd2171f8e6ec0d226f500767a8dde14744c776536b0cb6517",
+  "table_path": "tables/v6_p0_sentinel_seed_endpoints.csv",
+  "table_sha256": "c22f35220910eed581df127a9728bfe098d6ccbe91d8a155b1530362b8f1eb32"
+}

@@ -25,7 +25,11 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def validate_development_only(frame: pd.DataFrame) -> None:
+def validate_development_only(
+    frame: pd.DataFrame,
+    *,
+    allowed_seeds: set[int] | None = None,
+) -> None:
     required = {"environment", "budget_fraction", "effective_beta", "seed"}
     if not required <= set(frame.columns):
         raise ValueError(f"missing columns: {sorted(required - set(frame.columns))}")
@@ -34,9 +38,12 @@ def validate_development_only(frame: pd.DataFrame) -> None:
     collision = seeds & forbidden
     if collision:
         raise ValueError(f"forbidden V5/confirmation seed leakage: {sorted(collision)}")
-    unexpected = seeds - set(range(6000, 6010))
+    allowed = set(range(6000, 6010)) if allowed_seeds is None else {int(seed) for seed in allowed_seeds}
+    if not allowed:
+        raise ValueError("development seed set must be non-empty")
+    unexpected = seeds - allowed
     if unexpected:
-        raise ValueError(f"non-development seeds: {sorted(unexpected)}")
+        raise ValueError(f"non-development or non-registered development seeds: {sorted(unexpected)}")
     if not np.isfinite(frame["effective_beta"]).all() or np.any(frame["effective_beta"] < 0):
         raise ValueError("effective_beta must be finite and nonnegative")
 
@@ -48,8 +55,12 @@ def environment_balanced_median(frame: pd.DataFrame) -> float:
     return float(per_environment.median())
 
 
-def fit_matched_beta_map(frame: pd.DataFrame) -> dict[str, object]:
-    validate_development_only(frame)
+def fit_matched_beta_map(
+    frame: pd.DataFrame,
+    *,
+    allowed_seeds: set[int] | None = None,
+) -> dict[str, object]:
+    validate_development_only(frame, allowed_seeds=allowed_seeds)
     fixed = environment_balanced_median(frame)
     stagewise: dict[str, float] = {}
     fallbacks: list[str] = []

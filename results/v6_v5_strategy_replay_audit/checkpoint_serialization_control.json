@@ -1,0 +1,27 @@
+{
+  "controls": [
+    {
+      "checkpoint_model_semantics_equal": true,
+      "model": "extra_randomized_bagging",
+      "raw_checkpoint_bytes_equal": false,
+      "raw_logical_hash_equal": false,
+      "semantic_trajectory_equal": true,
+      "v5_job_id": "matbench_expt_gap__iid_record__extra_randomized_bagging__gg_ucb_beta_1__seed5000",
+      "v5_strategy": "gg_ucb_beta_1"
+    },
+    {
+      "checkpoint_model_semantics_equal": true,
+      "model": "random_forest",
+      "raw_checkpoint_bytes_equal": true,
+      "raw_logical_hash_equal": true,
+      "semantic_trajectory_equal": true,
+      "v5_job_id": "matbench_expt_gap__iid_record__random_forest__gg_ucb_beta_1__seed5000",
+      "v5_strategy": "gg_ucb_beta_1"
+    }
+  ],
+  "interpretation": "A false raw-byte equality paired with true semantic equality is recorded as serializer byte volatility, not a V5/V6 scientific trajectory divergence.",
+  "purpose": "Demonstrate whether raw checkpoint joblib bytes are reproducible under a frozen-V5 self-replay before excluding raw bytes from the required V5/V6 semantic trajectory comparison.",
+  "raw_binary_hash_is_required_semantic_criterion": false,
+  "required_checkpoint_semantics": "exact metadata plus canonical-domain model fingerprints: training arrays/IDs, hyperparameters, full-domain mean/std, and full-domain leaf/local representation",
+  "schema_version": "v6-v5-checkpoint-serialization-control-v1"
+}

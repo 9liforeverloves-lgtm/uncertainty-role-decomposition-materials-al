@@ -10,13 +10,11 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 import hashlib
-import io
 import json
 import os
 from pathlib import Path
 from typing import Any
 
-import joblib
 import numpy as np
 import pandas as pd
 
@@ -32,8 +30,22 @@ from .production_strategies import (
 )
 
 
-PRODUCTION_EVIDENCE_CLASSES = frozenset({"V6-MECH", "V6-EXT", "V6-SENS", "V6-REP"})
+PRODUCTION_EVIDENCE_CLASSES = frozenset(
+    {
+        "V6-MECH",
+        "V6-EXT",
+        "V6-SENS",
+        "V6-REP",
+        "V6-P0-BROAD-DEVELOPMENT",
+        "V6-CANARY",
+        "V6-HISTORICAL-REPLAY",
+    }
+)
 CHECKPOINT_LABELS = ("initial", "25pct", "50pct", "75pct")
+SENTINEL_DEVELOPMENT_SEEDS = frozenset(range(6000, 6010))
+BROAD_DEVELOPMENT_SEEDS = frozenset(range(6100, 6110))
+HISTORICAL_REPLAY_SEEDS = frozenset(range(5000, 5040))
+CANARY_SEEDS = frozenset({6099})
 
 
 @dataclass(frozen=True)
@@ -49,6 +61,7 @@ class ProductionCampaignConfig:
     stage_beta_map: dict[str, float] | None = None
     phase: str = "development"
     manifest_sha256: str = ""
+    v5_strategy: str | None = None
 
 
 def _sha(payload: Any) -> str:
@@ -71,23 +84,31 @@ def _atomic_state(path: Path, payload: dict[str, Any]) -> None:
     os.replace(temporary, path)
 
 
-def _model_payload(model: Any) -> bytes:
-    buffer = io.BytesIO()
-    joblib.dump(model, buffer)
-    return buffer.getvalue()
-
-
 def _assert_production_config(config: ProductionCampaignConfig) -> ProductionStrategySpec:
     if config.evidence_class not in PRODUCTION_EVIDENCE_CLASSES:
         raise ValueError("production runner requires a registered V6 evidence class")
     if config.strategy not in PRODUCTION_STRATEGIES:
         raise KeyError(f"unregistered production strategy: {config.strategy}")
-    if config.phase not in {"development", "confirmation"}:
-        raise ValueError("production phase must be development or confirmation")
+    if config.phase not in {"development", "broad_development", "canary", "historical_replay", "confirmation"}:
+        raise ValueError("production phase is not registered")
     if config.phase == "confirmation" or 7000 <= int(config.seed) <= 7039:
         raise PermissionError("V6 confirmation is blocked by the Stage-2.5 stop condition")
-    if config.phase == "development" and int(config.seed) not in range(6000, 6010):
-        raise ValueError("production development requires registered seeds 6000-6009")
+    phase_seeds = {
+        "development": SENTINEL_DEVELOPMENT_SEEDS,
+        "broad_development": BROAD_DEVELOPMENT_SEEDS,
+        "canary": CANARY_SEEDS,
+        "historical_replay": HISTORICAL_REPLAY_SEEDS,
+    }
+    if config.phase != "confirmation" and int(config.seed) not in phase_seeds[config.phase]:
+        raise ValueError(f"production {config.phase} uses an unregistered seed")
+    if config.phase == "broad_development" and config.evidence_class != "V6-P0-BROAD-DEVELOPMENT":
+        raise ValueError("broad development requires the V6-P0-BROAD-DEVELOPMENT evidence class")
+    if config.phase == "historical_replay" and config.evidence_class != "V6-HISTORICAL-REPLAY":
+        raise ValueError("historical replay requires the V6-HISTORICAL-REPLAY evidence class")
+    if config.phase == "canary" and config.evidence_class != "V6-CANARY":
+        raise ValueError("canary execution requires the V6-CANARY evidence class")
+    if config.v5_strategy is not None and config.phase != "historical_replay":
+        raise ValueError("a V5 strategy override is reserved for read-only historical replay")
     if not np.isfinite(config.beta) or float(config.beta) < 0:
         raise ValueError("beta must be finite and nonnegative")
     if config.strategy == "RAW_FIXED_BETA_MATCHED" and config.stage_beta_map is not None:
@@ -186,7 +207,11 @@ def run_production_campaign(
     adapter.assert_source_lock()
     adapter.validate_pymatgen()
     frame, X, split, canonical_config = adapter.v5_run_config(
-        config.task, config.split_protocol, config.seed, "raw_ucb_beta_1"
+        config.task,
+        config.split_protocol,
+        config.seed,
+        config.v5_strategy or "raw_ucb_beta_1",
+        model=config.model,
     )
     geometry = canonical_config["campaign"]
     y = frame.target.to_numpy(float)
@@ -206,6 +231,7 @@ def run_production_campaign(
     state_path = output_dir / "state.json"
     rounds_path = output_dir / "rounds.parquet"
     diagnostic_path = output_dir / "diagnostic_metrics.parquet"
+    round_audit_path = output_dir / "round_audit.parquet"
     trace_path = output_dir / "trajectory.json"
     if state_path.exists():
         state = json.loads(state_path.read_text(encoding="utf-8"))
@@ -219,6 +245,7 @@ def run_production_campaign(
         next_round = int(state["next_round"])
         round_rows = pd.read_parquet(rounds_path).to_dict("records") if rounds_path.exists() else []
         diagnostic_rows = pd.read_parquet(diagnostic_path).to_dict("records") if diagnostic_path.exists() else []
+        round_audit_rows = pd.read_parquet(round_audit_path).to_dict("records") if round_audit_path.exists() else []
         checkpoint_rows = dict(state.get("checkpoint_rows", {}))
     else:
         initial = list(
@@ -235,6 +262,7 @@ def run_production_campaign(
         next_round = 0
         round_rows = []
         diagnostic_rows = []
+        round_audit_rows: list[dict[str, Any]] = []
         checkpoint_rows: dict[str, int] = {}
     durable = DurableCheckpointStore(output_dir, adapter=adapter)
     durable.recover(identity)
@@ -243,9 +271,12 @@ def run_production_campaign(
     max_queries = int(geometry["max_queries"])
     batch_size = int(geometry["batch_size"])
 
-    def fit_model(round_index: int, labelled: list[int]):
+    def surrogate_seed(round_index: int) -> int:
         code = 11 if config.model == "random_forest" else 17
-        model_seed = int(np.random.SeedSequence([config.seed, round_index, code]).generate_state(1)[0])
+        return int(np.random.SeedSequence([config.seed, round_index, code]).generate_state(1)[0])
+
+    def fit_model(round_index: int, labelled: list[int]):
+        model_seed = surrogate_seed(round_index)
         model = adapter.modules["surrogates"].make_surrogate(
             config.model,
             n_estimators=int(canonical_config["model"]["n_estimators"]),
@@ -259,43 +290,16 @@ def run_production_campaign(
         # SeedSequence rejects negative integers, so use the same canonical
         # non-negative round key rather than a synthetic -1 sentinel.
         initial_model = fit_model(0, queried)
-        durable.write_payload(
+        durable.write_model(
             "initial",
-            _model_payload(initial_model),
+            initial_model,
             identity,
             realized_progress=0.0,
             acquisition_round=-1,
             queried_count=len(queried),
             crash_at=crash_at,
         )
-        checkpoint_rows["initial"] = 0
-        diagnostic_mean, diagnostic_raw_sigma = initial_model.predict_mean_std(X[split.diagnostic])
-        application = fit_and_apply_production_scale(
-            spec,
-            adapter=adapter,
-            model=initial_model,
-            X_query=X[np.asarray(split.target, int)],
-            query_mean=initial_model.predict_mean_std(X[np.asarray(split.target, int)])[0],
-            query_raw_sigma=initial_model.predict_mean_std(X[np.asarray(split.target, int)])[1],
-            X_diagnostic=X[split.diagnostic],
-            diagnostic_mean=diagnostic_mean,
-            diagnostic_raw_sigma=diagnostic_raw_sigma,
-            seed=int(np.random.SeedSequence([config.seed, 0, 31]).generate_state(1)[0]),
-            floor=floor,
-        )
-        diagnostic_rows.append(
-            _diagnostic_row(
-                spec=spec,
-                y=y[split.diagnostic],
-                mu=diagnostic_mean,
-                sigma=application.diagnostic_sigma,
-                interval_width=application.diagnostic_interval_half_width,
-                interval_widths=application.diagnostic_interval_half_widths,
-                floor=floor,
-                metadata={"round": -1, "budget_fraction": 0.0, "strategy": spec.id, "seed": config.seed},
-                adapter=adapter,
-            )
-        )
+        checkpoint_rows["initial"] = -1
         round_rows.append(
             {
                 "round": -1,
@@ -304,10 +308,10 @@ def run_production_campaign(
                 "selected_batch_ids": [],
                 "strategy": spec.id,
                 "seed": config.seed,
-                "scale_status": application.status,
-                "effective_beta_median": float(
-                    np.median(float(config.beta) * application.query_scale_factor)
-                ),
+                "scale_status": "initial_state",
+                "fitted_scale_median": 1.0,
+                "valid_oob_observation_count": 0,
+                "effective_beta_median": float(config.beta),
             }
         )
 
@@ -319,7 +323,12 @@ def run_production_campaign(
         model = fit_model(next_round, queried)
         mean, raw_sigma = model.predict_mean_std(X[candidates])
         diagnostic_mean, diagnostic_raw_sigma = model.predict_mean_std(X[split.diagnostic])
-        fit_seed = int(np.random.SeedSequence([config.seed, next_round, 31]).generate_state(1)[0])
+        # Frozen V5 passes the surrogate-fit seed into its stochastic
+        # candidate-specific optimizer.  The separate ``[seed, round, 31]``
+        # stream belongs to V5's acquisition-score helper, not its CS fit.
+        # Retaining that distinction is required for exact Historical/Selected
+        # CS compatibility.
+        fit_seed = surrogate_seed(next_round)
         application = fit_and_apply_production_scale(
             spec,
             adapter=adapter,
@@ -332,6 +341,7 @@ def run_production_campaign(
             diagnostic_raw_sigma=diagnostic_raw_sigma,
             seed=fit_seed,
             floor=floor,
+            oob_target_values=y[np.asarray(queried, int)],
         )
         round_beta = _beta_for_round(config, len(queried_selectable) / max_queries)
         scores, stable_order = score_production_round(
@@ -366,6 +376,8 @@ def run_production_campaign(
                 "strategy": spec.id,
                 "seed": config.seed,
                 "scale_status": application.status,
+                "fitted_scale_median": float(np.median(application.query_scale_factor)),
+                "valid_oob_observation_count": int((application.fit_metadata or {}).get("valid_oob_count", 0)),
                 "beta_used": round_beta,
                 "effective_beta_median": float(
                     np.median(round_beta * application.query_scale_factor)
@@ -381,21 +393,44 @@ def run_production_campaign(
                 "raw_sigma_floor_events": int(np.count_nonzero(raw_sigma < floor)),
             }
         )
+        top_count = min(5 * number, len(candidates))
+        for rank, position in enumerate(np.asarray(stable_order[:top_count], int), start=1):
+            selected_flag = bool(position in set(positions.tolist()))
+            round_audit_rows.append(
+                {
+                    "round": int(next_round),
+                    "strategy": spec.id,
+                    "seed": int(config.seed),
+                    "stable_candidate_id": int(stable[candidates[position]]),
+                    "candidate_id": str(ids[candidates[position]]),
+                    "rank": int(rank),
+                    "selected": selected_flag,
+                    "predicted_mean": float(mean[position]),
+                    "raw_predicted_std": float(raw_sigma[position]),
+                    "effective_predicted_std": float(np.maximum(raw_sigma[position], floor)),
+                    "scale": float(application.query_scale_factor[position]),
+                    "score": float(scores[position]),
+                }
+            )
         for label, threshold in thresholds.items():
             if label not in checkpoint_rows and budget + 1e-12 >= threshold:
                 post_model = fit_model(next_round + 1, queried)
-                durable.write_payload(
+                durable.write_model(
                     label,
-                    _model_payload(post_model),
+                    post_model,
                     identity,
                     realized_progress=budget,
                     acquisition_round=next_round,
                     queried_count=len(queried),
                     crash_at=None,
                 )
-                checkpoint_rows[label] = len(diagnostic_rows) - 1
+                # Keep the frozen V5 endpoint convention: checkpoint
+                # metadata points to the acquisition round, while the
+                # initial checkpoint is represented by -1.
+                checkpoint_rows[label] = int(next_round)
         _atomic_parquet_replace(pd.DataFrame(round_rows), rounds_path)
         _atomic_parquet_replace(pd.DataFrame(diagnostic_rows), diagnostic_path)
+        _atomic_parquet_replace(pd.DataFrame(round_audit_rows), round_audit_path)
         _atomic_state(
             state_path,
             {
@@ -426,6 +461,7 @@ def run_production_campaign(
         raise RuntimeError("production endpoint is non-finite")
     _atomic_parquet_replace(pd.DataFrame(round_rows), rounds_path)
     _atomic_parquet_replace(pd.DataFrame(diagnostic_rows), diagnostic_path)
+    _atomic_parquet_replace(pd.DataFrame(round_audit_rows), round_audit_path)
     final_state = {
         **identity,
         "initial_indices": initial,

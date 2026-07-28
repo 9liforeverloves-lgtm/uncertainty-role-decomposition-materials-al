@@ -1,0 +1,54 @@
+{
+  "archive_selection_map_path": "analysis_plan/v6_selection_map_SENTINEL_DRAFT.json",
+  "archive_selection_map_sha256": "0a42b137708142c7d59ef5c194a376d7a0c8fafd62f307a3cb8ee7efa3832abf",
+  "compact_tables_lock_sha256": "0ad427f46b27ed45c470fa9cb2b48535503b672a0c0984ea4601ae64e6e6243e",
+  "current_v6_code_tree_sha256": "8a807a4d4968be12784de29572e1146a83a5278db478ff5483e53bfc7fb20de7",
+  "evidence_class": "V6-P0-SENTINEL-DEVELOPMENT",
+  "final_sentinel_lock_sha256": "4213e6a702b8e90f78c247296a42c2e4950eec590a8e34832a0d05cfdc11b973",
+  "schema_version": "v6-p0-sentinel-compact-tables-lock-v1",
+  "status": "V6_P0_SENTINEL_DEVELOPMENT_COMPACT_DATA_LOCKED",
+  "tables": [
+    {
+      "lock_path": "locks/v6_p0_sentinel_seed_endpoints_lock.json",
+      "lock_sha256": "93d182c6e57d1adfd2171f8e6ec0d226f500767a8dde14744c776536b0cb6517",
+      "path": "tables/v6_p0_sentinel_seed_endpoints.csv",
+      "row_count": 360,
+      "sha256": "c22f35220910eed581df127a9728bfe098d6ccbe91d8a155b1530362b8f1eb32"
+    },
+    {
+      "lock_path": "locks/v6_p0_sentinel_round_effective_beta_lock.json",
+      "lock_sha256": "a4ba4806f273cc3db9c8991c00a356d417bdb51779a377e807fec41fb7b501ef",
+      "path": "tables/v6_p0_sentinel_round_effective_beta.csv",
+      "row_count": 240,
+      "sha256": "78b93c64bfc48df482d336aeeb0a297843420ddc03575a3bd691457e62a520e5"
+    },
+    {
+      "lock_path": "locks/v6_p0_sentinel_simple_scaler_inputs_lock.json",
+      "lock_sha256": "d90afb5c36782f1c636661c80bc3105bd416dfb8a38fe8c46c6fbb4a98e25460",
+      "path": "tables/v6_p0_sentinel_simple_scaler_inputs.csv",
+      "row_count": 60,
+      "sha256": "702e67793c6f3a3eb3c1de3be33bff7de3050983c6099a839d7818878dec0d8f"
+    },
+    {
+      "lock_path": "locks/v6_p0_sentinel_selection_summary_lock.json",
+      "lock_sha256": "65ee8c9f8cd252e067d0d43c3a335717b4472df1bf55354cd536d04f8c53933e",
+      "path": "tables/v6_p0_sentinel_selection_summary.csv",
+      "row_count": 4,
+      "sha256": "8d8eb1aeb335e5aeead16748ea00ba1feebd8bd47a49238f72d8a572fbf4c662"
+    },
+    {
+      "lock_path": "locks/v6_p0_sentinel_recovery_hash_inventory_lock.json",
+      "lock_sha256": "70807db9c3e145913aada5d08b5261cecb4b0e7c472f1174be168e7848e12e99",
+      "path": "tables/v6_p0_sentinel_recovery_hash_inventory.csv",
+      "row_count": 360,
+      "sha256": "061aba363c403995f1c174b949b0e7f07d1ddafdf042655871777942d6f6f023"
+    },
+    {
+      "lock_path": "locks/v6_p0_sentinel_job_artifact_inventory_lock.json",
+      "lock_sha256": "b75f1bff5cb28e114bff48f1dba80b602fbbf4dfdfa7af5a4c565746ebd4e087",
+      "path": "tables/v6_p0_sentinel_job_artifact_inventory.csv",
+      "row_count": 360,
+      "sha256": "fc2e9200efdae5c814b219d0638a737899992f62af0e979342f8ce91405b83b5"
+    }
+  ]
+}
