@@ -1,6 +1,6 @@
 {
   "schema_version": "v6-seed-registry-v2",
-  "status": "STAGE_2_5_FROZEN_PRE_DEVELOPMENT",
+  "status": "STAGE_2_5_FROZEN_WITH_P0_EVIDENCE_SCOPE_ADDENDUM",
   "namespaces": [
     {
       "class": "V5-RC1",
@@ -18,7 +18,11 @@
         6009
       ],
       "use": "P0 selection and development only",
-      "allowed_for_v6_fitting": true
+      "allowed_for_v6_fitting": true,
+      "evidence_class": "V6-P0-SENTINEL-DEVELOPMENT",
+      "scope": "matbench_expt_gap only; IID and chemical-system group-disjoint; Random Forest only",
+      "inferential_status": "development_only_non_confirmatory",
+      "transferability": "not transferable to the remaining V5 task/model universe"
     },
     {
       "class": "V6-confirmation",
@@ -27,7 +31,8 @@
         7039
       ],
       "use": "reserved; not read or generated in Stage-2.5",
-      "allowed_for_v6_fitting": false
+      "allowed_for_v6_fitting": false,
+      "status": "untouched_not_read_not_generated"
     },
     {
       "class": "Stage2-smoke",
@@ -37,17 +42,45 @@
       ],
       "use": "non-inferential engineering validation",
       "allowed_for_v6_fitting": false
+    },
+    {
+      "class": "V6-P0-BROAD-DEVELOPMENT",
+      "range": [
+        6100,
+        6109
+      ],
+      "use": "prospective broad development only; all 16 V5 task/split/model environments",
+      "allowed_for_v6_fitting": true,
+      "inferential_status": "development_only_non_confirmatory",
+      "confirmation_seed_range_forbidden": [
+        7000,
+        7039
+      ]
     }
   ],
   "bootstrap_root_seed": 610001,
   "sign_flip_root_seed": 610002,
   "child_seed_rule": "first 32 bits of SHA-256(root_seed|family|environment|contrast|endpoint)",
-  "creation_time_utc": "2026-07-27T11:57:03.130463+00:00",
-  "git_commit": "1698c2fa830ac30ccd8dd3050201c9d68980f350",
+  "creation_time_utc": "2026-07-28T06:44:02.517132+00:00",
+  "git_commit": "04057915f670ece1f76744686058229e1ad7ff28",
   "source_hashes": {
     "v5_authority_lock_sha256": "dc7ef6077e6c9f87c85823268bcd1774d3733a904ca2e78b33dd4a646f73b315",
     "v5_confirmation_protocol_sha256": "0c8991c1261799336eb7a1991cb004cc9e958f274031de05a3c964a27e897c29",
-    "v6_code_tree_sha256": "3295b351fc74b4df63a5ae3b43d9e41cbf51139b7c45a4e073edd1c0bd489ae0"
+    "v6_code_tree_sha256": "b6909c42f51b1fd3ed54507e270624cd5b6fa838b2ba3885b2da418d2bf2ddfa"
   },
-  "immutable_freeze_hash": "adb9c64af46206f33209217fb7d5d51a12da0093ea8d6062aadbd598c6fd39ef"
+  "stage_2_5_freeze_hash": "adb9c64af46206f33209217fb7d5d51a12da0093ea8d6062aadbd598c6fd39ef",
+  "p0_evidence_classes": {
+    "V6-P0-SENTINEL-DEVELOPMENT": {
+      "scope": "matbench_expt_gap only; two splits; Random Forest; seeds 6000-6009",
+      "status": "accepted_development_only_non_confirmatory",
+      "draft_map": "analysis_plan/v6_selection_map_SENTINEL_DRAFT.json",
+      "transferability": "not sufficient for a full-universe confirmation policy"
+    },
+    "V6-P0-BROAD-DEVELOPMENT": {
+      "scope": "four tasks; two splits; Random Forest and ExtraTrees; seeds 6100-6109",
+      "status": "prospective_pending_final_broad_lock",
+      "confirmation_boundary": "seeds 7000-7039 remain untouched"
+    }
+  },
+  "immutable_freeze_hash": "d35f926097399a49dbc937f4e74295d6c569ce3fc4e75fd0ae945bddb99da12b"
 }
