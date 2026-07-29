@@ -80,7 +80,7 @@ PRODUCTION_STRATEGIES = {
         _spec("GG_CALIBRATION_ONLY", min_oob=8, bounds=None, acquisition="raw_sigma", objective="V5 Gaussian-global calibration; exact RAW acquisition"),
         _spec("GG_ACQUISITION_ONLY", min_oob=8, bounds=None, evaluation="raw_gaussian_sigma", objective="V5 Gaussian-global acquisition; raw evaluation"),
         _spec("HISTORICAL_CS", min_oob=3, bounds=(0.25, 4.0), evaluation="raw_gaussian_sigma", parameters=7, objective="V5 six-feature pairwise candidate-specific ranking; raw diagnostic sigma"),
-        _spec("SELECTED_CS", min_oob=10, bounds=(0.25, 4.0), evaluation="raw_gaussian_sigma", parameters=2, objective="V5 parsimonious F1 pairwise candidate-specific ranking; raw diagnostic sigma"),
+        _spec("SELECTED_CS", min_oob=10, bounds=(0.25, 4.0), parameters=2, objective="V5 parsimonious F1 pairwise candidate-specific ranking; candidate-scaled joint evaluation"),
         _spec("CS_CALIBRATION_ONLY", min_oob=10, bounds=(0.25, 4.0), acquisition="raw_sigma", parameters=2, objective="V5 selected CS calibration; exact RAW acquisition"),
         _spec("CS_ACQUISITION_ONLY", min_oob=10, bounds=(0.25, 4.0), evaluation="raw_gaussian_sigma", parameters=2, objective="V5 selected CS acquisition; raw evaluation"),
         _spec("SCALAR_TEMPERATURE_NLL", min_oob=3, bounds=(0.05, 20.0), acquisition="raw_sigma", parameters=1, objective="Gaussian OOB NLL; calibration-only simple scaler"),
@@ -222,6 +222,38 @@ def _exact_v5_local_feature_acceleration(v5: Any):
             v5._local_features = original
 
 
+@contextmanager
+def _exact_v5_selected_f1_feature_path(v5: Any):
+    """Skip unused V5 local features when the frozen registry selects F1 only.
+
+    V5 selects columns only after constructing all six features.  For the
+    prospectively registered ``feature_indices=[0]`` strategy, column zero is
+    exactly ``log(max(raw_std, 1e-12))``.  Finite placeholders in unselected
+    columns preserve V5's finite-row guard and leave its optimizer unchanged.
+    """
+
+    def selected_f1_features(
+        model: Any,
+        Xref: np.ndarray,
+        ratios: np.ndarray,
+        valid: np.ndarray,
+        Xq: np.ndarray,
+        raw_std: np.ndarray,
+        mean: np.ndarray,
+        training: bool = False,
+    ) -> np.ndarray:
+        first = np.log(np.maximum(np.asarray(raw_std, float), 1e-12))
+        return np.column_stack([first, np.zeros((len(first), 5), dtype=float)])
+
+    with _V5_LOCAL_FEATURE_PATCH_LOCK:
+        original = v5._local_features
+        v5._local_features = selected_f1_features
+        try:
+            yield
+        finally:
+            v5._local_features = original
+
+
 def _candidate_specific_scale_with_exact_v5_local_features(
     v5: Any,
     model: Any,
@@ -238,7 +270,12 @@ def _candidate_specific_scale_with_exact_v5_local_features(
 ) -> tuple[np.ndarray, str]:
     """Run the frozen V5 CS optimizer with its exact accelerated helper."""
 
-    with _exact_v5_local_feature_acceleration(v5):
+    context = (
+        _exact_v5_selected_f1_feature_path(v5)
+        if tuple(config.get("feature_indices", ())) == (0,)
+        else _exact_v5_local_feature_acceleration(v5)
+    )
+    with context:
         scale, status = v5.candidate_specific_scale(
             model,
             oob_mean,
@@ -447,10 +484,9 @@ def fit_and_apply_production_scale(
         query_scale = _ensure_positive(query_scale, "candidate-specific query scale")
         diagnostic_scale = None
         if diagnostic_effective is not None and spec.evaluation_mapping == "raw_gaussian_sigma":
-            # Frozen V5 CS trajectories calibrate candidate uncertainty only
-            # for acquisition.  Their checkpoint diagnostics use the raw
-            # effective ensemble sigma, so fitting a second candidate model
-            # here would change L1 despite an identical acquisition path.
+            # Acquisition-only and historical controls retain raw checkpoint
+            # evaluation.  Prospectively registered SELECTED_CS is joint and
+            # therefore follows the scaled diagnostic branch below.
             diagnostic_scale = np.ones(len(diagnostic_effective))
         elif diagnostic_effective is not None:
             diagnostic_scale, diagnostic_status = _candidate_specific_scale_with_exact_v5_local_features(

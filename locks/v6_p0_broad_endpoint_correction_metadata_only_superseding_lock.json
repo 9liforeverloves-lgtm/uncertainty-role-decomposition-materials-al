@@ -1,0 +1,26 @@
+{
+  "candidate_v2_sha256_after_registry_metadata_correction": "1a3215086949f2c52a0cd7ea3587da544c2adbe2b3acc167f80adfa0a888a8a4",
+  "confirmation_outcomes_inspected": false,
+  "confirmation_seeds_used": [],
+  "corrected_endpoint_table_sha256": "745b75a13c88769fb05d36cd4430fa966fdc2e93030b8195282a3bdf48f39385",
+  "distinction": "Regeneration counts rows whose endpoints were recomputed under the accepted correction code. Numerical change counts only rows whose corrected numeric L1 differs from the archived value. One recomputed row is numerically identical.",
+  "endpoint_rows_numerically_changed": 1439,
+  "endpoint_rows_regenerated": 1440,
+  "endpoint_rows_regenerated_but_equal": 1,
+  "evidence_class": "V6-P0-BROAD-ENDPOINT-CORRECTION",
+  "metadata_lock_self_sha256": "05fa7817f20190a0154220396e72881885a2805f863e6e4cedca2ebc287ac3d2",
+  "previous_lock_preserved": true,
+  "regenerated_but_equal_row": {
+    "model": "random_forest",
+    "seed": 6105,
+    "split": "iid_record",
+    "strategy": "GG_ACQUISITION_ONLY",
+    "task": "matbench_expt_gap"
+  },
+  "schema_version": "v6-p0-broad-endpoint-correction-metadata-supersession-v2",
+  "scientific_endpoints_changed_by_this_lock": false,
+  "status": "METADATA_ONLY_SUPERSEDES_COUNT_FIELDS_NO_SCIENTIFIC_ENDPOINT_CHANGE",
+  "supersedes_correction_self_sha256": "1d3ecd695ef9bc00cb4ae7c828de9d44e60517b49ffed13ff9a4c48ba7276523",
+  "supersedes_file_sha256": "2df32b5466c59962d83d2bf8f1b97a78cf08a341930db5b1fd63a094287f228c",
+  "supersedes_path": "locks/v6_p0_broad_endpoint_correction_lock.json"
+}

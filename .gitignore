@@ -52,6 +52,10 @@ results/**/checkpoints/
 results/**/shards/
 results/v6_development/
 results/v6_confirmation/
+results/v6_p0_broad_development/
+results/v6_p0_broad_development_canary/
+results/v6_p0_broad_endpoint_correction/
+results/v6_v5_strategy_replay_audit/
 *.sqlite
 *.sqlite-shm
 *.sqlite-wal

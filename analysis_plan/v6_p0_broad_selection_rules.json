@@ -1,0 +1,67 @@
+{
+  "broad_seed_range": [
+    6100,
+    6109
+  ],
+  "confirmation_seed_range_forbidden": [
+    7000,
+    7039
+  ],
+  "evidence_class": "V6-P0-BROAD-DEVELOPMENT",
+  "git_commit": "1b22410f8ae12de757ca5b89508b56e638e4a58e",
+  "matched_beta_selection": {
+    "balancing_rule": "median within each source task/split/model environment, then median across environments",
+    "fallback_rule": "fixed_matched_beta when a stage has no valid source rows",
+    "fixed_beta_rule": "environment-balanced median",
+    "held_out_task_rule": "one map per held-out task; use only the other three tasks",
+    "stage_boundaries": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "stage_rule": "same environment-balanced median within the stage",
+    "tie_rule": "deterministic lexical ordering before every grouped reduction",
+    "unit": "Original-GG effective beta at active-learning rounds >= 0"
+  },
+  "reuse_rules": {
+    "GG_NORMALIZED_ACQUISITION": "not registered for broad reuse; no RAW identity is assumed",
+    "calibration_replay": [
+      "IDENTITY_CONTROL",
+      "GG_CALIBRATION_ONLY",
+      "CS_CALIBRATION_ONLY",
+      "SCALAR_TEMPERATURE_NLL",
+      "SCALAR_TEMPERATURE_RESIDUAL_RATIO",
+      "POWER_SCALING",
+      "ISOTONIC_ABS_RESIDUAL",
+      "CONFORMAL_INTERVAL_ONLY"
+    ],
+    "full_trajectory": [
+      "RAW",
+      "ORIGINAL_GG",
+      "HISTORICAL_CS",
+      "SELECTED_GG",
+      "SELECTED_CS",
+      "GG_ACQUISITION_ONLY",
+      "CS_ACQUISITION_ONLY",
+      "RAW_FIXED_BETA_MATCHED",
+      "RAW_STAGE_BETA_MATCHED"
+    ]
+  },
+  "schema_version": "v6-p0-broad-selection-rules-v1",
+  "simple_scaling_roles": {
+    "CONFORMAL_INTERVAL_ONLY": "L1_calibration_only_secondary_no_universal_acquisition_sigma",
+    "IDENTITY_CONTROL": "negative_implementation_control_not_scaling_winner",
+    "ISOTONIC_ABS_RESIDUAL": "monotonic_nonparametric_secondary_baseline",
+    "POWER_SCALING": "flexible_parametric_secondary_baseline",
+    "SCALAR_TEMPERATURE_NLL": "prespecified_mechanistic_scalar_baseline",
+    "SCALAR_TEMPERATURE_RESIDUAL_RATIO": "candidate_simple_nonidentity_scalar_baseline"
+  },
+  "simple_scaling_rule": "no outcome-driven simple-scaler winner is selected from sentinel or broad outcomes",
+  "source_hashes": {
+    "v5_authority_lock_sha256": "dc7ef6077e6c9f87c85823268bcd1774d3733a904ca2e78b33dd4a646f73b315",
+    "v6_code_tree_sha256": "b6909c42f51b1fd3ed54507e270624cd5b6fa838b2ba3885b2da418d2bf2ddfa"
+  },
+  "status": "PROSPECTIVE_BROAD_DEVELOPMENT_RULES_FROZEN_BEFORE_ENDPOINT_READ"
+}

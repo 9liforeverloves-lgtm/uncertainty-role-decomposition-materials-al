@@ -299,7 +299,8 @@ def run_production_campaign(
             queried_count=len(queried),
             crash_at=crash_at,
         )
-        checkpoint_rows["initial"] = -1
+        # The first diagnostic row is evaluated by the same initial model.
+        checkpoint_rows["initial"] = 0
         round_rows.append(
             {
                 "round": -1,
@@ -424,10 +425,10 @@ def run_production_campaign(
                     queried_count=len(queried),
                     crash_at=None,
                 )
-                # Keep the frozen V5 endpoint convention: checkpoint
-                # metadata points to the acquisition round, while the
-                # initial checkpoint is represented by -1.
-                checkpoint_rows[label] = int(next_round)
+                # Diagnostics are recorded immediately before acquisition.
+                # The post-acquisition checkpoint model is evaluated at the
+                # next diagnostic row.
+                checkpoint_rows[label] = int(next_round + 1)
         _atomic_parquet_replace(pd.DataFrame(round_rows), rounds_path)
         _atomic_parquet_replace(pd.DataFrame(diagnostic_rows), diagnostic_path)
         _atomic_parquet_replace(pd.DataFrame(round_audit_rows), round_audit_path)

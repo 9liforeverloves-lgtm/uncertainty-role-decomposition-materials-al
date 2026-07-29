@@ -1,0 +1,28 @@
+{
+  "alias_registry_self_sha256": "cf41cf83d9d669c1d5ce7de02320e669d61c74178a51e8673549908530eabccb",
+  "aliases": [
+    {
+      "alias_id": "GG_JOINT",
+      "canonical_id": "ORIGINAL_GG",
+      "equivalence_basis": "alias of ORIGINAL_GG",
+      "formula_identity": "same global OOB residual-ratio fit, scaled_sigma acquisition, scaled_gaussian_sigma evaluation, nominal beta 1.0",
+      "generate_confirmation_job": false,
+      "multiplicity_family_member": false
+    },
+    {
+      "alias_id": "CS_JOINT",
+      "canonical_id": "SELECTED_CS",
+      "equivalence_basis": "alias of SELECTED_CS",
+      "formula_identity": "same selected F1 pairwise candidate-specific fit, bounds [0.25,4.0], scaled_sigma acquisition, scaled_gaussian_sigma evaluation, nominal beta 1.0",
+      "generate_confirmation_job": false,
+      "multiplicity_family_member": false
+    }
+  ],
+  "canonical_ids_only": [
+    "ORIGINAL_GG",
+    "SELECTED_CS"
+  ],
+  "schema_version": "v6-strategy-alias-registry-v1",
+  "source_strategy_registry_sha256": "a604019a90b94feaa5e9fae884c7aef601cb6814231f2ffd5ee8a0a23c1077ee",
+  "status": "CANDIDATE_DEVELOPMENT_ONLY_NOT_FROZEN"
+}

@@ -1,0 +1,64 @@
+{
+  "affected_strategies": [
+    "CS_ACQUISITION_ONLY",
+    "GG_ACQUISITION_ONLY",
+    "HISTORICAL_CS",
+    "ORIGINAL_GG",
+    "RAW",
+    "RAW_FIXED_BETA_MATCHED",
+    "RAW_STAGE_BETA_MATCHED",
+    "SELECTED_CS",
+    "SELECTED_GG"
+  ],
+  "candidate_v2_sha256": "7ef8c4d6a97ab54afe4ed140c88d67f8335a96827554eb15a423f8d97950de5b",
+  "corrected_endpoint_table": {
+    "path": "tables/v6_p0_broad_seed_endpoints_CORRECTED.csv",
+    "sha256": "745b75a13c88769fb05d36cd4430fa966fdc2e93030b8195282a3bdf48f39385"
+  },
+  "correction_self_sha256": "1d3ecd695ef9bc00cb4ae7c828de9d44e60517b49ffed13ff9a4c48ba7276523",
+  "endpoint_rows_numerically_changed": 1440,
+  "endpoint_rows_regenerated": 1440,
+  "evidence_class": "V6-P0-BROAD-ENDPOINT-CORRECTION",
+  "final_broad_lock_identity_sha256": "edca62dd041f7ab6d02bfd63af381c60bb26dfee187df6d290c686848f202f4b",
+  "final_broad_lock_sha256": "47831de7d6acf84fe85f020f6d4d3435577e3ed1ed9147739f33deedb15fbdce",
+  "l4_changed": false,
+  "manifest_sha256": "b8d0eca1d3d0625203d04458fcd07232999ecadaa5ca94241292cd271e71b496",
+  "matched_beta_maps_changed": false,
+  "original_endpoint_table": {
+    "archive_path": "tables/archive/v6_p0_broad_seed_endpoints_ORIGINAL_5f36b36c06dba57f.csv",
+    "archive_sha256": "5f36b36c06dba57fe89dec67c0b8cb1bbf4a87f72a9197fb12beafd81aa5a8f7",
+    "path": "tables/v6_p0_broad_seed_endpoints.csv",
+    "sha256": "5f36b36c06dba57fe89dec67c0b8cb1bbf4a87f72a9197fb12beafd81aa5a8f7"
+  },
+  "output_hashes": {
+    "reports/05a_p0_leave_one_task_out_selection_CORRECTED.md": "7f4781bad1b34294bbb60b1cb46414f71414b81c2a1873c299d9e16f473c30b0",
+    "reports/05b_p0_broad_selection_stability_CORRECTED.md": "b86f636762a52c48ec972f4c7bfd18af0e8e268084ab2df4b4d7e51b4a1db2c5",
+    "reports/05c_identity_control_reconciliation.md": "62032a110492cf38139bc268986975d790f887467a233866f1cddd63f2f51212",
+    "reports/05d_cs_decoupling_reconciliation.md": "888cb079d524aa1334a3eabcfd2575df1502aa63c981ade1819099d3bdec9926",
+    "reports/05e_broad_recovery_audit.md": "14a2b3d0757c878f4f44ea9ec9090f0e635c82c25a6bb348bf23f5e16feaec3f",
+    "results/v6_p0_broad_endpoint_correction/reproduction_manifest.json": "b1af47cec87d55cc1c9c11b1c6cd8709f29304fff1ce23126dd5bc23937d4081",
+    "tables/v6_p0_broad_recovery_inventory.csv": "23e30c053383c913e2dcb96fb8b531229dba78f6135ad01d8761c2382c1a4810",
+    "tables/v6_p0_cs_joint_acquisition_pair_audit.csv": "87780bdfbdcbbf51b6d9c52f67581796a2339682088cc9553adb133fe59b88fa",
+    "tables/v6_p0_identity_pair_audit.csv": "6e7e28b3636d1d30fd77e7a13dffc85b8b46d7ec73c80281066e883e7e92e06b"
+  },
+  "reason": "checkpoint-index semantics and prospective SELECTED_CS registry/adapter mismatch",
+  "reason_unrelated_to_outcome_direction": true,
+  "recovery_audit": {
+    "count_reconciliation_pass": true,
+    "execution_summary_recovered": 8,
+    "final_output_hashes_pass": true,
+    "no_duplicate_final_output_pass": true,
+    "pre_recovery_checkpoint_evidence_complete": false,
+    "recovery_record_files": 8,
+    "registry_attempt_2_rows": 8,
+    "unchanged_lock_pass": true
+  },
+  "schema_version": "v6-p0-broad-endpoint-correction-v1",
+  "selected_cs_evaluation_mapping_affected": true,
+  "simple_scaling_summaries_changed": false,
+  "status": "ENDPOINT_CORRECTION_COMPLETE_CANDIDATE_V2_GENERATED_NOT_FROZEN",
+  "strategy_ordering_changed": true,
+  "trajectories_rerun": 0,
+  "trajectories_reused": 1440,
+  "v6_code_tree_sha256": "dfa82fadb572295aadc550ce22c8b55979b90d86ec49bd17eda3e3135b1423ab"
+}

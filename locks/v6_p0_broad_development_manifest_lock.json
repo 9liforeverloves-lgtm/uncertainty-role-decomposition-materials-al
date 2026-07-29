@@ -1,0 +1,193 @@
+{
+  "canary_seed": 6099,
+  "canary_summary_path": "results/v6_p0_broad_development_canary/canary_summary.json",
+  "canary_summary_sha256": "81b3dee2a78e3797ba26ce085930c143edfd1223893aae8d07d83296ae70a90a",
+  "confirmation_boundary": "No confirmation jobs, seeds, outputs, or inference are permitted.",
+  "created_utc": "2026-07-28T06:45:45.636766+00:00",
+  "development_seed_range": [
+    6100,
+    6109
+  ],
+  "environment_count": 16,
+  "environment_scope": [
+    "matbench_expt_gap__iid_record__random_forest",
+    "matbench_expt_gap__iid_record__extra_randomized_bagging",
+    "matbench_expt_gap__chemical_system_ood__random_forest",
+    "matbench_expt_gap__chemical_system_ood__extra_randomized_bagging",
+    "matbench_mp_gap__iid_record__random_forest",
+    "matbench_mp_gap__iid_record__extra_randomized_bagging",
+    "matbench_mp_gap__chemical_system_ood__random_forest",
+    "matbench_mp_gap__chemical_system_ood__extra_randomized_bagging",
+    "matbench_log_gvrh__iid_record__random_forest",
+    "matbench_log_gvrh__iid_record__extra_randomized_bagging",
+    "matbench_log_gvrh__chemical_system_ood__random_forest",
+    "matbench_log_gvrh__chemical_system_ood__extra_randomized_bagging",
+    "matbench_log_kvrh__iid_record__random_forest",
+    "matbench_log_kvrh__iid_record__extra_randomized_bagging",
+    "matbench_log_kvrh__chemical_system_ood__random_forest",
+    "matbench_log_kvrh__chemical_system_ood__extra_randomized_bagging"
+  ],
+  "evidence_class": "V6-P0-BROAD-DEVELOPMENT",
+  "execution_policy": {
+    "isolated_process_workers_default": 2,
+    "records_directory": "results/v6_p0_broad_development/final_broad_development/recovery_records",
+    "registry": "canonical V5 SQLite registry with atomic named claims",
+    "retry_rule": "FAILED rows may return to PLANNED only with a versioned retry_authorized record linked to this final lock",
+    "stale_rule": "RUNNING rows block a new executor unless explicit age-threshold stale recovery emits a versioned record"
+  },
+  "execution_run_id": "final_broad_development",
+  "final_lock_sha256": "edca62dd041f7ab6d02bfd63af381c60bb26dfee187df6d290c686848f202f4b",
+  "git_commit": "1b22410f8ae12de757ca5b89508b56e638e4a58e",
+  "manifest_job_count": 2720,
+  "manifest_path": "manifests/v6_p0_broad_development_manifest.csv",
+  "manifest_sha256": "b8d0eca1d3d0625203d04458fcd07232999ecadaa5ca94241292cd271e71b496",
+  "plan_path": "analysis_plan/v6_p0_broad_development_plan.md",
+  "plan_sha256": "232ef5033dda368a10b4e512ed5218ccdf5027ed25357db3493afea441bf7962",
+  "recovery_rule": "Preserve this final lock. Any execution failure creates a versioned recovery record and never reissues or overwrites the lock.",
+  "schema_version": "v6-p0-broad-development-manifest-lock-v1",
+  "seed_collision_audit": "passed_exactly_6100_6109_and_no_5000_5039_or_7000_7039",
+  "selection_rules_path": "analysis_plan/v6_p0_broad_selection_rules.json",
+  "selection_rules_sha256": "6c6de14f482184b1e5a8775889910537ee53f64843b838fddf156fd788bca2a4",
+  "status": "FINAL_PROSPECTIVE_BROAD_DEVELOPMENT_LOCK",
+  "strategy_list": [
+    "RAW",
+    "ORIGINAL_GG",
+    "HISTORICAL_CS",
+    "SELECTED_GG",
+    "SELECTED_CS",
+    "GG_ACQUISITION_ONLY",
+    "CS_ACQUISITION_ONLY",
+    "IDENTITY_CONTROL",
+    "GG_CALIBRATION_ONLY",
+    "CS_CALIBRATION_ONLY",
+    "SCALAR_TEMPERATURE_NLL",
+    "SCALAR_TEMPERATURE_RESIDUAL_RATIO",
+    "POWER_SCALING",
+    "ISOTONIC_ABS_RESIDUAL",
+    "CONFORMAL_INTERVAL_ONLY",
+    "RAW_FIXED_BETA_MATCHED",
+    "RAW_STAGE_BETA_MATCHED"
+  ],
+  "v5_authority_lock": {
+    "checked_files": 18,
+    "checks": [
+      {
+        "expected_sha256": "96ef1aa952b5f9cb52071cac90bddf04890501ae9af051ce49b6999153c094ef",
+        "match": true,
+        "observed_sha256": "96ef1aa952b5f9cb52071cac90bddf04890501ae9af051ce49b6999153c094ef",
+        "path": "revision_v5/15_development_freeze_lock.json"
+      },
+      {
+        "expected_sha256": "814d1bdee6562b3e29f78afdc86fb92a303b97c60fa4c392d83681b6b1af55f2",
+        "match": true,
+        "observed_sha256": "814d1bdee6562b3e29f78afdc86fb92a303b97c60fa4c392d83681b6b1af55f2",
+        "path": "revision_v5/19_selected_policy_lock.json"
+      },
+      {
+        "expected_sha256": "0c8991c1261799336eb7a1991cb004cc9e958f274031de05a3c964a27e897c29",
+        "match": true,
+        "observed_sha256": "0c8991c1261799336eb7a1991cb004cc9e958f274031de05a3c964a27e897c29",
+        "path": "revision_v5/20_confirmation_protocol_v5_rc1.md"
+      },
+      {
+        "expected_sha256": "69074fceae6030ea0e92292f95be628e09afa9e66d14524424392c17fe138b50",
+        "match": true,
+        "observed_sha256": "69074fceae6030ea0e92292f95be628e09afa9e66d14524424392c17fe138b50",
+        "path": "revision_v5/CONFIRMATION_RESULT_LOCK_V5_RC1.json"
+      },
+      {
+        "expected_sha256": "e960743bec1d282e9fb3c0bb01fb0c0b6a03d5744f2902e87ffeed3ad1ab366a",
+        "match": true,
+        "observed_sha256": "e960743bec1d282e9fb3c0bb01fb0c0b6a03d5744f2902e87ffeed3ad1ab366a",
+        "path": "revision_v5/CONFIRMATION_TRAJECTORY_CONTENT_LOCK_V5_RC1.json"
+      },
+      {
+        "expected_sha256": "22bd05ebb49d3d5e6524fd5de62c28f35792fcf43cc3c69d2f7514bc5c48bc1d",
+        "match": true,
+        "observed_sha256": "22bd05ebb49d3d5e6524fd5de62c28f35792fcf43cc3c69d2f7514bc5c48bc1d",
+        "path": "revision_v5/environment-lock.txt"
+      },
+      {
+        "expected_sha256": "51380a2f155281c61855cf06591f383c0f9c6f9fc4231a99271cfca4af17fba0",
+        "match": true,
+        "observed_sha256": "51380a2f155281c61855cf06591f383c0f9c6f9fc4231a99271cfca4af17fba0",
+        "path": "revision_v5/environment-final-validation-lock.txt"
+      },
+      {
+        "expected_sha256": "cd88596a5f1cb3bbbce990945f5211e70ca7e024de86ab26a154353032d67a0e",
+        "match": true,
+        "observed_sha256": "cd88596a5f1cb3bbbce990945f5211e70ca7e024de86ab26a154353032d67a0e",
+        "path": "revision_v5/manifests_v4/CONFIRMATION_FREEZE_LOCK_V5_RC1.json"
+      },
+      {
+        "expected_sha256": "6fbe0d79906df8523fb036800ccfec17f9bcb18a8845ddcaae9dadf3ce2c52a8",
+        "match": true,
+        "observed_sha256": "6fbe0d79906df8523fb036800ccfec17f9bcb18a8845ddcaae9dadf3ce2c52a8",
+        "path": "revision_v5/manifests_v4/CONFIRMATION_JOB_MANIFEST_V5_RC1.csv"
+      },
+      {
+        "expected_sha256": "6a67a54589b809f46883423070c1e8b37599bb49fac0e0f79a58bec65f590dc4",
+        "match": true,
+        "observed_sha256": "6a67a54589b809f46883423070c1e8b37599bb49fac0e0f79a58bec65f590dc4",
+        "path": "revision_v5/results_v4/confirmation/registry.sqlite"
+      },
+      {
+        "expected_sha256": "cf218bb8ba5d1647bf37213a83d2831fdddd3a1efc4a8d28a8f52dff6483a441",
+        "match": true,
+        "observed_sha256": "cf218bb8ba5d1647bf37213a83d2831fdddd3a1efc4a8d28a8f52dff6483a441",
+        "path": "revision_v5/results_v4/confirmation/registry_snapshot.csv"
+      },
+      {
+        "expected_sha256": "14878052c950eab32c9059ae40d6a0faf42bbe642ae8b14cdfebcb9ad9feb2fd",
+        "match": true,
+        "observed_sha256": "14878052c950eab32c9059ae40d6a0faf42bbe642ae8b14cdfebcb9ad9feb2fd",
+        "path": "revision_v5/audits_v5/confirmation_trajectory_hash_inventory.csv"
+      },
+      {
+        "expected_sha256": "5ffc2652368ea7399bf3c1f43c49d5ab989396e379bd7943d0010a118708074d",
+        "match": true,
+        "observed_sha256": "5ffc2652368ea7399bf3c1f43c49d5ab989396e379bd7943d0010a118708074d",
+        "path": "revision_v5/tables_v5/FINAL_TABLE_LOCK_V5.json"
+      },
+      {
+        "expected_sha256": "2466848a25cf7c92199387825cc9e3842c7c260df75a267ec110eea066ba485d",
+        "match": true,
+        "observed_sha256": "2466848a25cf7c92199387825cc9e3842c7c260df75a267ec110eea066ba485d",
+        "path": "revision_v5/tables_v5/v5_rc1_seed_level_endpoints_final.csv"
+      },
+      {
+        "expected_sha256": "c73b531a2858f54da5d420eec23211eaf18aecf3f575af608101b9b7d427b453",
+        "match": true,
+        "observed_sha256": "c73b531a2858f54da5d420eec23211eaf18aecf3f575af608101b9b7d427b453",
+        "path": "revision_v5/tables_v5/v5_rc1_primary_contrasts_final.csv"
+      },
+      {
+        "expected_sha256": "d67f647950a796d7c9154520337dde2fcab51095c2ff84bd977cb7c9b11502e5",
+        "match": true,
+        "observed_sha256": "d67f647950a796d7c9154520337dde2fcab51095c2ff84bd977cb7c9b11502e5",
+        "path": "revision_v5/tables_v5/v5_rc1_recovery_sensitivity_final.csv"
+      },
+      {
+        "expected_sha256": "558c333e1e8fb26b65d04c680bd58c40590acc0d24481bd30c08631067509305",
+        "match": true,
+        "observed_sha256": "558c333e1e8fb26b65d04c680bd58c40590acc0d24481bd30c08631067509305",
+        "path": "revision_v5/tables_v5/v5_rc1_multiplicity_sensitivity_final.csv"
+      },
+      {
+        "expected_sha256": "89d066689515b29c83fff4668b0c52a7ceeff66006d0effa65e1c2fae3036566",
+        "match": true,
+        "observed_sha256": "89d066689515b29c83fff4668b0c52a7ceeff66006d0effa65e1c2fae3036566",
+        "path": "revision_v5/tables_v5/v5_rc1_environment_summary_final.csv"
+      }
+    ],
+    "passed": true,
+    "schema_version": "v5-frozen-manifest-v1"
+  },
+  "v5_source_lock": {
+    "expected_overall_sha256": "09ce0e42bdf173b455e65165748a2653e8681fae207c2d4aa9b3d568b1aa6e08",
+    "mismatches": {},
+    "observed_overall_sha256": "09ce0e42bdf173b455e65165748a2653e8681fae207c2d4aa9b3d568b1aa6e08",
+    "source_hashes_match": true
+  },
+  "v6_code_tree_sha256": "b6909c42f51b1fd3ed54507e270624cd5b6fa838b2ba3885b2da418d2bf2ddfa"
+}

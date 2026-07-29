@@ -1,0 +1,13 @@
+hypothesis_id,earliest_registered_wording,earliest_registered_alternative,earliest_registry_commit,candidate_v2_alternative,outcomes_available_when_earliest_defined,outcomes_available_when_candidate_v2_defined,final_proposed_alternative,justification
+H1,GG_CALIBRATION_ONLY vs RAW,lower_is_better,fa4ec48,less,False,True,less,The favorable direction was registered before any V6 development outcome was available and is unchanged in Candidate v2.
+H5A,CS_CALIBRATION_ONLY vs RAW,lower_is_better,fa4ec48,less,False,True,less,The favorable direction was registered before any V6 development outcome was available and is unchanged in Candidate v2.
+H2A,GG_ACQUISITION_ONLY vs RAW (H2),higher_is_better,fa4ec48,greater,False,True,greater,The favorable direction was registered before any V6 development outcome was available and is unchanged in Candidate v2.
+H2B,ORIGINAL_GG joint vs RAW,greater,eba8d54,greater,False,True,greater,The favorable direction was registered before any V6 development outcome was available and is unchanged in Candidate v2.
+H5B,CS_ACQUISITION_ONLY vs RAW,higher_is_better,fa4ec48,greater,False,True,greater,The favorable direction was registered before any V6 development outcome was available and is unchanged in Candidate v2.
+H5C,SELECTED_CS joint vs RAW,greater,eba8d54,greater,False,True,greater,The favorable direction was registered before any V6 development outcome was available and is unchanged in Candidate v2.
+H3,RAW_FIXED_BETA_MATCHED vs GG_JOINT,equivalence_descriptive,fa4ec48,two-sided,False,True,two-sided,Earliest wording was non-directional/equivalence-descriptive; retain two-sided inference. Favorable directional estimates may be secondary.
+H4,RAW_STAGE_BETA_MATCHED vs GG_JOINT,equivalence_descriptive,fa4ec48,two-sided,False,True,two-sided,Earliest wording was non-directional/equivalence-descriptive; retain two-sided inference. Favorable directional estimates may be secondary.
+H6A,SCALAR_TEMPERATURE_NLL vs IDENTITY_CONTROL,less,eba8d54,less,False,True,less,The favorable direction was registered before any V6 development outcome was available and is unchanged in Candidate v2.
+H6B,SCALAR_TEMPERATURE_RESIDUAL_RATIO vs IDENTITY_CONTROL,less,eba8d54,less,False,True,less,The favorable direction was registered before any V6 development outcome was available and is unchanged in Candidate v2.
+H6,frozen simple scaler vs frozen complex CS,noninferiority_requires_margin_freeze,fa4ec48,none,False,True,none,No noninferiority margin was frozen; retain descriptive estimation with no binary directional claim.
+H7,paired L1 and L4 direction,descriptive_divergence,fa4ec48,none,False,True,none,Registered as descriptive divergence; no inferential direction.

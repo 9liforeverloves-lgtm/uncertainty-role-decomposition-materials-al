@@ -36,6 +36,10 @@ def test_actual_production_strategy_specs_cover_required_algorithms() -> None:
     ].objective
     assert PRODUCTION_STRATEGIES["SELECTED_CS_EQUIVALENT_DOF_CONTROL"].acquisition_mapping == "raw_sigma"
     assert PRODUCTION_STRATEGIES["HISTORICAL_CS_EQUIVALENT_DOF_CONTROL"].acquisition_mapping == "raw_sigma"
+    assert PRODUCTION_STRATEGIES["SELECTED_CS"].acquisition_mapping == "scaled_sigma"
+    assert PRODUCTION_STRATEGIES["SELECTED_CS"].evaluation_mapping == "scaled_gaussian_sigma"
+    assert PRODUCTION_STRATEGIES["CS_ACQUISITION_ONLY"].acquisition_mapping == "scaled_sigma"
+    assert PRODUCTION_STRATEGIES["CS_ACQUISITION_ONLY"].evaluation_mapping == "raw_gaussian_sigma"
     assert all(
         PRODUCTION_STRATEGIES[strategy].acquisition_mapping == "raw_sigma"
         for strategy in CALIBRATION_REPLAY_STRATEGIES
