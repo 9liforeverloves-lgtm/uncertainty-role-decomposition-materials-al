@@ -52,6 +52,7 @@ results/**/checkpoints/
 results/**/shards/
 results/v6_development/
 results/v6_confirmation/
+results/v6_p0_confirmation/
 results/v6_p0_broad_development/
 results/v6_p0_broad_development_canary/
 results/v6_p0_broad_endpoint_correction/
