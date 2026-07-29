@@ -1,0 +1,21 @@
+check,passed,detail
+manifest row count,True,12800/12800
+unique job IDs,True,12800 unique
+exact confirmation seed range,True,7000-7039
+no development or V5 seed,True,no intersection
+no aliases,True,"['CS_JOINT', 'GG_JOINT']"
+no H7 jobs,True,H7 is analysis_only
+no duplicate canonical jobs,True,12800 unique canonical keys
+exact policy ID/beta/key consistency,True,all canonical ID/beta/key triples match
+Original/Selected GG manifest identity,True,beta/key bindings exact
+matched-beta task-map binding,True,all four frozen LOTO maps bound
+dependency paths exist where required,True,all replay dependencies resolve to RAW jobs in the frozen manifest graph
+every registered contrast has 40 paired seeds,True,all 11 non-analysis-only contrasts complete
+every required strategy and baseline exists,True,12 required IDs present
+multiplicity-family members complete,True,10 inferential members registered
+frozen-map hash matches every row,True,779608733b1b7e8727a28b3d08666227d69241756e30f685180ea2ca0f8909dd
+freeze-lock hash matches every row,True,bea5809d5342417dc53b8210852370a3db372d1bb8bad208faac3cd87f00186a
+V5 locks remain unchanged,True,18 authority files checked
+no output or outcome file currently exists,True,results/v6_p0_confirmation
+frozen scientific identity remains exact,True,administrative fields excluded
+freeze self-hashes remain valid,True,frozen map and lock
