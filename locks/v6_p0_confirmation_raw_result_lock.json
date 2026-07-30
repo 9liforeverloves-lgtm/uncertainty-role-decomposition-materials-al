@@ -1,0 +1,56 @@
+{
+  "code_tree_sha256": "5612c35c5e436e9b4a4b9fbaac6172181c50a257a20c5aa54c38bcb7298b4f57",
+  "counts": {
+    "completed": 12800,
+    "excluded": 0,
+    "failed": 0,
+    "failure_attempt_records": 4,
+    "planned": 0,
+    "recovered_registry_status": 0,
+    "recovery_retry_records": 5,
+    "running": 0
+  },
+  "created_utc": "2026-07-30T05:23:01.215003+00:00",
+  "endpoint_values_inspected": false,
+  "execution_authorization": {
+    "path": "locks/v6_p0_confirmation_execution_authorization.json",
+    "self_sha256": "f1a0fe21eabdcd19b7aa14405a0179a0646ac1a41a43ef7909b53e249c64ff8a",
+    "sha256": "94faff3291ced540c3a0415f6cc7694d90f2ea994ede1bee22ce857c16782196"
+  },
+  "execution_inventory": {
+    "path": "tables/v6_p0_confirmation_execution_inventory.csv",
+    "sha256": "ebf6301707a30953679230a346bfd639e3505e4303e5ffbcc5e743f7134b2198"
+  },
+  "final_registry": {
+    "path": "results/v6_p0_confirmation/registry.sqlite",
+    "sha256": "747e1561cc4241bf5aa740b53465b7fcfdb2415261fe35cbad68b2ca4f1af41f",
+    "snapshot_path": "results/v6_p0_confirmation/registry_snapshot_final.csv",
+    "snapshot_sha256": "3b1281e0d070317cb22d6679723c06987e31f798fb466c65d0bd63b4d0317070"
+  },
+  "manifest": {
+    "path": "manifests/v6_p0_confirmation_manifest.csv",
+    "row_count": 12800,
+    "sha256": "64b9e87063eb609d78c6b9db0284faf8faa2f1203047128ede50a1910bc30ef3"
+  },
+  "paired_completeness": {
+    "complete": true,
+    "registered_contrasts_checked": 11,
+    "required_seeds_per_contrast_environment": 40
+  },
+  "raw_result_lock_self_sha256": "b5e0caae9573fd0e7b70fc175898765477b30215fb2c1349d1deb867531ab0b2",
+  "schema_version": "v6-p0-confirmation-raw-result-lock-v1",
+  "scientific_analysis_started": false,
+  "status": "RAW_CONFIRMATION_RESULTS_LOCKED_BEFORE_ANALYSIS",
+  "trajectory_hash_inventory": {
+    "all_artifact_count": 58880,
+    "checkpoint_file_count": 46080,
+    "path": "tables/v6_p0_confirmation_trajectory_hash_inventory.csv",
+    "sha256": "b224c93407de510feb4443f58fa12abb8f3d21eb438e1d64c8adf0dfbe2133d8",
+    "trajectory_count": 12800
+  },
+  "v5_authority": {
+    "authority_manifest_sha256": "dc7ef6077e6c9f87c85823268bcd1774d3733a904ca2e78b33dd4a646f73b315",
+    "checked_files": 18,
+    "passed": true
+  }
+}
