@@ -672,6 +672,10 @@ def _inventory_hashes(snapshot: pd.DataFrame) -> pd.DataFrame:
         for path in sorted(output_dir.rglob("*")):
             if not path.is_file() or path.name.endswith(".tmp"):
                 continue
+            if path.name != "trajectory.json" and not path.name.startswith(
+                "checkpoint_"
+            ):
+                continue
             if path.name.startswith("checkpoint_") and path.suffix == ".joblib":
                 metadata_path = path.with_suffix(".json")
                 if not metadata_path.is_file():
