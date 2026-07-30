@@ -672,6 +672,24 @@ def _inventory_hashes(snapshot: pd.DataFrame) -> pd.DataFrame:
         for path in sorted(output_dir.rglob("*")):
             if not path.is_file() or path.name.endswith(".tmp"):
                 continue
+            if path.name.startswith("checkpoint_") and path.suffix == ".joblib":
+                metadata_path = path.with_suffix(".json")
+                if not metadata_path.is_file():
+                    raise FileNotFoundError(
+                        f"checkpoint metadata is absent: {metadata_path}"
+                    )
+                metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+                artifact_sha256 = str(metadata.get("model_state_hash", ""))
+                if (
+                    len(artifact_sha256) != 64
+                    or any(character not in "0123456789abcdef" for character in artifact_sha256)
+                    or path.stat().st_size <= 0
+                ):
+                    raise RuntimeError(f"checkpoint hash metadata is invalid: {path}")
+                hash_source = "atomic_write_verified_model_state_hash"
+            else:
+                artifact_sha256 = sha256_file(path)
+                hash_source = "post_execution_byte_verification"
             records.append(
                 {
                     "job_id": str(row.job_id),
@@ -685,7 +703,8 @@ def _inventory_hashes(snapshot: pd.DataFrame) -> pd.DataFrame:
                         else "supporting"
                     ),
                     "size_bytes": path.stat().st_size,
-                    "sha256": sha256_file(path),
+                    "sha256": artifact_sha256,
+                    "hash_source": hash_source,
                 }
             )
     return pd.DataFrame(records)
