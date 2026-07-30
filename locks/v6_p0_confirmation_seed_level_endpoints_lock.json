@@ -1,0 +1,22 @@
+{
+  "aggregation_or_ranking_performed_during_extraction": false,
+  "created_utc": "2026-07-30T05:40:32.724803+00:00",
+  "endpoint_table": {
+    "path": "tables/v6_p0_confirmation_seed_level_endpoints.csv",
+    "row_count": 12800,
+    "seed_first": 7000,
+    "seed_last": 7039,
+    "sha256": "a56a853083535b76b8e2c7eaeab056bdd81b0a9e73e953fb00c13237c9c8af8d",
+    "unique_environment_count": 16,
+    "unique_job_count": 12800
+  },
+  "endpoint_table_lock_self_sha256": "0bec6b1d6995ef563d1a62b5ca4565f6f1b3228e3763bb7858717e58af11e856",
+  "endpoint_values_read_only_from_locked_outputs": true,
+  "raw_result_lock": {
+    "path": "locks/v6_p0_confirmation_raw_result_lock.json",
+    "self_sha256": "b5e0caae9573fd0e7b70fc175898765477b30215fb2c1349d1deb867531ab0b2",
+    "sha256": "76b1ae1c46131b0e8fc2d3988c8ab6fd3a0b0f1a5fe84c575d5adb64f489966c"
+  },
+  "schema_version": "v6-p0-confirmation-seed-level-endpoints-lock-v1",
+  "status": "ENDPOINT_TABLE_LOCKED_BEFORE_INFERENCE"
+}

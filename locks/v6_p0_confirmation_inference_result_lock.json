@@ -1,0 +1,99 @@
+{
+  "analysis_code_tree": {
+    "files": [
+      {
+        "path": "scripts/analyze_v6_p0_confirmation.py",
+        "sha256": "dfdf0ed91620def74425718c18ed8f485529c5097d573a16dce0abd6b8224f31"
+      },
+      {
+        "path": "src/transportability_v6/inference.py",
+        "sha256": "b4aa5ce0009d15d6f4df269952dd4b440fe0a30151ba8f759c00ae991f63c935"
+      }
+    ],
+    "sha256": "8ca177091247c92e81d53d36f33eed64f8a14c66f500e6efac7622a9ec139026"
+  },
+  "cardinality": {
+    "endpoint_rows": 12800,
+    "failed_completeness_gates": 0,
+    "h7_rows": 11,
+    "heterogeneity_rows": 264,
+    "multiplicity_rows": 10,
+    "pair_gate_rows": 176,
+    "primary_contrast_rows": 11
+  },
+  "created_utc": "2026-07-30T05:43:40.748411+00:00",
+  "endpoint_table_lock_self_sha256": "0bec6b1d6995ef563d1a62b5ca4565f6f1b3228e3763bb7858717e58af11e856",
+  "files": {
+    "endpoint_table": {
+      "path": "tables/v6_p0_confirmation_seed_level_endpoints.csv",
+      "sha256": "a56a853083535b76b8e2c7eaeab056bdd81b0a9e73e953fb00c13237c9c8af8d"
+    },
+    "endpoint_table_lock": {
+      "path": "locks/v6_p0_confirmation_seed_level_endpoints_lock.json",
+      "sha256": "0ac56f854aadfe73f488abb5c33daa8292246bb696dfe73bceeba6ae48f93d83"
+    },
+    "environment_effects": {
+      "path": "tables/v6_p0_confirmation_environment_effects.csv",
+      "sha256": "379555bc225bf8e052ce5aa201a52ee2266d7b6699a4e7b9e59e699ee2e284e9"
+    },
+    "h7_direction_table": {
+      "path": "tables/v6_p0_confirmation_h7_direction_table.csv",
+      "sha256": "dc2e75bfd0a867b6e068102283e87961a358f867c5066200fba77373a9ee31bf"
+    },
+    "inference_report": {
+      "path": "reports/09_p0_confirmation_inference.md",
+      "sha256": "084e72ad09f2f96cff709c6f444af02bd40a5fccb7182bdaec90259d74c6d620"
+    },
+    "multiplicity": {
+      "path": "tables/v6_p0_confirmation_multiplicity.csv",
+      "sha256": "f117dfaf7766e7dc648088c01d0e7ce1e6a16b1868c109594e77a69efec20e56"
+    },
+    "pair_completeness": {
+      "path": "tables/v6_p0_confirmation_pair_completeness.csv",
+      "sha256": "b6e8cf31b19b2c43195171924e292bf8ab36acbbdbc4821c72db8849db6a7ce8"
+    },
+    "primary_contrasts": {
+      "path": "tables/v6_p0_confirmation_primary_contrasts.csv",
+      "sha256": "2b9820a0167a8e875c322d105fe54cdbad614a391f02db59938aabfe06d2a2fa"
+    },
+    "raw_lock_validation_report": {
+      "path": "reports/08_p0_raw_result_lock_validation.md",
+      "sha256": "7513063747c62061541ad97ade42e5032be2d29f0f84e35160941b15b6a5c6a8"
+    },
+    "resampling_seeds": {
+      "path": "tables/v6_p0_confirmation_resampling_seeds.csv",
+      "sha256": "398f25284ddf67859f1afed8d51d7d6a8e328ac5ec3224c7bc0d85ef2a9aa6ee"
+    }
+  },
+  "frozen_analysis_inputs": {
+    "analysis_plan/v6_endpoint_registry.json": "fd63a7dfd3700dfa813a7109274d3a7641a5e2ba7ddcab7ffb72b0ae84edc3cb",
+    "analysis_plan/v6_hypothesis_registry.json": "015418368a0d3fb7dd90c3350186ae0f9b16b37c6fb7543dc1a5c9ebebc16bf4",
+    "analysis_plan/v6_multiplicity_families.json": "401d2940324429253e80206e2d2fd87b484f2e96166c47cb281115c3fd85bf0f",
+    "analysis_plan/v6_p0_confirmation_selection_map_FROZEN.json": "779608733b1b7e8727a28b3d08666227d69241756e30f685180ea2ca0f8909dd"
+  },
+  "inference_result_lock_self_sha256": "eb72599b855f156b014b5362e89a81f274cce5f29b4c905c55d2e76799961e66",
+  "raw_result_lock": {
+    "path": "locks/v6_p0_confirmation_raw_result_lock.json",
+    "self_sha256": "b5e0caae9573fd0e7b70fc175898765477b30215fb2c1349d1deb867531ab0b2",
+    "sha256": "76b1ae1c46131b0e8fc2d3988c8ab6fd3a0b0f1a5fe84c575d5adb64f489966c"
+  },
+  "resampling": {
+    "bootstrap_root_seed": 610001,
+    "child_seed_derivation": "first 32 bits of SHA-256(root_seed|family|stratum|contrast|endpoint)",
+    "resample_count_per_analysis": 10000,
+    "seed_inventory_path": "tables/v6_p0_confirmation_resampling_seeds.csv",
+    "seed_inventory_sha256": "398f25284ddf67859f1afed8d51d7d6a8e328ac5ec3224c7bc0d85ef2a9aa6ee",
+    "seed_record_count": 285,
+    "sign_flip_root_seed": 610002
+  },
+  "schema_version": "v6-p0-confirmation-inference-result-lock-v1",
+  "scope_guards": {
+    "h6_descriptive_only": true,
+    "h7_analysis_only_no_binary_claim": true,
+    "manuscript_interpretation_started": false,
+    "post_hoc_exploration_performed": false,
+    "registered_contrasts_only": true,
+    "registered_multiplicity_families_only": true
+  },
+  "status": "FROZEN_INFERENCE_RESULTS_LOCKED_BEFORE_MANUSCRIPT_INTERPRETATION"
+}
