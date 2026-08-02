@@ -14,7 +14,7 @@ Current local gate: `READY_FOR_AUTHOR_PUBLICATION`.
 | Planned release tag | `v1.0.0` | AUTHORIZED BUT NOT CREATED |
 | `CITATION.cff` | BSD-3-Clause, Renjie Li, version 1.0.0, real private repository URL; no DOI | VALID PRE-PUBLIC CANDIDATE |
 | Zenodo/CodeMeta | publication identifiers null | READY FOR AUTHOR UPLOAD |
-| GitHub Actions | definitions present | `NOT_RUN` |
+| GitHub Actions | main tests and reproducibility at `1d6fef9ca8dca3fc92877405d967dde40dcdedc6` | PASS |
 | Docker | definition present; runtime unavailable | `NOT TESTED` |
 
-`PUBLIC_RELEASE_READY = false` and `SUBMISSION_READY = false`. Advancement requires a real public repository, successful online CI, a real `v1.0.0` tag, a resolving archive DOI and completion of the remaining manuscript-author metadata.
+`PUBLIC_RELEASE_READY = false` because visibility, tag, GitHub Release and archive publication have deliberately not occurred. The pre-public engineering gate is `READY_TO_MAKE_PUBLIC`; advancement requires explicit author confirmation. `SUBMISSION_READY = false` until the remaining manuscript-author metadata are supplied.

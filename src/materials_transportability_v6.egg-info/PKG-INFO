@@ -147,7 +147,7 @@ Local Windows Python 3.12 testing is recorded under `reports/`. GitHub Actions d
 
 ## Citation
 
-Use `CITATION.cff`. The intended release is `v1.0.0`, but no tag, repository URL or DOI may be cited until those resources actually exist.
+Use `CITATION.cff`. The private preparation repository exists at `https://github.com/9liforeverloves-lgtm/uncertainty-role-decomposition-materials-al`; it is not publicly accessible yet. The intended release is `v1.0.0`, but no tag or DOI may be cited until those resources actually exist.
 
 ## License
 
@@ -159,6 +159,6 @@ See `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md` and `SECURITY.md`. Never alter froze
 
 ## Known limitations and publication state
 
-Public repository: pending author publication. Archive DOI: pending public release. License: BSD-3-Clause. No `v1.0.0` tag exists yet. Linux CI and Docker definitions are prepared but are not claimed as online PASS.
+Repository: created private; public visibility pending explicit author confirmation. Archive DOI: pending public release. License: BSD-3-Clause. No `v1.0.0` tag exists yet. Online CI status is reported separately and Docker is not claimed as PASS.
 
 Current gate after local release validation: `READY_FOR_AUTHOR_PUBLICATION`; `PUBLIC_RELEASE_READY = false`; `SUBMISSION_READY = false`.
