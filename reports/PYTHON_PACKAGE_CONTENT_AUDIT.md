@@ -4,8 +4,8 @@ Build command: `python -m build` with isolated `setuptools==75.8.2` and `wheel==
 
 | Artifact | Bytes | SHA-256 | Members | Result |
 |---|---:|---|---:|---|
-| `materials_transportability_v6-1.0.0-py3-none-any.whl` | 99,397 | `8592cff7686cc817430d6df74bba0f7bf47bdca24fe70692820467dd9da3a293` | 40 | PASS |
-| `materials_transportability_v6-1.0.0.tar.gz` | 95,437 | `c7d42a1059d07fe3afd0fc6d9cbe7fe2355d93768ed819890e73b0212837e032` | 59 | PASS |
+| `materials_transportability_v6-1.0.0-py3-none-any.whl` | 99,482 | `b1b78f21218aa5f0a063ee3bda74ed0a9c808b712df9e194922dffefa21f1a88` | 40 | PASS |
+| `materials_transportability_v6-1.0.0.tar.gz` | 95,629 | `8111c2e46154fe9126b599092fb5b33ce0c02fbac9da115d7f79de69414a51d2` | 66 | PASS |
 
 Both artifacts contain `LICENSE`, `NOTICE` and `THIRD_PARTY_NOTICES`. The wheel metadata records version 1.0.0, author Renjie Li, BSD-3-Clause license text and the BSD OSI classifier.
 
