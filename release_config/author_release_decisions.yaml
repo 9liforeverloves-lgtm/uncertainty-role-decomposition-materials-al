@@ -1,0 +1,32 @@
+# Author-controlled release gate. Replace null only after explicit verification/authorization.
+schema_version: 2
+code_license: "BSD-3-Clause"
+copyright_holder: "Renjie Li"
+copyright_year: 2026
+allow_public_code_release: true
+allow_public_processed_outputs: true
+allow_public_raw_data: false
+repository_url: "https://github.com/9liforeverloves-lgtm/uncertainty-role-decomposition-materials-al"
+archive_doi: null
+release_tag: "v1.0.0"
+public_release_date: null
+processed_output_scope:
+  - authority_tables
+  - result_locks
+  - frozen_protocols
+  - manifests
+  - split_manifests
+  - figure_source_tables
+  - generated_figures
+  - generated_manuscripts
+  - reproduction_scripts
+  - tests
+  - synthetic_fixtures
+excluded_data_scope:
+  - raw_matbench_snapshots
+  - raw_materials_project_records
+  - third_party_raw_data
+  - full_execution_workspace
+  - local_caches
+  - virtual_environments
+authorization_note: "Processed-output authorization does not relicense third-party raw data or software."

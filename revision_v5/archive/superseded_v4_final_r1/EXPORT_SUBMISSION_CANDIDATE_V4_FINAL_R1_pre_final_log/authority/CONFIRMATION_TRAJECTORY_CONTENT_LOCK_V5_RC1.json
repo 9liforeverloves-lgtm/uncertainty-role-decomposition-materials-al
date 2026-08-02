@@ -1,0 +1,18 @@
+{
+  "schema_version": "trajectory-content-lock-v1",
+  "protocol_version": "v5-rc1",
+  "locked_at": "2026-07-25T06:35:04.042675",
+  "lock_type": "post-execution-pre-inference",
+  "trajectory_directory": "results_v4/confirmation/trajectories",
+  "inventory": {
+    "path": "audits_v5/confirmation_trajectory_hash_inventory.csv",
+    "sha256": "14878052c950eab32c9059ae40d6a0faf42bbe642ae8b14cdfebcb9ad9feb2fd",
+    "file_count": 53760,
+    "trajectory_count": 3360,
+    "total_size_bytes": 89636190995
+  },
+  "deterministic_tree_hash": "03a7576720863e4cb17ee2e5bfba14a144d78f848d2547e9c8efa1133701d2b8",
+  "immutability_pledge": "This lock freezes trajectory file content. Any modification to trajectory outputs invalidates this hash and violates the post-execution freeze.",
+  "verification_instructions": "To verify: recompute inventory CSV, sort by relative_path, concatenate path|size|sha256 with newlines, SHA256 the result. Must match deterministic_tree_hash.",
+  "relationship_to_result_lock": "This is an additive amendment to CONFIRMATION_RESULT_LOCK_V5_RC1.json. The original result lock remains unchanged and authoritative for manifest/registry/protocol hashes."
+}

@@ -1,0 +1,20 @@
+{
+  "compute_amendment_lock_sha256": "e0a23d564870e73b476d01871d18b92d33c7ffbc2ba9bbc3feac969304174969",
+  "confirmation_outcomes_present_at_freeze": false,
+  "implementation_lock_sha256": "1db153da73ee144f3f3ad145dd2b7ae507fd64c9f9e42c58b4c2b36c54ccc4a6",
+  "jobs_by_model": {
+    "extra_randomized_bagging": 1280,
+    "quantile_gradient_boosting": 960,
+    "random_forest": 1280
+  },
+  "path": "manifests/p1_confirmation_manifest.csv",
+  "protocol_lock_sha256": "4cf7f1d1aba35e961a0641ac7437950df247ca2fa27fbad6dfb0d75577733b11",
+  "rows": 3520,
+  "schema_version": 1,
+  "seed_range": [
+    8200,
+    8239
+  ],
+  "sha256": "8fa0693f0a0ce9776d6fd2eca72bf450dd67d99cf8efa21e42ee67ad79467877",
+  "status": "FROZEN_BEFORE_ANY_P1_CONFIRMATION_OUTCOME"
+}

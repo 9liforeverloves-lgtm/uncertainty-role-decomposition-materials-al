@@ -1,0 +1,30 @@
+{
+  "schema_version": 2,
+  "status": "AMENDED_OUTCOME_BLIND_BEFORE_ANY_CONFIRMATION_OUTCOME",
+  "model_id": "QUANTILE_GRADIENT_BOOSTING",
+  "central_loss": "squared_error",
+  "quantile_levels": [0.16, 0.84],
+  "shared_parameters": {
+    "n_estimators": 200,
+    "learning_rate": 0.05,
+    "max_depth": 3,
+    "min_samples_leaf": 5,
+    "subsample": 1.0
+  },
+  "sigma_denominator": 1.9889157664195078,
+  "uncertainty_floor": 1e-8,
+  "calibration_crossfit_folds": 5,
+  "calibration_crossfit_shuffle": true,
+  "residual_ratio_fit": "median(abs(y-mu)/max(sigma,floor))",
+  "stable_ties": "descending_score_then_ascending_immutable_material_id",
+  "crossfit_alignment": "exact_immutable_material_id_set_validation_and_lookup",
+  "diagnostic_label_use": "evaluation_only_never_scalar_fit_or_acquisition",
+  "l1_checkpoint_labels": ["initial", "25pct", "50pct", "75pct"],
+  "role_paths": {
+    "P1_QGB_RAW": ["raw_sigma_acquisition", "raw_sigma_evaluation"],
+    "P1_QGB_CALIBRATION_ONLY_RR": ["raw_sigma_acquisition", "scaled_sigma_evaluation"],
+    "P1_QGB_ACQUISITION_ONLY_RR": ["scaled_sigma_acquisition", "raw_sigma_evaluation"]
+  },
+  "sentinel_seeds": [8000, 8001, 8002, 8003, 8004],
+  "confirmation_seeds_sealed": [8200, 8239]
+}

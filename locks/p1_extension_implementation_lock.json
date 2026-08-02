@@ -1,0 +1,37 @@
+{
+  "compute_amendment_lock_sha256": "e0a23d564870e73b476d01871d18b92d33c7ffbc2ba9bbc3feac969304174969",
+  "confirmation_outcomes_present_at_freeze": false,
+  "created_at": "2026-08-01T11:45:08.700769+00:00",
+  "files": {
+    "analysis_plan/p1_inference_randomization_FROZEN.json": "377914fee60100d6dfd532c89636b1718e568061ff38879215ec03d8aac6ae62",
+    "p1_extension/campaign.py": "11964ded894e28bf10f8ecaf1f257d4d078a04b845f37b826b485f681661592a",
+    "p1_extension/implementation_contract.json": "5a2c0d50773c78448414c830d126ebd2bd56e597b255176317cef2a453977308",
+    "p1_extension/metrics.py": "35bc6084afb37f0c3ba048477f42e58c677bd0705ce51afd6bb9b4d13bf3fb09",
+    "p1_extension/models.py": "07901f19b7a423fa75606a2e5023a39ec69c73de3e8532bbaba3b6c9a418f900",
+    "scripts/analyze_p1_confirmation.py": "67f64c79ea500b151f15b403fa9c11103a8ed112967eadc1cfb7da06345372d2",
+    "scripts/build_p1_beta_development_manifest.py": "ec46c7d55c149e362662cd2660192674ad3f903a01bf88d8d0fc8f7017ed2f1d",
+    "scripts/build_p1_job_manifests.py": "4b0721a0e7c6db76629ae9af6fae48fce6a5de3abb3b6dfcc81b33222e344927",
+    "scripts/collect_p1_confirmation.py": "10790a03068622daa73358303a35bd1edddd1dc501ff04f3d76e40dc994a274b",
+    "scripts/execute_p1_confirmation_manifest.py": "40eb5bb3e9357b2a1842f48335b75af6fd866aef7ea1538cf03e49d625248b5f",
+    "scripts/run_p1_beta_development.py": "a7ff177edc7ec5469a1f8759d1e2b2daf9ef70e93a8302aa1de196dce1d0637f",
+    "scripts/run_p1_manifest_job.py": "c81d94a03cd1a12e39eaab9582ed7771c31909bec5ecae6f99d202ef2e074b7d",
+    "scripts/select_p1_development_beta.py": "0e9be5936ec94ef43225e86d003ca688ab5e01192b218d644acd4620ba0198c2",
+    "tables/p1_strategy_role_map.csv": "d4ae269888cd94dfb5eb4da2eac8930f843edd03d88b1a9c41f2671befc6aca5",
+    "tests/test_p1_extension_campaign.py": "dc3f872be42a46abae064b04285b3019a4a3fb0dbaf10a4950a274d491d0a785",
+    "tests/test_p1_extension_metrics.py": "378bd606e7b4edcd5bc7562ac021e6d955f20038f89495bb911868802332c3f9",
+    "tests/test_p1_extension_model.py": "d36d5e149942210140d17dc891af61795f9fccca0d6e1fc55e1ecc4bbc092426",
+    "tests/test_p1_manifests_and_gate.py": "794d23914e0cece3984fb33f569d7a2cad6d1a050ac580aeba25cbdd0267b9ff",
+    "tests/test_p1_protocol_lock.py": "a8bbef0d6fd24af1c496b5737456d8078df76060866d19c6f6b64b4a5767a964"
+  },
+  "git_commit": "8553ccff60c1a691f81913edfad4e64d297d3486",
+  "protocol_lock_sha256": "4cf7f1d1aba35e961a0641ac7437950df247ca2fa27fbad6dfb0d75577733b11",
+  "schema_version": 2,
+  "scientific_change_summary": "Outcome-blind conformance repair: stable-ID alignment/ties, exact role paths, checkpoint L1, atomic outputs, completeness and paired inference.",
+  "status": "FINAL_FROZEN_BEFORE_ANY_P1_CONFIRMATION_OUTCOME",
+  "superseded_implementation_lock_sha256": "b16c4bf4e6a8e5007bc699789f7722a129323bfc1483cdfc9d1a482b07cffeb0",
+  "tests": {
+    "focused_p1_tests": 18,
+    "p1_plus_integrity_tests": 30,
+    "status": "PASS"
+  }
+}

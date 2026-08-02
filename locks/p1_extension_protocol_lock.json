@@ -1,0 +1,40 @@
+{
+  "schema_version": "p1-extension-protocol-lock-v1",
+  "status": "FROZEN_BEFORE_ANY_P1_CONFIRMATION_OUTCOME",
+  "frozen_date": "2026-08-01",
+  "timezone": "Asia/Shanghai",
+  "git_baseline_commit": "8553ccff60c1a691f81913edfad4e64d297d3486",
+  "confirmation_outcomes_observed_at_freeze": false,
+  "files": [
+    {
+      "path": "analysis_plan/p1_extension_protocol_FROZEN.md",
+      "sha256": "8cebbcc1b2d1b916969795f2cd20c9b3af109b9c31b160117412a921a811a1fe"
+    },
+    {
+      "path": "analysis_plan/p1_extension_contrasts_FROZEN.csv",
+      "sha256": "e0949dfed8678ba7216c7905200b69fa39158b98e59bf3e0f3a32b150fdb0a69"
+    },
+    {
+      "path": "analysis_plan/p1_extension_endpoint_registry_FROZEN.csv",
+      "sha256": "7191c9db084fbc62c762dca6cad4833ec3ec3d157d5c6f7873d934eff00d0b43"
+    },
+    {
+      "path": "analysis_plan/p1_extension_seed_registry_FROZEN.csv",
+      "sha256": "ef1d052a9398744849896fc763f9daf3b7ac26df407a52f0b623cb43fdb59aeb"
+    }
+  ],
+  "seed_namespaces": {
+    "sentinel": [8000, 8004],
+    "development": [8100, 8109],
+    "confirmation": [8200, 8239]
+  },
+  "v6_multiplicity_separation": "P1 families are independent and never merged with V6",
+  "v6_designated_authority_sha256": {
+    "locks/v6_p0_confirmation_inference_result_lock.json": "0a7ce4f74de5767251d652639b8f327ee83e8e48e43808701e829d0021f12561",
+    "tables/v6_p0_confirmation_primary_contrasts.csv": "2b9820a0167a8e875c322d105fe54cdbad614a391f02db59938aabfe06d2a2fa",
+    "tables/v6_p0_confirmation_multiplicity.csv": "f117dfaf7766e7dc648088c01d0e7ce1e6a16b1868c109594e77a69efec20e56",
+    "tables/v6_p0_confirmation_environment_effects.csv": "379555bc225bf8e052ce5aa201a52ee2266d7b6699a4e7b9e59e699ee2e284e9",
+    "tables/v6_p0_confirmation_pair_completeness.csv": "b6e8cf31b19b2c43195171924e292bf8ab36acbbdbc4821c72db8849db6a7ce8",
+    "tables/v6_p0_confirmation_seed_level_endpoints.csv": "a56a853083535b76b8e2c7eaeab056bdd81b0a9e73e953fb00c13237c9c8af8d"
+  }
+}

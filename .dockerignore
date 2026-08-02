@@ -1,0 +1,25 @@
+.git
+.github
+.venv*
+**/__pycache__
+**/.pytest_cache
+.tmp*
+tmp
+dist
+build
+results
+revision_audit
+revision_v5
+submission_package_v6
+material-active-learning
+liunx result
+最终
+【重跑】
+*.log
+*.aux
+*.bbl
+*.blg
+*.out
+*.exe
+*.docx
+

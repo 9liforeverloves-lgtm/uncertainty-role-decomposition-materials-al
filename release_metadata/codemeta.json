@@ -1,0 +1,17 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "name": "Role-decomposed uncertainty evaluation in materials active learning",
+  "description": "Code, locked evidence and reproducibility tooling for an offline materials active-learning study.",
+  "version": "1.0.0",
+  "programmingLanguage": "Python 3.12",
+  "author": [{"@type": "Person", "givenName": "Renjie", "familyName": "Li", "@id": null}],
+  "codeRepository": "https://github.com/9liforeverloves-lgtm/uncertainty-role-decomposition-materials-al",
+  "identifier": null,
+  "license": "https://spdx.org/licenses/BSD-3-Clause.html",
+  "dateCreated": "2026",
+  "datePublished": null,
+  "copyrightHolder": {"@type": "Person", "givenName": "Renjie", "familyName": "Li"},
+  "copyrightYear": 2026,
+  "developmentStatus": "ready for author publication"
+}

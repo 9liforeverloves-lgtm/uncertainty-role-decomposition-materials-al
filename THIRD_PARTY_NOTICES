@@ -1,0 +1,35 @@
+# Third-party notices
+
+This project does not vendor the 47 Python dependencies listed in
+`requirements-lock.txt`. For every exact package/version, the verified
+license/terms, installed copyright/license-file source, required notice,
+bundling status and redistribution assessment are recorded in
+`tables/release_audit/dependency_license_inventory.csv` and rendered in
+`reports/LICENSE_COMPATIBILITY_MATRIX.md`. Those records are incorporated by
+reference and must accompany any redistribution that bundles dependencies.
+
+Key upstream components include NumPy, SciPy, pandas, scikit-learn,
+Matplotlib, PyArrow, pymatgen, Pillow, Requests and PyYAML. Preserve each
+upstream distribution's license when redistributing its binaries or source.
+The current source/release candidate does not bundle those distributions.
+
+The four task snapshots derive from Matbench v0.1. Matbench software is MIT
+licensed, but individual task data retain upstream provenance and citation
+requirements. Matbench and Materials Project software/data terms do not by
+themselves establish the author's right to redistribute the locally processed
+snapshot files. Raw task snapshots remain excluded even though the author has
+authorized publication of the rights-audited original processed outputs.
+
+Dataset notice summary:
+
+- Matbench v0.1 task objects: upstream task provenance and citations apply;
+  raw objects are not bundled; redistribution status is excluded/pending the
+  task-specific upstream terms.
+- Materials Project-derived records: upstream Materials Project attribution
+  and snapshot terms apply; raw records are not bundled.
+- Author-created authority tables, locks, manifests, figures and diagnostics:
+  bundled only within the scope documented in `LICENSE_AND_DATA_SCOPE.md`.
+
+The manuscript uses standard TeX Live/LaTeX packages and generic article
+layouts; no proprietary journal class or bundled commercial font is included
+in the public candidate.

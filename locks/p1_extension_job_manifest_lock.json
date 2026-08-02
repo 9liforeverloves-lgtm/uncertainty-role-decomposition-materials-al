@@ -1,0 +1,12 @@
+{
+  "confirmation_blocked_rows": 640,
+  "confirmation_candidate_rows": 3520,
+  "confirmation_ready_rows": 2880,
+  "confirmation_status": "BLOCKED_PENDING_DEVELOPMENT_SELECTED_BETA",
+  "development_rows": 240,
+  "files": {
+    "manifests/p1_extension_confirmation_candidate_manifest.csv": "d927392dcfc8f67c5d695719fb16cfc3b76828c34b1a476002755e85cc0ac07d",
+    "manifests/p1_extension_reduced_development_manifest.csv": "e0ebe3000e4db8b3694316e4828bd45b10c2c980133e02e4f2a1ce959a8a89de"
+  },
+  "schema_version": 1
+}

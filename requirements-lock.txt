@@ -28,6 +28,7 @@ pyarrow==17.0.0
 pybtex==0.26.1
 pymatgen==2024.10.29
 pyparsing==3.3.2
+pypdf==6.1.1
 pytest==8.3.3
 python-dateutil==2.9.0.post0
 pytz==2026.3.post1

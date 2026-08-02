@@ -1,0 +1,9 @@
+path_or_pattern,reason,size_or_scope
+.venv*/,local environment,all
+results/,68+ GiB execution store and raw intermediates,all
+revision_v5/* except experiments_v4/src/transportability_v5/,historical data/results excluded; minimal project source retained for regression tests,all other V5 content
+最终/; 【重跑】/; material-active-learning/,historical/local workspaces and third-party raw snapshots,all
+*.log; revision_audit/; .tmp*/,"local paths, internal logs and temporary output",all
+Codex-Windows-Installer.exe; *.docx,unrelated binary/private editorial artifact,all
+LICENSE_SELECTION_REQUIRED.md; AUTHOR_LICENSE_DECISION_REQUIRED.md,resolved versions archived under reports/archive,two obsolete root files
+raw Matbench materials.csv,author explicitly prohibited raw-data redistribution; upstream rights remain controlling,four snapshots

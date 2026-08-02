@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "Please cite the associated article and this software release. Repository URL and archive DOI remain pending publication."
+title: "Role-decomposed uncertainty evaluation in materials active learning"
+type: software
+authors:
+  - family-names: "Li"
+    given-names: "Renjie"
+version: "1.0.0"
+license: "BSD-3-Clause"
+repository-code: "https://github.com/9liforeverloves-lgtm/uncertainty-role-decomposition-materials-al"
+abstract: "Code, locked evidence and audit artifacts for separating uncertainty calibration and acquisition roles in offline materials active learning."
+keywords:
+  - materials informatics
+  - active learning
+  - uncertainty calibration
+  - reproducibility

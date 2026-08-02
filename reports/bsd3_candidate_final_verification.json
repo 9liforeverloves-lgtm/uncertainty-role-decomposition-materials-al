@@ -1,0 +1,50 @@
+{
+  "verification_status": "PASS",
+  "release_state": "READY_FOR_AUTHOR_PUBLICATION",
+  "PUBLIC_RELEASE_READY": false,
+  "SUBMISSION_READY": false,
+  "python": "3.12.3 (tags/v3.12.3:f6650f9, Apr  9 2024, 14:05:25) [MSC v.1938 64 bit (AMD64)]",
+  "root": "release_candidate",
+  "checks": [
+    {
+      "check": "required release files",
+      "passed": true,
+      "evidence": "[]"
+    },
+    {
+      "check": "V6/P1 authority hashes",
+      "passed": true,
+      "evidence": "14 locked files"
+    },
+    {
+      "check": "P1 scientific identity",
+      "passed": true,
+      "evidence": "five locked contrasts"
+    },
+    {
+      "check": "P1 manifest",
+      "passed": true,
+      "evidence": "3,520 unique jobs"
+    },
+    {
+      "check": "no secret patterns",
+      "passed": true,
+      "evidence": "[]"
+    },
+    {
+      "check": "no developer absolute paths",
+      "passed": true,
+      "evidence": "[]"
+    },
+    {
+      "check": "BSD-3-Clause authorization",
+      "passed": true,
+      "evidence": "author decision, root license and raw-data exclusion"
+    },
+    {
+      "check": "publication metadata truthfulness",
+      "passed": true,
+      "evidence": "repository URL and archive DOI are both null or both real"
+    }
+  ]
+}

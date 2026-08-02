@@ -1,0 +1,5 @@
+evidence_stage,claim_class,objects,allowed_interpretation
+P1 confirmation,Supported registered comparison,P1_C2,Stagewise matched beta was favorable relative to fixed matched beta for L4 only.
+P1 confirmation,Unfavorable registered direction,P1_C1|P1_C3|P1_C4|P1_C5,The observed effects opposed their prespecified favorable alternatives; this is not an equivalence statement.
+P1 exploratory,Exploratory robustness,task weighting|leave-one-task-out|random effects|Wilcoxon,Sensitivity and heterogeneity context only; no new confirmatory family.
+P1 descriptive,Descriptive diagnostics,coverage|proper scores|trajectories|crossings|scalar distribution,Mechanistic context and absolute scale only; no causal claim.

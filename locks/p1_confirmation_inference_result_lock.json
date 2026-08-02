@@ -1,0 +1,38 @@
+{
+  "created_at": "2026-08-01T23:53:29.349930+00:00",
+  "files": {
+    "tables/p1_confirmation_environment_effects.csv": "a91b1d1c04be19f919bbdc85b377c7b9c6a7adb4f152d257f9fa963847a46e1c",
+    "tables/p1_confirmation_multiplicity.csv": "f9dd7458c7602a3e600dfcc9e981337b2a314587c9c49462d6fa05707fb0f2fd",
+    "tables/p1_confirmation_pair_completeness.csv": "95a98b714f2709ad656c5a2a4d0047deca605986f6d0d9f248a750c3c5ec6310",
+    "tables/p1_confirmation_primary_contrasts.csv": "9a35541dfc8d997d1c0e9d1c339d2a470cb7e924bbaca6bb39e3a4c7d874da69",
+    "tables/p1_confirmation_seed_block_effects.csv": "3d20844ece015320298456db70a6e2af3dbb7979ad46b8943a794bcab5ec7e41",
+    "tables/p1_confirmation_seed_level_endpoints.csv": "d2217e243566bcbc517ab8bc39e4a22f64f8b3f94e2fb60842b0f2897cababfe",
+    "tables/p1_confirmation_split_effects.csv": "399ae391d97fc0d3c194b6839433427f6540b97178d88dc3c0b3dea69b7d54b1",
+    "tables/p1_confirmation_task_effects.csv": "6b77170c5575c554ebe689cc503c4438bde3893030e6db37d6f04e1b21551628"
+  },
+  "git_commit": "8553ccff60c1a691f81913edfad4e64d297d3486",
+  "individual_locks": {
+    "p1_confirmation_environment_effects_lock.json": "9bc1fe8e26d08710a7d94b2e26baf9d7267b32e975c74c63f20be9fa3ecfd3a2",
+    "p1_confirmation_multiplicity_lock.json": "7c52ba49545e8b42523ea5b3ddc2689372f77aa939d74631d6c4f5ddcc8ac0bf",
+    "p1_confirmation_primary_contrasts_lock.json": "87808ea4a33984f1c628a4d8e5df170e846f2f44c64a68b6996dfe1c33879450",
+    "p1_confirmation_seed_level_endpoints_lock.json": "11b9e91ea038288fc11e2d6437e56075d8f287cf7b6ba291478504e4f56ae517"
+  },
+  "manifest_hash": "8fa0693f0a0ce9776d6fd2eca72bf450dd67d99cf8efa21e42ee67ad79467877",
+  "multiplicity_families": 2,
+  "protocol_hash": "4cf7f1d1aba35e961a0641ac7437950df247ca2fa27fbad6dfb0d75577733b11",
+  "registered_contrasts": 5,
+  "schema_version": 1,
+  "seeds": [
+    8200,
+    8239
+  ],
+  "status": "IMMUTABLE_P1_INDEPENDENT_CONFIRMATION",
+  "v6_files_verified_unchanged": {
+    "locks/v6_p0_confirmation_inference_result_lock.json": "0a7ce4f74de5767251d652639b8f327ee83e8e48e43808701e829d0021f12561",
+    "tables/v6_p0_confirmation_environment_effects.csv": "379555bc225bf8e052ce5aa201a52ee2266d7b6699a4e7b9e59e699ee2e284e9",
+    "tables/v6_p0_confirmation_multiplicity.csv": "f117dfaf7766e7dc648088c01d0e7ce1e6a16b1868c109594e77a69efec20e56",
+    "tables/v6_p0_confirmation_pair_completeness.csv": "b6e8cf31b19b2c43195171924e292bf8ab36acbbdbc4821c72db8849db6a7ce8",
+    "tables/v6_p0_confirmation_primary_contrasts.csv": "2b9820a0167a8e875c322d105fe54cdbad614a391f02db59938aabfe06d2a2fa",
+    "tables/v6_p0_confirmation_seed_level_endpoints.csv": "a56a853083535b76b8e2c7eaeab056bdd81b0a9e73e953fb00c13237c9c8af8d"
+  }
+}

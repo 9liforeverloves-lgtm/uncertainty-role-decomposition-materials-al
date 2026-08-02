@@ -1,0 +1,37 @@
+schema_version: 1
+retrieval_policy: official_sources_only_checksum_required
+matbench_version: "0.1"
+metadata_source:
+  package: matminer
+  version_audited: "0.10.0"
+  url: https://hackingmaterials.lbl.gov/matminer/dataset_summary.html
+tasks:
+  matbench_expt_gap:
+    url: https://ml.materialsproject.org/projects/matbench_expt_gap.json.gz
+    sha256: 783e7d1461eb83b00b2f2942da4b95fda5e58a0d1ae26b581c24cf8a82ca75b2
+    upstream_entries: 4604
+    target_column: gap expt
+    input_column: composition
+    rights_status: AUTHOR_LEGAL_REVIEW_REQUIRED
+  matbench_mp_gap:
+    url: https://ml.materialsproject.org/projects/matbench_mp_gap.json.gz
+    sha256: 58b65746bd88329986ed66031a2ac1369c7c522f7bc9f9081528e07097c2c057
+    upstream_entries: 106113
+    target_column: gap pbe
+    input_column: structure
+    rights_status: CONDITIONAL_CC_BY_ATTRIBUTION_AND_SNAPSHOT_REVIEW
+  matbench_log_gvrh:
+    url: https://ml.materialsproject.org/projects/matbench_log_gvrh.json.gz
+    sha256: 098af941f4c663270f1fe21abf20ffad6fb85ecbfcba5786ceac03983ac29da7
+    upstream_entries: 10987
+    target_column: log10(G_VRH)
+    input_column: structure
+    rights_status: CONDITIONAL_CC_BY_ATTRIBUTION_AND_SNAPSHOT_REVIEW
+  matbench_log_kvrh:
+    url: https://ml.materialsproject.org/projects/matbench_log_kvrh.json.gz
+    sha256: 44b113ddb7e23aa18731a62c74afa7e5aa654199e0db5f951c8248a00955c9cd
+    upstream_entries: 10987
+    target_column: log10(K_VRH)
+    input_column: structure
+    rights_status: CONDITIONAL_CC_BY_ATTRIBUTION_AND_SNAPSHOT_REVIEW
+

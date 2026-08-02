@@ -1,0 +1,20 @@
+{
+  "beta_grid": [
+    0.0,
+    0.25,
+    0.5,
+    1.0,
+    2.0,
+    4.0
+  ],
+  "confirmation_outcomes_present_at_freeze": false,
+  "manifest_sha256": "f656a06baaeefc4adaa49942d4732867fda4633912621685df1b2718a225463b",
+  "protocol_lock_sha256": "4cf7f1d1aba35e961a0641ac7437950df247ca2fa27fbad6dfb0d75577733b11",
+  "rows": 960,
+  "schema_version": 1,
+  "seed_range": [
+    8100,
+    8109
+  ],
+  "status": "FROZEN_DEVELOPMENT_ONLY_BEFORE_CONFIRMATION"
+}

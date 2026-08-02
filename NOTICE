@@ -1,0 +1,17 @@
+Role-decomposed uncertainty evaluation in materials active learning
+
+Copyright 2026 Renjie Li.
+
+Original software authored for this project is licensed under the BSD
+3-Clause License in the root `LICENSE` file. The exact license and data scope
+is documented in `LICENSE_AND_DATA_SCOPE.md`.
+
+The release candidate references third-party Python packages, Matbench task
+data and standard LaTeX tooling. Their licenses and attribution requirements
+are listed in THIRD_PARTY_NOTICES and the reports under reports/.
+
+Third-party software and data are not relicensed. Detailed dependency notices
+are in `THIRD_PARTY_NOTICES` and `reports/LICENSE_COMPATIBILITY_MATRIX.md`;
+dataset terms and exclusions are in
+`reports/THIRD_PARTY_DATA_RIGHTS_MATRIX.md`. No raw third-party dataset is
+authorized for redistribution by this notice.

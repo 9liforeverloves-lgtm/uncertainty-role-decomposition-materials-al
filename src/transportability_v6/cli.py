@@ -82,7 +82,7 @@ def run_smoke(manifest_path: str | Path) -> dict[str, object]:
                 atomic_json(result, result_path)
                 artifacts.append(
                     {
-                        "path": result_path.relative_to(WORKSPACE).as_posix(),
+                        "path": result_path.relative_to(output_root).as_posix(),
                         "sha256": sha256(result_path),
                     }
                 )
@@ -177,13 +177,13 @@ def run_smoke(manifest_path: str | Path) -> dict[str, object]:
     result_manifest = {
         "schema_version": "v6-smoke-result-manifest-v1",
         "validation_label": SMOKE_LABEL,
-        "manifest_path": manifest_path.relative_to(WORKSPACE).as_posix(),
+        "manifest_path": manifest_path.name,
         "manifest_sha256": sha256(manifest_path),
-        "registry_path": registry_path.relative_to(WORKSPACE).as_posix(),
+        "registry_path": registry_path.relative_to(output_root).as_posix(),
         "registry_sha256": sha256(registry_path),
-        "log_path": log_path.relative_to(WORKSPACE).as_posix(),
+        "log_path": log_path.relative_to(output_root).as_posix(),
         "log_sha256": sha256(log_path),
-        "identity_audit_path": identity_path.relative_to(WORKSPACE).as_posix(),
+        "identity_audit_path": identity_path.relative_to(output_root).as_posix(),
         "identity_audit_sha256": sha256(identity_path),
         "jobs": len(registry_rows),
         "completed": sum(row["status"] == "COMPLETED" for row in registry_rows),

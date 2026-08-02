@@ -1,0 +1,7 @@
+version_stage,evidence_role,job_count,seed_range,scientific_use,allowed_manuscript_role,not_allowed_to_support
+V2 historical,exploratory evidence,"1,920",2000--2019,method exploration,provenance only,V6 confirmation or cross-version pooled effects
+V3 historical,calibration-evaluation evidence,"1,920",3000--3039,calibration evaluation,provenance only,V6 confirmation or cross-version pooled effects
+V5-RC1 broad development manifest,planned configuration inventory,"5,760",1000--1009,strategy inventory,development provenance,confirmatory or effect-estimation claims
+V5 reduced selection cohort,executed selection evidence,"2,240",1000--1009,policy selection,development and selection provenance,confirmatory or effect-estimation claims
+V5-RC1 confirmation,historical locked evidence,"3,360",5000--5039,historical locked confirmation,historical evidence and method provenance,V6 confirmation or override of V6
+V6 independent confirmation,independent registered confirmation,"12,800",7000--7039,frozen trajectory and replay confirmation,V6 confirmatory claims,cross-version pooled effects

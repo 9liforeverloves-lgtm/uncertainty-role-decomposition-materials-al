@@ -1,0 +1,164 @@
+Metadata-Version: 2.2
+Name: materials-transportability-v6
+Version: 1.0.0
+Summary: Calibration/acquisition decoupling for offline materials screening
+Author: Renjie Li
+License: BSD-3-Clause
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Scientific/Engineering
+Requires-Python: <3.13,>=3.12
+Description-Content-Type: text/markdown
+License-File: LICENSE
+License-File: NOTICE
+License-File: THIRD_PARTY_NOTICES
+Requires-Dist: joblib==1.5.3
+Requires-Dist: numpy==2.1.3
+Requires-Dist: pandas==2.2.3
+Requires-Dist: pyarrow==17.0.0
+Requires-Dist: PyYAML==6.0.2
+Requires-Dist: scikit-learn==1.5.2
+Requires-Dist: scipy==1.14.1
+Provides-Extra: test
+Requires-Dist: pytest==8.3.3; extra == "test"
+Requires-Dist: pypdf==6.1.1; extra == "test"
+Provides-Extra: plotting
+Requires-Dist: matplotlib==3.11.1; extra == "plotting"
+Requires-Dist: pillow==12.3.0; extra == "plotting"
+Provides-Extra: materials
+Requires-Dist: pymatgen==2024.10.29; extra == "materials"
+Provides-Extra: deep-learning
+Requires-Dist: torch<3,>=2.4; extra == "deep-learning"
+Provides-Extra: development
+Requires-Dist: build==1.2.2.post1; extra == "development"
+Requires-Dist: pytest==8.3.3; extra == "development"
+Requires-Dist: ruff==0.12.5; extra == "development"
+Provides-Extra: release
+Requires-Dist: matplotlib==3.11.1; extra == "release"
+Requires-Dist: pillow==12.3.0; extra == "release"
+Requires-Dist: pypdf==6.1.1; extra == "release"
+Requires-Dist: requests==2.34.2; extra == "release"
+
+# Role-decomposed uncertainty evaluation in materials active learning
+
+Code, locked machine-readable evidence, manuscript sources and reproducibility tooling for an offline materials active-learning study. Original project software is licensed under BSD-3-Clause; the public repository and permanent archive are pending author publication.
+
+## Project summary and scientific scope
+
+The study separates uncertainty used for interval evaluation from uncertainty used for acquisition. It covers four fixed Matbench task snapshots, study-defined IID/OOD splits, two bagged-tree surrogates and one quantile-gradient-boosting surrogate. It does not establish laboratory performance, universal superiority or a general theorem about calibration.
+
+## Evidence architecture
+
+- **V6:** immutable independent confirmation with seeds 7000–7039, 11 registered contrasts and 176 complete environment gates.
+- **P1:** separate immutable confirmation with seeds 8200–8239, 3,520 manifest jobs, five contrasts and two P1-only multiplicity families.
+- Exploratory diagnostics are not confirmatory, and P1 is never pooled with V6.
+- `locks/p1_confirmation_inference_result_lock.json` binds both V6 authority hashes and P1 result tables.
+
+## Repository map
+
+`analysis_plan/`, `locks/` and `manifests/` contain frozen protocols and identities. `tables/` contains locked and presentation-only machine tables. `src/` and `p1_extension/` contain current code. `scripts/reproduce_*.py` are public entry points. `data_manifest/` describes upstream data without redistributing snapshots. `manuscript/` contains TeX, bibliography, figures and PDFs. `reports/public/` is the release-facing audit set.
+
+## Quick start
+
+Python 3.12 is required. From a clone or extracted release candidate:
+
+```bash
+python -m venv .venv
+.venv/bin/python -m pip install -r requirements-lock.txt
+.venv/bin/python -m pip install .
+.venv/bin/python scripts/verify_release.py
+.venv/bin/python scripts/reproduce_smoke.py --output-dir ../repro-smoke
+.venv/bin/python scripts/reproduce_tables.py --output-dir ../repro-tables
+.venv/bin/python scripts/reproduce_figures.py --output-dir ../repro-figures
+```
+
+On Windows replace `.venv/bin/python` with `.venv\Scripts\python.exe`. The single recommended first entry is `scripts/verify_release.py`; all output directories may be outside the repository.
+
+## Three reproduction levels
+
+### Level 1 — audit reproduction
+
+Minutes: install, verify authority hashes and numeric identities, run unit tests/synthetic smoke, and inspect/compile the manuscript. It does not require raw Matbench snapshots or full experiment outputs.
+
+### Level 2 — result reconstruction
+
+Minutes to about one hour: rebuild presentation tables and all P1 figures from locked machine-readable tables, then compile PDFs. Figure/PDF bytes can differ across font, Matplotlib and TeX installations; numeric tables, source hashes and semantic identities are the cross-platform acceptance criteria. Fixed-container builds may additionally compare bytes.
+
+### Level 3 — full experiment rerun
+
+Explicit opt-in only. P1 contains 3,520 jobs and used 9.095 h elapsed on one 12-core/24-thread host with at most six concurrent workers; durable output was 68.593 GiB. CPU-hours, peak RAM and peak temporary disk were not instrumented. Full rerun requires users to retrieve upstream data and is not the minimum verification route. Locked V6/P1 evidence must never be overwritten.
+
+## Verify published results
+
+```bash
+python scripts/verify_release.py
+python -m pytest tests v6_revision/tests -q
+```
+
+The verifier returns nonzero for missing/mismatched authority, release files, secret patterns or developer absolute paths. Missing author publication metadata is reported honestly as a state gate, not as an integrity failure.
+
+## Rebuild tables
+
+```bash
+python scripts/reproduce_tables.py --output-dir ../repro-tables
+python scripts/reproduce_tables.py --output-dir ../repro-tables --verify-only
+```
+
+## Rebuild figures
+
+```bash
+python scripts/reproduce_figures.py --output-dir ../repro-figures
+python scripts/reproduce_figures.py --output-dir ../repro-figures --verify-only
+```
+
+This generates 18 P1 figure sets in PDF/PNG/SVG, including main Figures 5/6 and Supplement diagnostics, without running model jobs.
+
+## Compile manuscript
+
+TeX Live with `pdflatex` and `bibtex`, plus Poppler for font inspection, is required:
+
+```bash
+python scripts/reproduce_manuscript.py --output-dir ../repro-manuscript
+```
+
+The two-column PDF is a generic preview, not a claimed journal template.
+
+## Data acquisition and rights
+
+Raw Matbench snapshots are not bundled. Retrieve official objects and generate composition-only snapshots outside the repository:
+
+```bash
+python scripts/fetch_matbench_data.py --task matbench_expt_gap --output-dir ../study-data
+```
+
+The script validates recorded upstream SHA-256 values, performs deterministic preparation and stops on mismatch. Users remain responsible for the upstream data terms. See `docs/data_reproduction.md`, `LICENSE_AND_DATA_SCOPE.md` and `reports/THIRD_PARTY_DATA_RIGHTS_MATRIX.md` before use.
+
+## Environment and containers
+
+`requirements-lock.txt` is the pip authority; `environment.yml` delegates to it rather than duplicating versions. `Dockerfile` provides an optional non-root Linux analysis image and does not contain raw data, secrets or LaTeX. PDF compilation remains a host/CI TeX step.
+
+## Determinism and expected differences
+
+CSV authorities and locks require byte-exact hashes. Rebuilt numeric tables use exact/tight numeric comparison. Matplotlib/LaTeX output can vary by platform; source-table hashes, plotted values, labels, page validity and embedded fonts are checked separately. Scientific authority files are read-only inputs.
+
+## Testing and CI
+
+Local Windows Python 3.12 testing is recorded under `reports/`. GitHub Actions definitions cover Windows/Ubuntu tests, reproducibility and tag packaging, but have not run online because no public remote exists. macOS is unverified.
+
+## Citation
+
+Use `CITATION.cff`. The intended release is `v1.0.0`, but no tag, repository URL or DOI may be cited until those resources actually exist.
+
+## License
+
+Original project software is licensed under the BSD 3-Clause License; see `LICENSE`. Rights-audited author-generated outputs are distributable within the explicit scope in `LICENSE_AND_DATA_SCOPE.md`. Third-party raw data and software retain their upstream terms and are not relicensed by this project.
+
+## Contributing and security
+
+See `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md` and `SECURITY.md`. Never alter frozen authority files or submit credentials/raw third-party data.
+
+## Known limitations and publication state
+
+Public repository: pending author publication. Archive DOI: pending public release. License: BSD-3-Clause. No `v1.0.0` tag exists yet. Linux CI and Docker definitions are prepared but are not claimed as online PASS.
+
+Current gate after local release validation: `READY_FOR_AUTHOR_PUBLICATION`; `PUBLIC_RELEASE_READY = false`; `SUBMISSION_READY = false`.

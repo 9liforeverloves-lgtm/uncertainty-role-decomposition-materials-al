@@ -1,0 +1,106 @@
+{
+  "status": "PASS",
+  "release_state": "READY_FOR_AUTHOR_PUBLICATION",
+  "PUBLIC_RELEASE_READY": false,
+  "SUBMISSION_READY": false,
+  "GITHUB_ACTIONS_STATUS": "NOT_RUN",
+  "Docker": "NOT_TESTED",
+  "checks": [
+    {
+      "check": "exact authorized BSD-3-Clause license",
+      "passed": true,
+      "evidence": "8cffe8837f038e3a6ebe69977b66f39ae90dd895cf31530e3885e48ea54b20bc"
+    },
+    {
+      "check": "license identity",
+      "passed": true,
+      "evidence": "2026 Renjie Li"
+    },
+    {
+      "check": "obsolete license gates absent",
+      "passed": true,
+      "evidence": "resolved copies archived"
+    },
+    {
+      "check": "author release authorization",
+      "passed": true,
+      "evidence": "code/processed outputs authorized; raw data prohibited"
+    },
+    {
+      "check": "Python metadata",
+      "passed": true,
+      "evidence": "version 1.0.0 / BSD-3-Clause / Renjie Li"
+    },
+    {
+      "check": "V6/P1 authority hashes",
+      "passed": true,
+      "evidence": "14 locked files"
+    },
+    {
+      "check": "current manuscript scientific tables",
+      "passed": true,
+      "evidence": "14 presentation-bound files"
+    },
+    {
+      "check": "figure source inventory",
+      "passed": true,
+      "evidence": "200357edeafa2161b7be23a6ec9980b25afa0a5a3098cdb9f0bc4a7a5d519c71"
+    },
+    {
+      "check": "dependency license audit",
+      "passed": true,
+      "evidence": "47/47 verified"
+    },
+    {
+      "check": "wheel/sdist content",
+      "passed": true,
+      "evidence": "both contain legal notices; no raw data/secrets/absolute paths"
+    },
+    {
+      "check": "release checksums",
+      "passed": true,
+      "evidence": "453 covered; mismatches=0"
+    },
+    {
+      "check": "release inventory",
+      "passed": true,
+      "evidence": "453 rows including self marker"
+    },
+    {
+      "check": "restricted release content absent",
+      "passed": true,
+      "evidence": "[]"
+    },
+    {
+      "check": "Windows external reproduction",
+      "passed": true,
+      "evidence": "16 zero-return steps"
+    },
+    {
+      "check": "Linux/WSL external reproduction",
+      "passed": true,
+      "evidence": "15 zero-return steps"
+    },
+    {
+      "check": "CFF metadata",
+      "passed": true,
+      "evidence": "real private repository URL; no fabricated DOI"
+    },
+    {
+      "check": "publication identifiers remain truthful",
+      "passed": true,
+      "evidence": "real private repository URL; DOI null"
+    },
+    {
+      "check": "tag truthfulness",
+      "passed": true,
+      "evidence": "v1.0.0 absent"
+    },
+    {
+      "check": "submission manuscript has no unpublished availability claim",
+      "passed": true,
+      "evidence": "final templates remain reports-only"
+    }
+  ],
+  "python": "3.12.3 (tags/v3.12.3:f6650f9, Apr  9 2024, 14:05:25) [MSC v.1938 64 bit (AMD64)]"
+}

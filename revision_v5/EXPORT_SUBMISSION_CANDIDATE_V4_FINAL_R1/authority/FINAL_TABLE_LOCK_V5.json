@@ -1,0 +1,46 @@
+{
+  "schema_version": "final-table-lock-v5-1",
+  "locked_at": "2026-07-26T02:58:11.219792+00:00",
+  "immutability_rule": "No listed table may be silently changed after this lock. Any revision requires a versioned replacement and explicit amendment.",
+  "validation": {
+    "primary_rows": 128,
+    "paired_seed_count": 40,
+    "bh_family_size": 8,
+    "add_one_denominator": 10001,
+    "selected_log_kvrh_baseline": "raw_ucb_beta_2",
+    "l1_status": "validated_4_of_4_checkpoints",
+    "l4_status": "case_A_bitwise_exact"
+  },
+  "files": [
+    {
+      "path": "tables_v5/v5_rc1_seed_level_endpoints_final.csv",
+      "bytes": 2105149,
+      "sha256": "2466848a25cf7c92199387825cc9e3842c7c260df75a267ec110eea066ba485d",
+      "rows": 3360
+    },
+    {
+      "path": "tables_v5/v5_rc1_primary_contrasts_final.csv",
+      "bytes": 93833,
+      "sha256": "c73b531a2858f54da5d420eec23211eaf18aecf3f575af608101b9b7d427b453",
+      "rows": 128
+    },
+    {
+      "path": "tables_v5/v5_rc1_recovery_sensitivity_final.csv",
+      "bytes": 7097,
+      "sha256": "d67f647950a796d7c9154520337dde2fcab51095c2ff84bd977cb7c9b11502e5",
+      "rows": 8
+    },
+    {
+      "path": "tables_v5/v5_rc1_multiplicity_sensitivity_final.csv",
+      "bytes": 102036,
+      "sha256": "558c333e1e8fb26b65d04c680bd58c40590acc0d24481bd30c08631067509305",
+      "rows": 128
+    },
+    {
+      "path": "tables_v5/v5_rc1_environment_summary_final.csv",
+      "bytes": 54952,
+      "sha256": "89d066689515b29c83fff4668b0c52a7ceeff66006d0effa65e1c2fae3036566",
+      "rows": 128
+    }
+  ]
+}

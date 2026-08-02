@@ -1,0 +1,300 @@
+{
+  "status": "PASS",
+  "platform": "Windows",
+  "python": "3.12 fresh venv via py launcher",
+  "source": "copied dist/release_candidate only",
+  "network": "package installation only; no scientific data retrieval",
+  "started_utc": "2026-08-02T04:30:49.915732+00:00",
+  "ended_utc": "2026-08-02T04:35:09.911441+00:00",
+  "commands": [
+    {
+      "command": [
+        "<PYTHON>",
+        "-m",
+        "pip",
+        "install",
+        "--no-cache-dir",
+        "-r",
+        "requirements-lock.txt"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 146.196,
+      "stdout_tail": "requests-2.34.2-py3-none-any.whl (73 kB)\n   ---------------------------------------- 73.1/73.1 kB ? eta 0:00:00\nDownloading ruamel_yaml-0.19.1-py3-none-any.whl (118 kB)\n   ---------------------------------------- 118.1/118.1 kB ? eta 0:00:00\nDownloading scikit_learn-1.5.2-cp312-cp312-win_amd64.whl (11.0 MB)\n   ---------------------------------------- 11.0/11.0 MB 59.8 MB/s eta 0:00:00\nDownloading scipy-1.14.1-cp312-cp312-win_amd64.whl (44.5 MB)\n   ---------------------------------------- 44.5/44.5 MB 65.6 MB/s eta 0:00:00\nDownloading six-1.17.0-py2.py3-none-any.whl (11 kB)\nDownloading spglib-2.7.0-cp312-cp312-win_amd64.whl (671 kB)\n   --------------------------------------- 671.1/671.1 kB 44.1 MB/s eta 0:00:00\nDownloading sympy-1.14.0-py3-none-any.whl (6.3 MB)\n   ---------------------------------------- 6.3/6.3 MB 80.6 MB/s eta 0:00:00\nDownloading tabulate-0.10.0-py3-none-any.whl (39 kB)\nDownloading threadpoolctl-3.6.0-py3-none-any.whl (18 kB)\nDownloading tqdm-4.69.1-py3-none-any.whl (675 kB)\n   --------------------------------------- 675.5/675.5 kB 21.5 MB/s eta 0:00:00\nDownloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)\n   ---------------------------------------- 45.6/45.6 kB ? eta 0:00:00\nDownloading tzdata-2026.3-py2.py3-none-any.whl (348 kB)\n   ---------------------------------------- 348.2/348.2 kB ? eta 0:00:00\nDownloading uncertainties-3.2.3-py3-none-any.whl (60 kB)\n   ---------------------------------------- 60.1/60.1 kB ? eta 0:00:00\nDownloading urllib3-2.7.0-py3-none-any.whl (131 kB)\n   ---------------------------------------- 131.1/131.1 kB 8.1 MB/s eta 0:00:00\nInstalling collected packages: pytz, mpmath, urllib3, uncertainties, tzdata, typing_extensions, threadpoolctl, tabulate, sympy, six, ruamel.yaml, PyYAML, pypdf, pyparsing, pluggy, pip, pillow, palettable, packaging, numpy, networkx, narwhals, latexcodec, kiwisolver, joblib, iniconfig, idna, fonttools, cycler, colorama, charset-normalizer, certifi, tqdm, spglib, scipy, requests, python-dateutil, pytest, pybtex, pyarrow, plotly, monty, contourpy, scikit-learn, pandas, matplotlib, pymatgen\n  Attempting uninstall: pip\n    Found existing installation: pip 24.0\n    Uninstalling pip-24.0:\n      Successfully uninstalled pip-24.0\nSuccessfully installed PyYAML-6.0.2 certifi-2026.7.22 charset-normalizer-3.4.9 colorama-0.4.6 contourpy-1.3.3 cycler-0.12.1 fonttools-4.63.0 idna-3.18 iniconfig-2.3.0 joblib-1.5.3 kiwisolver-1.5.0 latexcodec-3.0.1 matplotlib-3.11.1 monty-2026.7.16 mpmath-1.3.0 narwhals-2.24.0 networkx-3.6.1 numpy-2.1.3 packaging-26.2 palettable-3.3.3 pandas-2.2.3 pillow-12.3.0 pip-25.0.1 plotly-6.9.0 pluggy-1.6.0 pyarrow-17.0.0 pybtex-0.26.1 pymatgen-2024.10.29 pyparsing-3.3.2 pypdf-6.1.1 pytest-8.3.3 python-dateutil-2.9.0.post0 pytz-2026.3.post1 requests-2.34.2 ruamel.yaml-0.19.1 scikit-learn-1.5.2 scipy-1.14.1 six-1.17.0 spglib-2.7.0 sympy-1.14.0 tabulate-0.10.0 threadpoolctl-3.6.0 tqdm-4.69.1 typing_extensions-4.16.0 tzdata-2026.3 uncertainties-3.2.3 urllib3-2.7.0\n",
+      "stderr_tail": "\n[notice] A new release of pip is available: 25.0.1 -> 26.2\n[notice] To update, run: <TEMP_ROOT>\\venv\\Scripts\\python.exe -m pip install --upgrade pip\n"
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "-m",
+        "pip",
+        "install",
+        "--no-cache-dir",
+        "build==1.3.0"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 8.584,
+      "stdout_tail": "Collecting build==1.3.0\n  Downloading build-1.3.0-py3-none-any.whl.metadata (5.6 kB)\nRequirement already satisfied: packaging>=19.1 in c:\\users\\rog\\appdata\\local\\temp\\materials_release_external_vdhbab0b\\venv\\lib\\site-packages (from build==1.3.0) (26.2)\nCollecting pyproject_hooks (from build==1.3.0)\n  Downloading pyproject_hooks-1.2.0-py3-none-any.whl.metadata (1.3 kB)\nRequirement already satisfied: colorama in c:\\users\\rog\\appdata\\local\\temp\\materials_release_external_vdhbab0b\\venv\\lib\\site-packages (from build==1.3.0) (0.4.6)\nDownloading build-1.3.0-py3-none-any.whl (23 kB)\nDownloading pyproject_hooks-1.2.0-py3-none-any.whl (10 kB)\nInstalling collected packages: pyproject_hooks, build\nSuccessfully installed build-1.3.0 pyproject_hooks-1.2.0\n",
+      "stderr_tail": "\n[notice] A new release of pip is available: 25.0.1 -> 26.2\n[notice] To update, run: <TEMP_ROOT>\\venv\\Scripts\\python.exe -m pip install --upgrade pip\n"
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "-m",
+        "build",
+        "--outdir",
+        "<TEMP_ROOT>\\outputs \u7a7a\u683c\\packages",
+        "."
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 12.131,
+      "stdout_tail": "in-amd64\\wheel\\.\\transportability_v6\\smoke_only\ncopying build\\lib\\transportability_v6\\strategies.py -> build\\bdist.win-amd64\\wheel\\.\\transportability_v6\ncopying build\\lib\\transportability_v6\\surrogates.py -> build\\bdist.win-amd64\\wheel\\.\\transportability_v6\ncopying build\\lib\\transportability_v6\\__init__.py -> build\\bdist.win-amd64\\wheel\\.\\transportability_v6\ncopying build\\lib\\transportability_v6\\__main__.py -> build\\bdist.win-amd64\\wheel\\.\\transportability_v6\nrunning install_egg_info\nCopying src\\materials_transportability_v6.egg-info to build\\bdist.win-amd64\\wheel\\.\\materials_transportability_v6-1.0.0-py3.12.egg-info\nrunning install_scripts\ncreating build\\bdist.win-amd64\\wheel\\materials_transportability_v6-1.0.0.dist-info\\WHEEL\ncreating '<TEMP_ROOT>\\outputs \ufffd\u0578\ufffd\\packages\\.tmp-zcl1ivbj\\materials_transportability_v6-1.0.0-py3-none-any.whl' and adding 'build\\bdist.win-amd64\\wheel' to it\nadding 'p1_extension/__init__.py'\nadding 'p1_extension/campaign.py'\nadding 'p1_extension/metrics.py'\nadding 'p1_extension/models.py'\nadding 'transportability_v6/__init__.py'\nadding 'transportability_v6/__main__.py'\nadding 'transportability_v6/broad_development.py'\nadding 'transportability_v6/calibration.py'\nadding 'transportability_v6/calibration_replay.py'\nadding 'transportability_v6/campaigns.py'\nadding 'transportability_v6/canonical_adapter.py'\nadding 'transportability_v6/cli.py'\nadding 'transportability_v6/data.py'\nadding 'transportability_v6/development.py'\nadding 'transportability_v6/diagnostics.py'\nadding 'transportability_v6/execution_registry.py'\nadding 'transportability_v6/freeze_readiness.py'\nadding 'transportability_v6/inference.py'\nadding 'transportability_v6/production_campaign.py'\nadding 'transportability_v6/production_endpoints.py'\nadding 'transportability_v6/production_strategies.py'\nadding 'transportability_v6/provenance.py'\nadding 'transportability_v6/ranking.py'\nadding 'transportability_v6/records.py'\nadding 'transportability_v6/registry_freeze.py'\nadding 'transportability_v6/selection.py'\nadding 'transportability_v6/strategies.py'\nadding 'transportability_v6/surrogates.py'\nadding 'transportability_v6/smoke_only/__init__.py'\nadding 'transportability_v6/smoke_only/campaigns.py'\nadding 'transportability_v6/smoke_only/data.py'\nadding 'transportability_v6/smoke_only/surrogates.py'\nadding 'materials_transportability_v6-1.0.0.dist-info/LICENSE'\nadding 'materials_transportability_v6-1.0.0.dist-info/METADATA'\nadding 'materials_transportability_v6-1.0.0.dist-info/NOTICE'\nadding 'materials_transportability_v6-1.0.0.dist-info/THIRD_PARTY_NOTICES'\nadding 'materials_transportability_v6-1.0.0.dist-info/WHEEL'\nadding 'materials_transportability_v6-1.0.0.dist-info/entry_points.txt'\nadding 'materials_transportability_v6-1.0.0.dist-info/top_level.txt'\nadding 'materials_transportability_v6-1.0.0.dist-info/RECORD'\nremoving build\\bdist.win-amd64\\wheel\nSuccessfully built materials_transportability_v6-1.0.0.tar.gz and materials_transportability_v6-1.0.0-py3-none-any.whl\n",
+      "stderr_tail": ""
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "-m",
+        "pip",
+        "install",
+        "--no-cache-dir",
+        "--no-deps",
+        "--force-reinstall",
+        "<TEMP_ROOT>\\outputs \u7a7a\u683c\\packages\\materials_transportability_v6-1.0.0-py3-none-any.whl"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 3.686,
+      "stdout_tail": "Processing c:\\users\\rog\\appdata\\local\\temp\\materials_release_external_vdhbab0b\\outputs \ufffd\u0578\ufffd\\packages\\materials_transportability_v6-1.0.0-py3-none-any.whl\nInstalling collected packages: materials-transportability-v6\nSuccessfully installed materials-transportability-v6-1.0.0\n",
+      "stderr_tail": "\n[notice] A new release of pip is available: 25.0.1 -> 26.2\n[notice] To update, run: <TEMP_ROOT>\\venv\\Scripts\\python.exe -m pip install --upgrade pip\n"
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "-c",
+        "import importlib.metadata as m, transportability_v6, p1_extension; assert m.version('materials-transportability-v6') == '1.0.0'"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 5.905,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "-m",
+        "pip",
+        "install",
+        "--no-cache-dir",
+        "--no-deps",
+        "--force-reinstall",
+        "<TEMP_ROOT>\\outputs \u7a7a\u683c\\packages\\materials_transportability_v6-1.0.0.tar.gz"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 11.541,
+      "stdout_tail": "Processing c:\\users\\rog\\appdata\\local\\temp\\materials_release_external_vdhbab0b\\outputs \ufffd\u0578\ufffd\\packages\\materials_transportability_v6-1.0.0.tar.gz\n  Installing build dependencies: started\n  Installing build dependencies: finished with status 'done'\n  Getting requirements to build wheel: started\n  Getting requirements to build wheel: finished with status 'done'\n  Preparing metadata (pyproject.toml): started\n  Preparing metadata (pyproject.toml): finished with status 'done'\nBuilding wheels for collected packages: materials-transportability-v6\n  Building wheel for materials-transportability-v6 (pyproject.toml): started\n  Building wheel for materials-transportability-v6 (pyproject.toml): finished with status 'done'\n  Created wheel for materials-transportability-v6: filename=materials_transportability_v6-1.0.0-py3-none-any.whl size=99397 sha256=4f653884b8de08f0df3d29482c63fc0ba50fd6c2b415fb7b617d594b3f4c2018\n  Stored in directory: <USER_HOME>\\AppData\\Local\\Temp\\pip-ephem-wheel-cache-nziqa1od\\wheels\\26\\77\\5c\\c68f70c80c9e308af9cbafb4c2e9ba93543dbcf0ef76ffca01\nSuccessfully built materials-transportability-v6\nInstalling collected packages: materials-transportability-v6\n  Attempting uninstall: materials-transportability-v6\n    Found existing installation: materials-transportability-v6 1.0.0\n    Uninstalling materials-transportability-v6-1.0.0:\n      Successfully uninstalled materials-transportability-v6-1.0.0\nSuccessfully installed materials-transportability-v6-1.0.0\n",
+      "stderr_tail": "\n[notice] A new release of pip is available: 25.0.1 -> 26.2\n[notice] To update, run: <TEMP_ROOT>\\venv\\Scripts\\python.exe -m pip install --upgrade pip\n"
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "-c",
+        "import importlib.metadata as m, transportability_v6, p1_extension; assert m.version('materials-transportability-v6') == '1.0.0'"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 1.257,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "-m",
+        "pip",
+        "check"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.619,
+      "stdout_tail": "No broken requirements found.\n",
+      "stderr_tail": ""
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "-m",
+        "transportability_v6",
+        "--help"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 1.184,
+      "stdout_tail": "usage: transportability-v6 [-h]\n                           {smoke,canonical-replay,p0-manifest,p0-reissue-lock,p0-run,p0-selection-stability,p0-broad-design,p0-broad-canary,p0-broad-lock,p0-broad-run}\n                           ...\n\npositional arguments:\n  {smoke,canonical-replay,p0-manifest,p0-reissue-lock,p0-run,p0-selection-stability,p0-broad-design,p0-broad-canary,p0-broad-lock,p0-broad-run}\n    smoke               run non-inferential Stage-2 smoke jobs\n    canonical-replay    run a read-only V5 RAW compatibility replay\n    p0-manifest         generate, but do not execute, the P0 development\n                        manifest\n    p0-reissue-lock     explicitly supersede a P0 lock after a recorded canary\n                        defect\n    p0-run              execute only the already locked P0 development\n                        manifest\n    p0-selection-stability\n                        write the descriptive P0 selection-stability summary\n    p0-broad-design     write the prospective broad-development plan and\n                        manifest only\n    p0-broad-canary     run the out-of-range broad-development engineering\n                        canary only\n    p0-broad-lock       issue the one final broad-development lock after a\n                        passing canary\n    p0-broad-run        execute only the final locked broad-development\n                        manifest\n\noptions:\n  -h, --help            show this help message and exit\n",
+      "stderr_tail": ""
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "scripts/verify_release.py",
+        "--json-output",
+        "<TEMP_ROOT>\\outputs \u7a7a\u683c\\verify.json"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.906,
+      "stdout_tail": "{\n  \"verification_status\": \"PASS\",\n  \"release_state\": \"READY_FOR_AUTHOR_PUBLICATION\",\n  \"PUBLIC_RELEASE_READY\": false,\n  \"SUBMISSION_READY\": false,\n  \"python\": \"3.12.3 (tags/v3.12.3:f6650f9, Apr  9 2024, 14:05:25) [MSC v.1938 64 bit (AMD64)]\",\n  \"root\": \"release candidate \\u7a7a\\u683c\",\n  \"checks\": [\n    {\n      \"check\": \"required release files\",\n      \"passed\": true,\n      \"evidence\": \"[]\"\n    },\n    {\n      \"check\": \"V6/P1 authority hashes\",\n      \"passed\": true,\n      \"evidence\": \"14 locked files\"\n    },\n    {\n      \"check\": \"P1 scientific identity\",\n      \"passed\": true,\n      \"evidence\": \"five locked contrasts\"\n    },\n    {\n      \"check\": \"P1 manifest\",\n      \"passed\": true,\n      \"evidence\": \"3,520 unique jobs\"\n    },\n    {\n      \"check\": \"no secret patterns\",\n      \"passed\": true,\n      \"evidence\": \"[]\"\n    },\n    {\n      \"check\": \"no developer absolute paths\",\n      \"passed\": true,\n      \"evidence\": \"[]\"\n    },\n    {\n      \"check\": \"BSD-3-Clause authorization\",\n      \"passed\": true,\n      \"evidence\": \"author decision, root license and raw-data exclusion\"\n    },\n    {\n      \"check\": \"publication metadata truthfulness\",\n      \"passed\": true,\n      \"evidence\": \"repository URL and archive DOI are both null or both real\"\n    }\n  ]\n}\n",
+      "stderr_tail": ""
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "scripts/reproduce_smoke.py",
+        "--output-dir",
+        "<TEMP_ROOT>\\outputs \u7a7a\u683c\\smoke \u590d\u73b0"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 1.512,
+      "stdout_tail": "Expected: <2 minutes, CPU only, <100 MiB; no confirmatory job is run.\n",
+      "stderr_tail": ""
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "scripts/reproduce_tables.py",
+        "--output-dir",
+        "<TEMP_ROOT>\\outputs \u7a7a\u683c\\tables \u590d\u73b0"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 2.247,
+      "stdout_tail": "Expected: <2 minutes, CPU only, <1 GiB; reads frozen CSVs only.\nverified 5 rebuilt tables\n",
+      "stderr_tail": ""
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "scripts/reproduce_figures.py",
+        "--output-dir",
+        "<TEMP_ROOT>\\outputs \u7a7a\u683c\\figures \u590d\u73b0"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 18.444,
+      "stdout_tail": "Expected: 1\ufffdC5 minutes, CPU only, <2 GiB; no model jobs are run.\nverified 18 P1 figure sets in PDF/PNG/SVG\n",
+      "stderr_tail": ""
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "scripts/reproduce_manuscript.py",
+        "--output-dir",
+        "<TEMP_ROOT>\\outputs \u7a7a\u683c\\manuscript \u590d\u73b0"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 13.324,
+      "stdout_tail": "{\n  \"main\": \"manuscript/manuscript_submission_P1_COMPLETE.pdf\",\n  \"twocolumn\": \"manuscript/manuscript_submission_P1_COMPLETE_twocolumn.pdf\",\n  \"supplement\": \"manuscript/supplement_submission_P1_COMPLETE.pdf\"\n}\nExpected: 1\ufffdC5 minutes and <1 GiB; requires pdflatex, bibtex and pdffonts.\nverified three manuscript PDFs\n",
+      "stderr_tail": ""
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "-m",
+        "pytest",
+        "tests",
+        "v6_revision/tests",
+        "-q"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 25.64,
+      "stdout_tail": "...............................................................s........ [ 48%]\n........................................................................ [ 97%]\n...                                                                      [100%]\n============================== warnings summary ===============================\nv6_revision/tests/test_calibration.py::test_all_simple_scalers_are_positive_and_finite\n  <TEMP_ROOT>\\release candidate \ufffd\u0578\ufffd\\v6_revision\\tests\\test_calibration.py:36: DeprecationWarning: fit_conformal_global is deprecated; use fit_conformal_interval_only\n    fit_conformal_global(residual, sigma),\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n=========================== short test summary info ===========================\nSKIPPED [1] v6_revision\\tests\\test_campaign_identity.py:79: real Matbench smoke asset unavailable\n146 passed, 1 skipped, 1 warning in 25.12s\n",
+      "stderr_tail": ""
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "scripts/verify_release.py",
+        "--json-output",
+        "<TEMP_ROOT>\\outputs \u7a7a\u683c\\verify_after.json"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.601,
+      "stdout_tail": "{\n  \"verification_status\": \"PASS\",\n  \"release_state\": \"READY_FOR_AUTHOR_PUBLICATION\",\n  \"PUBLIC_RELEASE_READY\": false,\n  \"SUBMISSION_READY\": false,\n  \"python\": \"3.12.3 (tags/v3.12.3:f6650f9, Apr  9 2024, 14:05:25) [MSC v.1938 64 bit (AMD64)]\",\n  \"root\": \"release candidate \\u7a7a\\u683c\",\n  \"checks\": [\n    {\n      \"check\": \"required release files\",\n      \"passed\": true,\n      \"evidence\": \"[]\"\n    },\n    {\n      \"check\": \"V6/P1 authority hashes\",\n      \"passed\": true,\n      \"evidence\": \"14 locked files\"\n    },\n    {\n      \"check\": \"P1 scientific identity\",\n      \"passed\": true,\n      \"evidence\": \"five locked contrasts\"\n    },\n    {\n      \"check\": \"P1 manifest\",\n      \"passed\": true,\n      \"evidence\": \"3,520 unique jobs\"\n    },\n    {\n      \"check\": \"no secret patterns\",\n      \"passed\": true,\n      \"evidence\": \"[]\"\n    },\n    {\n      \"check\": \"no developer absolute paths\",\n      \"passed\": true,\n      \"evidence\": \"[]\"\n    },\n    {\n      \"check\": \"BSD-3-Clause authorization\",\n      \"passed\": true,\n      \"evidence\": \"author decision, root license and raw-data exclusion\"\n    },\n    {\n      \"check\": \"publication metadata truthfulness\",\n      \"passed\": true,\n      \"evidence\": \"repository URL and archive DOI are both null or both real\"\n    }\n  ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "artifact_hashes_under_20MiB": {
+    "verify.json": "995d0ff7727b8767593d7fe30c925a6b8abcba8aa7de9b0823b9e54b3c59298c",
+    "verify_after.json": "995d0ff7727b8767593d7fe30c925a6b8abcba8aa7de9b0823b9e54b3c59298c",
+    "figures \u590d\u73b0/P1_Figure01_registered_effects.pdf": "b53163b814b06ca5c0ef801ca2ca4e733d4069e46dcbb88b10abae899e10819a",
+    "figures \u590d\u73b0/P1_Figure01_registered_effects.png": "c9d44eddee5ab3ccfab47aaeda11e6e33a36127d4ae05136fb408c0359d914e1",
+    "figures \u590d\u73b0/P1_Figure01_registered_effects.svg": "416b6e5ff280bdeab2cee10d3a4ebd52b0ffa1199fe9c9ce6939efcb98bedc0b",
+    "figures \u590d\u73b0/P1_Figure02_environment_heterogeneity.pdf": "533c219290b2dc963c6242b9cae120130d749b6801bfcfb294ce0d716038ffba",
+    "figures \u590d\u73b0/P1_Figure02_environment_heterogeneity.png": "a53cd154c3b3f75ec75edb1d5560bf3dddefcdbfb54d5010360f9dab36a3dbf5",
+    "figures \u590d\u73b0/P1_Figure02_environment_heterogeneity.svg": "3b450fbd85c924f1d62c29de5b994f431e20a93f2f5bdc300f2b3e9eeb6fe8db",
+    "figures \u590d\u73b0/P1_Figure03_absolute_endpoints.pdf": "6e229ebfac506cf7d7a76d2ad5289c80dedd27a1f0e2500a0b21d7f7cc49fd59",
+    "figures \u590d\u73b0/P1_Figure03_absolute_endpoints.png": "72af42c6317660cddad11a5c47f3049966dd1e046f4d21f9571298b889dd7793",
+    "figures \u590d\u73b0/P1_Figure03_absolute_endpoints.svg": "2ae73a5c10936501256631c54473b2e558b7c3166f33239adee5cb37768e1783",
+    "figures \u590d\u73b0/P1_Figure04_nominal_empirical_coverage.pdf": "28d345f166bcca0f6d42b8e194c4a1f024d4235deb5ac8a10f61b1c45b6afa76",
+    "figures \u590d\u73b0/P1_Figure04_nominal_empirical_coverage.png": "3840d8108d23c4e6a0c0082907b91c28b6d07c78de5426196d6b6534d9ab8e9d",
+    "figures \u590d\u73b0/P1_Figure04_nominal_empirical_coverage.svg": "2ee1fd079b924b74b43c090ab8ee36cedda534a277d8062d16e62b6d20044d93",
+    "figures \u590d\u73b0/P1_Figure05_width_vs_calibration_error.pdf": "34ca05256c09bfe0dd179730443976cf6fb1125802bca7f148cbd376d8974bd0",
+    "figures \u590d\u73b0/P1_Figure05_width_vs_calibration_error.png": "0da0801289a27ffdbf6f30e7062b6524e4cf5ede7a0fd88dfb91bd61d68c8f70",
+    "figures \u590d\u73b0/P1_Figure05_width_vs_calibration_error.svg": "60f5faa671381813c8049e45dd8ae29707434142a07bc96d34372fefb94638c6",
+    "figures \u590d\u73b0/P1_Figure06_proper_scores.pdf": "c4101eac31dcbee3e44de78caaf657f17912dbfce172e12a02fbdaa6319770dd",
+    "figures \u590d\u73b0/P1_Figure06_proper_scores.png": "c2abd8d13ec3b17c7034d5f4f55712945091feaeaefd5210e78997afa9cb56b7",
+    "figures \u590d\u73b0/P1_Figure06_proper_scores.svg": "cc60f624712b1ec6496718d75b9bfd821a908dc53d36a61376863d49f5c5606b",
+    "figures \u590d\u73b0/P1_Figure07_standardized_residual_qq.pdf": "827e8118fee31110b0758eea063908231c53b176c515df714a0998b7121552a7",
+    "figures \u590d\u73b0/P1_Figure07_standardized_residual_qq.png": "97685c0deddef7f710023158e1d24923f7eb2efc139866ded225cd78a6d33fa0",
+    "figures \u590d\u73b0/P1_Figure07_standardized_residual_qq.svg": "0d1ef9e9e00d9444261c64d6eaa3f55dba8dbd079ef68fd17c0cedef91c19988",
+    "figures \u590d\u73b0/P1_Figure08_conditional_coverage.pdf": "1402a130114039beadb5b9cfde3d7adcff3ff7a8a0c8de72234a210943f9b71b",
+    "figures \u590d\u73b0/P1_Figure08_conditional_coverage.png": "0647299547add804518dc91e70411c8d8a5760eeec087760d34ae5665cbe6205",
+    "figures \u590d\u73b0/P1_Figure08_conditional_coverage.svg": "52011a167e31730f2e0d89dd8b18fd50fa5c181a182d8a496347eb377b651a25",
+    "figures \u590d\u73b0/P1_Figure09_recall_trajectories.pdf": "6fdcda81fcf37d4026e0e2480d2895a92e1195bc7d5cc1519e7e994f5778165d",
+    "figures \u590d\u73b0/P1_Figure09_recall_trajectories.png": "2cd104aa0b571f5cf5c73602a0b5cd206436337f7c3a93730ecf612dc03fa1db",
+    "figures \u590d\u73b0/P1_Figure09_recall_trajectories.svg": "209e9f8ded35505b4fad14baf3a70e5013b9b20f8b95486dfab4be53e6dd4c94",
+    "figures \u590d\u73b0/P1_Figure10_best_and_regret.pdf": "e5daabe6784b046a618191379493397e5604e98701be4e8882ffefff64f5e21c",
+    "figures \u590d\u73b0/P1_Figure10_best_and_regret.png": "18baa77a6ea3082e68374983d3035bcd43634662c6bd8b86e1ef2899e427bd62",
+    "figures \u590d\u73b0/P1_Figure10_best_and_regret.svg": "746547fca4847494bb168a3cee5e7a1e3f585790cc7e5fb1fb6af45fa85a9db0",
+    "figures \u590d\u73b0/P1_Figure11_budget_segments.pdf": "2063968ec01c58ee756f956399ac39aea21af246256be2c820a28e757d4c2e82",
+    "figures \u590d\u73b0/P1_Figure11_budget_segments.png": "21636be1a29ef4eb2c309986d63a643ef8f5f207b797f241b32c5f29b7b50e88",
+    "figures \u590d\u73b0/P1_Figure11_budget_segments.svg": "861cb4ad2b28b5f9b90557b624d312e0485cc6c015716ae2595be531489d870f",
+    "figures \u590d\u73b0/P1_Figure12_seed_block_strip.pdf": "644992bd71e629822d2b3d8311f7bf8adc748475d7cedd4052e411246cdfc2c3",
+    "figures \u590d\u73b0/P1_Figure12_seed_block_strip.png": "b16c15a690097a14784c354750863e061b8a2352f172a8ecab6d0b61b836b3b6",
+    "figures \u590d\u73b0/P1_Figure12_seed_block_strip.svg": "031ff1aedfca2d643cf4f926178c2c534917e34fe4632131e6814d5f644c8037",
+    "figures \u590d\u73b0/P1_Figure13_task_leave_one_out.pdf": "5c8be83f7362455397bb3c68d33bab16a1b4fd5de910c31f2369f73cdc8a42c4",
+    "figures \u590d\u73b0/P1_Figure13_task_leave_one_out.png": "86a631924c52227ff78bd0e7dfbb81a06b4b4c36f48a60c295cdce190cbcf153",
+    "figures \u590d\u73b0/P1_Figure13_task_leave_one_out.svg": "01cb649f329b06e4b59f7fe55844a37b6cd0f28d341488d67b66595c2b14bad5",
+    "figures \u590d\u73b0/P1_Figure14_quantile_crossings.pdf": "3a91112ed3850ee355a565bf90b28846410902dd62fbc863d8af323afab0759b",
+    "figures \u590d\u73b0/P1_Figure14_quantile_crossings.png": "49323f1931f9d3b67811256f9155d98e95f74d896bccf35dcde25237fc052c31",
+    "figures \u590d\u73b0/P1_Figure14_quantile_crossings.svg": "341d3139cda8aa3fbfd60641a232019b77f2dcba7004a0b683d94f57662a94e2",
+    "figures \u590d\u73b0/P1_Figure15_scalar_stage_distribution.pdf": "6ba50b90947e8891af75b63c58bc92e1026241cf9a4ba76cc2fa6c3eff574fbe",
+    "figures \u590d\u73b0/P1_Figure15_scalar_stage_distribution.png": "c4f7a6230cf3f3774345a5d513e0f866876e6082b36c3d7db4a4bd796a1cb3be",
+    "figures \u590d\u73b0/P1_Figure15_scalar_stage_distribution.svg": "083c46e940457e5ddc1b9de47e6dd54ea547fa574685512d35775f4c377f89b8",
+    "figures \u590d\u73b0/P1_Figure16_environment_tree_c1_c2.pdf": "be76dc1b0252488d058de97c7bf28ced13334e88f20d2db064c217fec3f869c1",
+    "figures \u590d\u73b0/P1_Figure16_environment_tree_c1_c2.png": "9476dcf520fc781302a5841bd582d5c1e48a97bc89a6214274932e1a86d5f9b5",
+    "figures \u590d\u73b0/P1_Figure16_environment_tree_c1_c2.svg": "c5acfba825329a6408f9b11ef44cea17151d7727b4ac12ba2d43c3880ce9affc",
+    "figures \u590d\u73b0/P1_Figure17_environment_tree_c3.pdf": "33dc7f913aa7a9983188509540bd9d436385921e03cf199a987dd3feaa1407f3",
+    "figures \u590d\u73b0/P1_Figure17_environment_tree_c3.png": "8629e4d4abb35a17dbd6a8f7d52ed33b36291fc6c13560c91c27bf0b47dc2f0a",
+    "figures \u590d\u73b0/P1_Figure17_environment_tree_c3.svg": "47b34e2aa05009c8e4a366fcc4b2fff9aac08af3529245f33841751de794d6fd",
+    "figures \u590d\u73b0/P1_Figure18_environment_qgb_c4_c5.pdf": "42b5903dfeab3e23758922d7915d02beb16df2aa63f8699ab093d8fd1b5f68e1",
+    "figures \u590d\u73b0/P1_Figure18_environment_qgb_c4_c5.png": "55bd27ee0475e79ccd2b3fe9473b80d4c58aa3d65ddf63cb6e6f5ce886938a28",
+    "figures \u590d\u73b0/P1_Figure18_environment_qgb_c4_c5.svg": "c3c794531a71db12fd33b5c20060113e05e0e7f2f15a6056e853c031b2b9bd0f",
+    "figures \u590d\u73b0/p1_figure_source_inventory.csv": "417fa6c823ec0b7b1f46e61bd343269bfe0b2ba4d846ab47c047b58042b2789e",
+    "manuscript \u590d\u73b0/manuscript_submission_P1_COMPLETE.pdf": "6763c7d438d6e9d6130ce8a862c18abca4b7806810ebb93a0ec225e75d1ce71f",
+    "manuscript \u590d\u73b0/manuscript_submission_P1_COMPLETE_twocolumn.pdf": "c0f975692dd29a5c60b4f1adbae7254bbefc6b4c7ce6bacef8012e29b42e8179",
+    "manuscript \u590d\u73b0/supplement_submission_P1_COMPLETE.pdf": "2e291944b0e19287e52215810f2e9d99f8242ed1b762eff1aecfe590e19a6225",
+    "packages/materials_transportability_v6-1.0.0-py3-none-any.whl": "e84e3aa1b1cf92880a0cfb7953d35dbd0bfe18658ef3def181742068aa4d521a",
+    "packages/materials_transportability_v6-1.0.0.tar.gz": "728bd2dc3508685261bfd35e9086391bdc101094a1fef2f696d835fef2ebaca0",
+    "smoke \u590d\u73b0/smoke_identity_audit.json": "7445072c406fea30499f0e00bfe2409261f202651a42e130bdf3dd77b0b25d60",
+    "smoke \u590d\u73b0/smoke_manifest.json": "7d6b4409c2332571ce2588c939276aacb354ca5463abe803bae6324901b21851",
+    "smoke \u590d\u73b0/smoke_registry.csv": "ddfbbd649570a1b947efcd4a51b7890e2d2c91cf7108ac44dd935613397c1625",
+    "smoke \u590d\u73b0/smoke_result_manifest.json": "6610a12bb1ef1dbc25fb515c92262125459e1d536c4970c28570cd2c91d8bb0f",
+    "smoke \u590d\u73b0/smoke_run.log": "af8f71eb7221d549a4432ba114d5147f56295d6a28d69686969f168410be7dea",
+    "smoke \u590d\u73b0/synthetic_release_smoke__CS_CALIBRATION_ONLY.json": "c88b1419ad29c51c343e183e1912102314e616974f0732327238ecbd5638ee83",
+    "smoke \u590d\u73b0/synthetic_release_smoke__GG_CALIBRATION_ONLY.json": "6bc6a17b2a1dd030dd77558cbf0161a5ce17446bbba8dbf2452431cb0786eb0c",
+    "smoke \u590d\u73b0/synthetic_release_smoke__GG_NORMALIZED_ACQUISITION.json": "3bb4336418bed52db84548642d166c9096b0e99a889f5ade33a729ff388a9427",
+    "smoke \u590d\u73b0/synthetic_release_smoke__RAW.json": "aa2ebbc33d6c12b71a23437f8a6332d81853bebabd14280dfac31a2fa7c1f5f8",
+    "tables \u590d\u73b0/p1_claim_evidence_classification.csv": "c53b1181e64327cc9b81cbf0d7263d8875c12402341eee467bec70be45da70d2",
+    "tables \u590d\u73b0/p1_compute_provenance_summary.csv": "cdb08841f42b075ba85d62cf44f0f9d9179436977c7f083168e6a22d08893f4f",
+    "tables \u590d\u73b0/p1_final_diagnostic_summary.csv": "9c078f0c0a1bfc1d519946281d0cab0e8fb15dd68199ed8a4fcfe88376d8e47f",
+    "tables \u590d\u73b0/p1_primary_table_display.csv": "f73207f2e0df0e6ff74e9edfc7812992ae72e5d80b11ce9e9dd747275761db24",
+    "tables \u590d\u73b0/p1_related_work_verified.csv": "56ec1fbd58b79588b0f9522bb5144c44fe36d0c551af84a7bc3767f0fb8af374",
+    "tables \u590d\u73b0/presentation_lock.json": "b79ce6504aca354c2deec8c0e5abd4f5cdda592e1fd5b1ea952487e27d756b38",
+    "tables \u590d\u73b0/reports/compute_gate_provenance_gap.md": "f261062e4fd27b94786cd69f46d0e9997dc757559a627c225ef5c5848c85d40d"
+  },
+  "used_existing_venv": false,
+  "used_parent_repository_files": false
+}

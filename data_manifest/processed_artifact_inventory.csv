@@ -1,0 +1,10 @@
+category,path,contains_upstream_values,bundled,redistribution_status,purpose
+authority,tables/v6_p0_confirmation_primary_contrasts.csv,false,true,PROJECT_DERIVED_AUTHORITY,Level 1 numeric verification
+authority,tables/v6_p0_confirmation_seed_level_endpoints.csv,true,false,AUTHOR_REVIEW_REQUIRED,Locked V6 endpoint authority; candidate uses separate authorization gate
+authority,tables/p1_confirmation_primary_contrasts.csv,false,true,PROJECT_DERIVED_AUTHORITY,Level 1 numeric verification
+authority,tables/p1_confirmation_seed_level_endpoints.csv,true,false,AUTHOR_REVIEW_REQUIRED,Locked P1 endpoint authority; candidate uses separate authorization gate
+derived,tables/p1_confirmation_calibration_diagnostics.csv,true,false,LARGE_DERIVED_OUTPUT_AUTHOR_REVIEW,Supplement figure reconstruction
+derived,tables/p1_confirmation_trajectory_points.csv,true,false,LARGE_DERIVED_OUTPUT_AUTHOR_REVIEW,Supplement trajectory reconstruction
+manifest,manifests/p1_confirmation_manifest.csv,false,true,PROJECT_PROTOCOL,Completeness verification
+fixture,tests/fixtures/tiny_materials.csv,false,true,SYNTHETIC_UNRESTRICTED,Smoke test only
+

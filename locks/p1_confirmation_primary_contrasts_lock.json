@@ -1,0 +1,17 @@
+{
+  "creation_timestamp": "2026-08-01T23:53:29.349930+00:00",
+  "endpoint_count": 2,
+  "environment_count": 24,
+  "file_path": "tables/p1_confirmation_primary_contrasts.csv",
+  "git_commit": "8553ccff60c1a691f81913edfad4e64d297d3486",
+  "manifest_hash": "8fa0693f0a0ce9776d6fd2eca72bf450dd67d99cf8efa21e42ee67ad79467877",
+  "protocol_hash": "4cf7f1d1aba35e961a0641ac7437950df247ca2fa27fbad6dfb0d75577733b11",
+  "row_count": 5,
+  "schema_version": 1,
+  "seed_range": [
+    8200,
+    8239
+  ],
+  "sha256": "9a35541dfc8d997d1c0e9d1c339d2a470cb7e924bbaca6bb39e3a4c7d874da69",
+  "status": "IMMUTABLE_P1_CONFIRMATION_RESULT"
+}

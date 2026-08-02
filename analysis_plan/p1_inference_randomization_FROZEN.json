@@ -1,0 +1,12 @@
+{
+  "bootstrap_resamples": 10000,
+  "bootstrap_seed_rule": "uint32(first_8_hex(sha256('P1_BOOTSTRAP|' + contrast_id)))",
+  "confidence_interval": 0.95,
+  "confirmation_outcomes_present_at_freeze": false,
+  "multiplicity": "Benjamini-Hochberg independently within frozen family",
+  "schema_version": 1,
+  "sign_flip_add_one": true,
+  "sign_flip_resamples": 10000,
+  "sign_flip_seed_rule": "uint32(first_8_hex(sha256('P1_SIGNFLIP|' + contrast_id)))",
+  "status": "FROZEN_IMPLEMENTATION_DETAIL_BEFORE_CONFIRMATION"
+}

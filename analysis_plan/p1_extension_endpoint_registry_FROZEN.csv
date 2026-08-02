@@ -1,0 +1,21 @@
+endpoint_id,display_name,definition,direction,evidence_class,aggregation,availability_requirement
+P1_L1,campaign MACE,"Mean across initial/25/50/75 checkpoints of mean absolute empirical-minus-nominal coverage error at 50/80/90/95%",lower_is_better,confirmatory,equal_checkpoint_then_equal_environment_then_paired_seed,all_registered_pairs
+P1_L4,top-1% recall nAUC,Trapezoidal normalized AUC of fixed top-1% target-set recall versus normalized queried budget including initial state,higher_is_better,confirmatory,equal_environment_then_paired_seed,all_registered_pairs
+P1_CAL_COVERAGE,empirical coverage curve,Empirical fraction within central interval at each prespecified nominal coverage,closer_to_nominal,exploratory,task_split_model_seed_checkpoint,available_interval
+P1_CAL_WIDTH,mean interval width,Mean upper-minus-lower interval width,context_dependent,exploratory,task_split_model_seed_checkpoint,available_interval
+P1_INTERVAL_SCORE,interval score,"Mean width plus 2/alpha times lower/upper miss penalties",lower_is_better,exploratory,task_split_model_seed_checkpoint,available_interval
+P1_GAUSSIAN_NLL,Gaussian NLL,"Mean log(sigma)+0.5*((y-mu)/sigma)^2 with registered floor",lower_is_better,exploratory,task_split_model_seed_checkpoint,finite_sigma
+P1_CRPS,Gaussian CRPS,Closed-form Gaussian continuous ranked probability score,lower_is_better,exploratory,task_split_model_seed_checkpoint,full_gaussian_proxy
+P1_STD_RESID,standardized residual diagnostics,"Mean SD skewness and quantiles of (y-mu)/sigma",closer_to_standard_normal,descriptive_mechanism,task_split_model_seed_checkpoint,finite_sigma
+P1_QQ,standardized residual QQ,Empirical versus standard-normal quantiles,closer_to_diagonal,descriptive_mechanism,task_split_model_seed_checkpoint,finite_sigma
+P1_UERR_SPEARMAN,uncertainty-error Spearman,Spearman correlation between sigma and absolute residual,higher_is_better,exploratory,task_split_model_seed_checkpoint,at_least_3_nonconstant_pairs
+P1_COND_COVERAGE,conditional coverage,Coverage stratified by predicted-mean quantile uncertainty quantile task and IID/OOD,closer_to_nominal,exploratory,stratum,minimum_stratum_20
+P1_L4_TOP5,top-5% recall nAUC,Normalized AUC of fixed top-5% target-set recall,higher_is_better,exploratory,task_split_model_seed,complete_trajectory
+P1_L4_TOP10,top-10% recall nAUC,Normalized AUC of fixed top-10% target-set recall,higher_is_better,exploratory,task_split_model_seed,complete_trajectory
+P1_BEST,best-so-far trajectory,Maximum observed target versus normalized budget,higher_is_better,exploratory,task_split_model_seed,complete_trajectory
+P1_REGRET,simple regret,Global target maximum minus best observed target,lower_is_better,exploratory,task_split_model_seed,complete_trajectory
+P1_ENRICH,enrichment factor,Queried top-set hit fraction divided by target-pool top-set prevalence,higher_is_better,exploratory,task_split_model_seed,complete_trajectory
+P1_TTFH,time to first top hit,Normalized queried budget at first fixed top-set hit,lower_is_better,exploratory,task_split_model_seed,complete_trajectory
+P1_T50,time to 50% top-set recall,Normalized queried budget reaching 0.5 recall; censored at 1 if unreached,lower_is_better,exploratory,task_split_model_seed,complete_trajectory
+P1_GAIN_RANDOM,gain relative to random,Endpoint minus analytic/random-seed reference with direction normalized,higher_is_better,exploratory,task_split_model_seed,registered_random_reference
+P1_SEG_AUC,early/middle/late segment AUC,"Normalized trapezoidal AUC within [0,.25] [.25,.75] [.75,1]",higher_is_better,exploratory,task_split_model_seed,complete_trajectory

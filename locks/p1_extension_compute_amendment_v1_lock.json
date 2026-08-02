@@ -1,0 +1,12 @@
+{
+  "amendment_path": "analysis_plan/p1_extension_compute_amendment_v1.md",
+  "amendment_sha256": "c2f88f9f992eddef6c9388b924043987c9f28e20e3e0cc2960dd88cd81ac8201",
+  "baseline_git_commit": "8553ccff60c1a691f81913edfad4e64d297d3486",
+  "confirmation_outcomes_present_at_freeze": false,
+  "created_at": "2026-08-01T18:30:00+08:00",
+  "old_wall_time_gate_hours": 24,
+  "protocol_lock_sha256": "4cf7f1d1aba35e961a0641ac7437950df247ca2fa27fbad6dfb0d75577733b11",
+  "schema_version": 1,
+  "status": "FROZEN_OUTCOME_BLIND_COMPUTE_ONLY_AMENDMENT",
+  "worker_limit": 6
+}

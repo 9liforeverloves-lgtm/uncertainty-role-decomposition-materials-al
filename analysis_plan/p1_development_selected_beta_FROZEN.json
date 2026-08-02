@@ -1,0 +1,25 @@
+{
+  "confirmation_seed_range_unread": [
+    8200,
+    8239
+  ],
+  "development_seed_range": [
+    8100,
+    8109
+  ],
+  "schema_version": 1,
+  "selection_rule": "leave-one-task-out; equal weight per task/split/model environment after seed mean; maximize mean, then worst environment, then smaller beta",
+  "source_hashes": {
+    "endpoints": "6587ede7a0b7bc7316ed532c0e812f9a5e5a6142d521a82c84242e494579c52a",
+    "manifest": "f656a06baaeefc4adaa49942d4732867fda4633912621685df1b2718a225463b",
+    "manifest_lock": "21289ea941afbf738997a177e3db07dedee2db032d447324b980b28f654c323f",
+    "selection_audit": "e5d7643f34979b434f8d2c4a10a92c2e80f7b0a5991ff2452ee25cbd53c7eb1c"
+  },
+  "status": "FROZEN_BEFORE_ANY_P1_CONFIRMATION_OUTCOME",
+  "task_beta": {
+    "matbench_expt_gap": 1.0,
+    "matbench_log_gvrh": 1.0,
+    "matbench_log_kvrh": 2.0,
+    "matbench_mp_gap": 1.0
+  }
+}

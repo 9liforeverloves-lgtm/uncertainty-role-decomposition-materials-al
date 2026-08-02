@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "title": "Role-decomposed uncertainty evaluation in materials active learning",
+    "upload_type": "software",
+    "description": "Code, locked evidence and reproducibility tooling for separating uncertainty calibration and acquisition roles in offline materials active learning.",
+    "creators": [
+      {
+        "name": "Li, Renjie",
+        "affiliation": null,
+        "orcid": null
+      }
+    ],
+    "keywords": ["materials informatics", "active learning", "uncertainty calibration", "reproducibility"],
+    "license": "BSD-3-Clause",
+    "access_right": "open",
+    "version": "1.0.0",
+    "publication_date": null,
+    "related_identifiers": [],
+    "references": ["Dunn et al., npj Computational Materials 6, 138 (2020), DOI 10.1038/s41524-020-00406-3"],
+    "grants": []
+  },
+  "archive_doi": null,
+  "repository_url": "https://github.com/9liforeverloves-lgtm/uncertainty-role-decomposition-materials-al",
+  "copyright": "Copyright 2026 Renjie Li",
+  "status": "READY_FOR_AUTHOR_UPLOAD_NOT_UPLOADED"
+}

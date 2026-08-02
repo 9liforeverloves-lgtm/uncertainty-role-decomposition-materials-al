@@ -1,0 +1,14 @@
+metric,value,unit,status
+job_count,3520,jobs,observed
+first_start_utc,2026-08-01T11:45:33.733115+00:00,timestamp,observed
+last_completion_utc,2026-08-01T20:51:14.238681+00:00,timestamp,observed
+elapsed_wall_time,9.094584879444444,hours,observed
+sum_job_process_wall_time,53.65028447616668,job-hours,observed_not_CPU_telemetry
+maximum_concurrent_jobs,6,workers,inferred_from_timestamps
+node_count,1,host,bound_by_compute_amendment
+durable_confirmation_corpus,68.5926434956491,GiB,observed_after_completion
+failed_jobs,0,jobs,observed
+retry_log_markers,0,markers,observed
+peak_RAM,not instrumented,,provenance_gap
+peak_temporary_disk,not instrumented,,provenance_gap
+CPU_time,not instrumented,,provenance_gap

@@ -1,0 +1,30 @@
+name: reproducibility
+on:
+  push:
+    branches: [main, codex/bsd3-publication-final]
+  workflow_dispatch:
+  pull_request:
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install -r requirements-lock.txt && python -m pip install . build==1.3.0
+      - run: python -m pip check
+      - run: python scripts/verify_release.py
+      - run: python scripts/reproduce_smoke.py --output-dir "$RUNNER_TEMP/smoke"
+      - run: python scripts/reproduce_tables.py --output-dir "$RUNNER_TEMP/tables"
+      - run: python scripts/reproduce_figures.py --output-dir "$RUNNER_TEMP/figures"
+      - run: python -m build --outdir "$RUNNER_TEMP/packages"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: non-authoritative-rebuild
+          path: |
+            ${{ runner.temp }}/tables
+            ${{ runner.temp }}/figures

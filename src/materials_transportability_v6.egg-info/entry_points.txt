@@ -1,0 +1,2 @@
+[console_scripts]
+transportability-v6 = transportability_v6.cli:main

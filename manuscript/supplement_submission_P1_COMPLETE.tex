@@ -1,0 +1,926 @@
+\documentclass[10pt]{article}
+\usepackage[margin=.55in]{geometry}
+\usepackage{booktabs,longtable,array,pdflscape,graphicx,microtype,hyperref}
+\hypersetup{hidelinks}
+\usepackage[hypcap=false]{caption}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\setlength{\tabcolsep}{2pt}
+\setlength{\emergencystretch}{2em}
+\sloppy
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\makeatletter
+\renewcommand*\l@section{\@dottedtocline{1}{1.5em}{3.0em}}
+\makeatother
+\title{Supplementary Information\\[3pt]\large Confirmatory evaluation separates uncertainty calibration from discovery performance in materials active learning}
+\author{Renjie Li\\[2pt]\normalsize Southwest University}
+\date{}
+\begin{document}
+\maketitle
+\begin{center}\small\textbf{Internal review build. Submission is blocked pending verified metadata.}\end{center}
+\tableofcontents
+
+\section{Scope and evidence status}
+This supplement reports the locked V6 confirmation package, its historical
+provenance, and a separately labelled independent P1 confirmation appendix.
+V6 pooled inference used 40 paired seed blocks, each averaging the 16
+task $\times$ split $\times$ model environments equally. Environment rows are
+heterogeneity diagnostics. No new contrast, endpoint, exclusion, environment
+selection, or statistical analysis was introduced into locked V6 inference.
+
+\section{Evidence lineage and historical provenance}
+The displays below are historical V2, V3, and V5-RC1 material retained only to document
+development and method provenance. They are not V6 confirmation evidence, are
+not pooled with V6, and cannot override the locked V6 results.
+
+
+\begin{landscape}
+
+\begingroup\scriptsize
+\begin{longtable}{L{1.25in}L{1.1in}L{.55in}L{.68in}L{1.25in}L{1.35in}L{1.65in}}
+\caption{Historical version and stage roles; no effect estimates are pooled across versions.}\\
+\toprule
+Version/stage & Evidence role & Job count & Seed range & Scientific use & Allowed manuscript role & Not allowed to support\\
+\midrule
+\endfirsthead
+\toprule
+Version/stage & Evidence role & Job count & Seed range & Scientific use & Allowed manuscript role & Not allowed to support\\
+\midrule
+\endhead
+V2 historical & exploratory evidence & 1,920 & 2000--2019 & method exploration & provenance only & V6 confirmation or cross-version pooled effects\\
+V3 historical & calibration-evaluation evidence & 1,920 & 3000--3039 & calibration evaluation & provenance only & V6 confirmation or cross-version pooled effects\\
+V5-RC1 broad development manifest & planned configuration inventory & 5,760 & 1000--1009 & strategy inventory & development provenance & confirmatory or effect-estimation claims\\
+V5 reduced selection cohort & executed selection evidence & 2,240 & 1000--1009 & policy selection & development and selection provenance & confirmatory or effect-estimation claims\\
+V5-RC1 confirmation & historical locked evidence & 3,360 & 5000--5039 & historical locked confirmation & historical evidence and method provenance & V6 confirmation or override of V6\\
+V6 independent confirmation & independent registered confirmation & 12,800 & 7000--7039 & frozen trajectory and replay confirmation & V6 confirmatory claims & cross-version pooled effects\\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\medskip
+\begin{center}
+\fbox{\parbox{.92\linewidth}{\centering\bfseries Historical/development evidence -- not part of V6 confirmatory inference}}
+\par\smallskip
+\includegraphics[width=.94\linewidth]{figures_v6/SupplementaryFigureS1_evidence_lineage_architecture.pdf}
+\captionof{figure}{Evidence lineage and V6 confirmation architecture.
+Historical and development stages motivated but were not pooled with the
+independent V6 confirmation.}
+\end{center}
+
+\end{landscape}
+
+
+\begin{figure}[p]\centering
+\includegraphics[width=.95\linewidth]{figures_v6/V5_Figure2_L1_All_Contrasts.pdf}
+\caption{Historical/development evidence -- not part of V6 confirmatory inference. V5 L1 environment-level effects.}
+\end{figure}
+\begin{figure}[p]\centering
+\includegraphics[width=.95\linewidth]{figures_v6/V5_Figure3_L4_All_Contrasts.pdf}
+\caption{Historical/development evidence -- not part of V6 confirmatory inference. V5 L4 environment-level effects.}
+\end{figure}
+\begin{figure}[p]\centering
+\includegraphics[width=.95\linewidth]{figures_v6/V5_Figure4_GG_Mechanism.pdf}
+\caption{Historical/development evidence -- not part of V6 confirmatory inference. Exploratory V5 GG diagnostics; no causal mechanism or full-pool rank equivalence is established.}
+\end{figure}
+\clearpage
+
+\begin{landscape}
+\section{Complete registered pooled contrasts}
+
+
+\begingroup\scriptsize
+\begin{longtable}{L{.35in}L{.45in}L{1.35in}L{1.1in}L{.9in}L{.9in}L{.9in}L{.85in}L{.85in}L{.65in}}
+\caption{Complete locked V6 pooled registered contrasts. Effects are strategy minus baseline.}\\
+\toprule
+ID & Endpoint & Strategy & Baseline & Effect & CI low & CI high & Raw $p$ & BH $p$ & Same sign\\
+\midrule
+\endfirsthead
+\toprule
+ID & Endpoint & Strategy & Baseline & Effect & CI low & CI high & Raw $p$ & BH $p$ & Same sign\\
+\midrule
+\endhead
+H1 & L1 & GG\_\allowbreak{}CALIBRATION\_\allowbreak{}ONLY & RAW & 0.0657770225 & 0.0627818431 & 0.0689712498 & 1 & 1 & 16/16\\
+H2A & L4 & GG\_\allowbreak{}ACQUISITION\_\allowbreak{}ONLY & RAW & -0.0763127258 & -0.0852825362 & -0.0676855935 & 1 & 1 & 11/16\\
+H2B & L4 & ORIGINAL\_\allowbreak{}GG & RAW & -0.0763127258 & -0.0853933246 & -0.0676125952 & 1 & 1 & 11/16\\
+H3 & L4 & RAW\_\allowbreak{}FIXED\_\allowbreak{}BETA\_\allowbreak{}MATCHED & ORIGINAL\_\allowbreak{}GG & -0.00023554277 & -0.00599157738 & 0.00544599797 & 0.936106389 & 0.936106389 & 7/16\\
+H4 & L4 & RAW\_\allowbreak{}STAGE\_\allowbreak{}BETA\_\allowbreak{}MATCHED & ORIGINAL\_\allowbreak{}GG & 0.0316188586 & 0.0255350817 & 0.0376130635 & 9.9990001e-05 & 0.000199980002 & 16/16\\
+H5A & L1 & CS\_\allowbreak{}CALIBRATION\_\allowbreak{}ONLY & RAW & 0.0958984563 & 0.0908273397 & 0.100887545 & 1 & 1 & 8/16\\
+H5B & L4 & CS\_\allowbreak{}ACQUISITION\_\allowbreak{}ONLY & RAW & -0.0340839368 & -0.039446183 & -0.0285985897 & 1 & 1 & 16/16\\
+H5C & L4 & SELECTED\_\allowbreak{}CS & RAW & -0.0340839368 & -0.0396059304 & -0.028612379 & 1 & 1 & 16/16\\
+H6 & L1 & SCALAR\_\allowbreak{}TEMPERATURE\_\allowbreak{}RESIDUAL\_\allowbreak{}RATIO & SELECTED\_\allowbreak{}CS & -0.111526544 & -0.116234863 & -0.106875745 & --- & --- & 16/16\\
+H6A & L1 & SCALAR\_\allowbreak{}TEMPERATURE\_\allowbreak{}NLL & IDENTITY\_\allowbreak{}CONTROL & 0.0611615712 & 0.0569630348 & 0.06534071 & 1 & 1 & 11/16\\
+H6B & L1 & SCALAR\_\allowbreak{}TEMPERATURE\_\allowbreak{}RESIDUAL\_\allowbreak{}RATIO & IDENTITY\_\allowbreak{}CONTROL & -0.0214418429 & -0.0236669741 & -0.0191473043 & 9.9990001e-05 & 0.000199980002 & 8/16\\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\end{landscape}
+
+\begin{table}[htbp]
+\centering
+\caption{Absolute endpoint levels reconstructed directly from the locked
+seed-level endpoint table. Absolute endpoint levels are shown for
+interpretation only. No additional inferential test was introduced.}
+\scriptsize
+\begin{tabular}{lrrr}
+\toprule
+Contrast & Baseline pooled mean & Strategy pooled mean & Registered effect\\
+\midrule
+Stagewise matched-beta vs Original GG & 0.565322 & 0.596941 & 0.031619\\
+Residual-ratio scaling vs Identity Control & 0.069511 & 0.048069 & -0.021442\\
+GG acquisition-only vs RAW & 0.641635 & 0.565322 & -0.076313\\
+CS acquisition-only vs RAW & 0.641635 & 0.607551 & -0.034084\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Multiplicity families}
+
+\begingroup\scriptsize
+\begin{longtable}{L{1.8in}L{.4in}L{.4in}L{.75in}L{.6in}L{.85in}L{.6in}}
+\caption{Exact frozen Benjamini--Hochberg family membership and decisions.}\\
+\toprule
+Family & Size & ID & Raw $p$ & BH rank & Adjusted $p$ & Reject\\
+\midrule
+\endfirsthead
+\toprule
+Family & Size & ID & Raw $p$ & BH rank & Adjusted $p$ & Reject\\
+\midrule
+\endhead
+P0\_\allowbreak{}L1\_\allowbreak{}CALIBRATION\_\allowbreak{}ONLY & 2 & H1 & 1 & 1 & 1 & False\\
+P0\_\allowbreak{}L1\_\allowbreak{}CALIBRATION\_\allowbreak{}ONLY & 2 & H5A & 1 & 2 & 1 & False\\
+P0\_\allowbreak{}L1\_\allowbreak{}SIMPLE\_\allowbreak{}SCALING & 2 & H6B & 9.9990001e-05 & 1 & 0.000199980002 & True\\
+P0\_\allowbreak{}L1\_\allowbreak{}SIMPLE\_\allowbreak{}SCALING & 2 & H6A & 1 & 2 & 1 & False\\
+P0\_\allowbreak{}L4\_\allowbreak{}ACQUISITION\_\allowbreak{}AND\_\allowbreak{}JOINT & 4 & H2A & 1 & 1 & 1 & False\\
+P0\_\allowbreak{}L4\_\allowbreak{}ACQUISITION\_\allowbreak{}AND\_\allowbreak{}JOINT & 4 & H2B & 1 & 2 & 1 & False\\
+P0\_\allowbreak{}L4\_\allowbreak{}ACQUISITION\_\allowbreak{}AND\_\allowbreak{}JOINT & 4 & H5B & 1 & 3 & 1 & False\\
+P0\_\allowbreak{}L4\_\allowbreak{}ACQUISITION\_\allowbreak{}AND\_\allowbreak{}JOINT & 4 & H5C & 1 & 4 & 1 & False\\
+P0\_\allowbreak{}L4\_\allowbreak{}MATCHED\_\allowbreak{}BETA\_\allowbreak{}MECHANISM & 2 & H4 & 9.9990001e-05 & 1 & 0.000199980002 & True\\
+P0\_\allowbreak{}L4\_\allowbreak{}MATCHED\_\allowbreak{}BETA\_\allowbreak{}MECHANISM & 2 & H3 & 0.936106389 & 2 & 0.936106389 & False\\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\begin{landscape}
+
+\section{Task-, split-, model-, and environment-level diagnostics}
+
+\begingroup\scriptsize
+\begin{longtable}{L{.35in}L{.6in}L{3.55in}L{.4in}L{.88in}L{.88in}L{.88in}}
+\caption{All locked V6 heterogeneity-diagnostic estimates. These rows do not replace pooled inference.}\\
+\toprule
+ID & Level & Stratum & $n$ & Effect & CI low & CI high\\
+\midrule
+\endfirsthead
+\toprule
+ID & Level & Stratum & $n$ & Effect & CI low & CI high\\
+\midrule
+\endhead
+H1 & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.084107 & 0.077711 & 0.090402\\
+H1 & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.078466 & 0.070186 & 0.086129\\
+H1 & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.080554 & 0.072608 & 0.087660\\
+H1 & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.075068 & 0.067445 & 0.082234\\
+H1 & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.054258 & 0.045882 & 0.062939\\
+H1 & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.045109 & 0.036312 & 0.054102\\
+H1 & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.036115 & 0.025907 & 0.045888\\
+H1 & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.032798 & 0.022670 & 0.042386\\
+H1 & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.036649 & 0.025782 & 0.046830\\
+H1 & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.027242 & 0.015809 & 0.038070\\
+H1 & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.006948 & -0.002153 & 0.016197\\
+H1 & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.004556 & -0.004279 & 0.013493\\
+H1 & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.129270 & 0.128296 & 0.130231\\
+H1 & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.126928 & 0.125594 & 0.128185\\
+H1 & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.119730 & 0.118852 & 0.120634\\
+H1 & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.114635 & 0.113597 & 0.115633\\
+H1 & model & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.068454 & 0.065258 & 0.071724\\
+H1 & model & random\_\allowbreak{}forest & 40 & 0.063100 & 0.059816 & 0.066335\\
+H1 & split & chemical\_\allowbreak{}system\_\allowbreak{}ood & 40 & 0.072754 & 0.068469 & 0.076860\\
+H1 & split & iid\_\allowbreak{}record & 40 & 0.058800 & 0.054330 & 0.063047\\
+H1 & task & matbench\_\allowbreak{}expt\_\allowbreak{}gap & 40 & 0.079549 & 0.074796 & 0.084130\\
+H1 & task & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & 40 & 0.042070 & 0.035803 & 0.048462\\
+H1 & task & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & 40 & 0.018849 & 0.011436 & 0.026304\\
+H1 & task & matbench\_\allowbreak{}mp\_\allowbreak{}gap & 40 & 0.122641 & 0.121946 & 0.123327\\
+H2A & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.002716 & -0.014063 & 0.022992\\
+H2A & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.019122 & -0.001340 & 0.044569\\
+H2A & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.038690 & 0.019196 & 0.059822\\
+H2A & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.056585 & 0.029091 & 0.087094\\
+H2A & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.124075 & -0.152186 & -0.097816\\
+H2A & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.154710 & -0.194730 & -0.114831\\
+H2A & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.102748 & -0.128515 & -0.078263\\
+H2A & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.115820 & -0.147403 & -0.086942\\
+H2A & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.190525 & -0.222846 & -0.157921\\
+H2A & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.203504 & -0.243250 & -0.164458\\
+H2A & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.207599 & -0.238918 & -0.176780\\
+H2A & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.223114 & -0.252158 & -0.194854\\
+H2A & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.008352 & -0.016352 & -0.000369\\
+H2A & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.016904 & -0.029402 & -0.004149\\
+H2A & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.009239 & 0.006016 & 0.012549\\
+H2A & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -4.312087e-06 & -0.004693 & 0.005413\\
+H2A & model & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.072832 & -0.081759 & -0.064022\\
+H2A & model & random\_\allowbreak{}forest & 40 & -0.079794 & -0.091354 & -0.068738\\
+H2A & split & chemical\_\allowbreak{}system\_\allowbreak{}ood & 40 & -0.084529 & -0.097204 & -0.072333\\
+H2A & split & iid\_\allowbreak{}record & 40 & -0.068096 & -0.077664 & -0.058561\\
+H2A & task & matbench\_\allowbreak{}expt\_\allowbreak{}gap & 40 & 0.029278 & 0.017290 & 0.041686\\
+H2A & task & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & 40 & -0.124338 & -0.144592 & -0.105010\\
+H2A & task & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & 40 & -0.206186 & -0.226131 & -0.186307\\
+H2A & task & matbench\_\allowbreak{}mp\_\allowbreak{}gap & 40 & -0.004005 & -0.008536 & 0.000821\\
+H2B & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.002716 & -0.014025 & 0.022991\\
+H2B & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.019122 & -0.001376 & 0.043900\\
+H2B & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.038690 & 0.019271 & 0.060528\\
+H2B & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.056585 & 0.028682 & 0.087613\\
+H2B & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.124075 & -0.151816 & -0.097151\\
+H2B & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.154710 & -0.192960 & -0.114391\\
+H2B & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.102748 & -0.128747 & -0.078516\\
+H2B & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.115820 & -0.146944 & -0.086554\\
+H2B & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.190525 & -0.222772 & -0.158726\\
+H2B & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.203504 & -0.243158 & -0.164391\\
+H2B & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.207599 & -0.239174 & -0.175949\\
+H2B & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.223114 & -0.251640 & -0.193652\\
+H2B & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.008352 & -0.016532 & -0.000467\\
+H2B & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.016904 & -0.029572 & -0.004084\\
+H2B & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.009239 & 0.006144 & 0.012624\\
+H2B & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -4.312087e-06 & -0.004738 & 0.005516\\
+H2B & model & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.072832 & -0.081864 & -0.064070\\
+H2B & model & random\_\allowbreak{}forest & 40 & -0.079794 & -0.091015 & -0.068594\\
+H2B & split & chemical\_\allowbreak{}system\_\allowbreak{}ood & 40 & -0.084529 & -0.097308 & -0.072548\\
+H2B & split & iid\_\allowbreak{}record & 40 & -0.068096 & -0.077526 & -0.058714\\
+H2B & task & matbench\_\allowbreak{}expt\_\allowbreak{}gap & 40 & 0.029278 & 0.017493 & 0.041984\\
+H2B & task & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & 40 & -0.124338 & -0.144975 & -0.105000\\
+H2B & task & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & 40 & -0.206186 & -0.225986 & -0.186328\\
+H2B & task & matbench\_\allowbreak{}mp\_\allowbreak{}gap & 40 & -0.004005 & -0.008589 & 0.000792\\
+H3 & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.011384 & -0.008891 & 0.032366\\
+H3 & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.009487 & -0.03125 & 0.013021\\
+H3 & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.038616 & 0.009523 & 0.068899\\
+H3 & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.016964 & -0.009822 & 0.044792\\
+H3 & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.018736 & -0.017116 & 0.054253\\
+H3 & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.015754 & -0.026487 & 0.059932\\
+H3 & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.038591 & -0.064313 & -0.013540\\
+H3 & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.023146 & -0.047173 & 0.000408\\
+H3 & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.018330 & -0.045630 & 0.009419\\
+H3 & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.021579 & -0.005177 & 0.047827\\
+H3 & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.038727 & -0.066887 & -0.011150\\
+H3 & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.014210 & -0.045742 & 0.015501\\
+H3 & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.010080 & 0.001029 & 0.019336\\
+H3 & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.001637 & -0.016351 & 0.012246\\
+H3 & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.000319 & -0.004208 & 0.004515\\
+H3 & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.006926 & 0.001380 & 0.012511\\
+H3 & model & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.002064 & -0.010785 & 0.006454\\
+H3 & model & random\_\allowbreak{}forest & 40 & 0.001593 & -0.006083 & 0.009201\\
+H3 & split & chemical\_\allowbreak{}system\_\allowbreak{}ood & 40 & 0.006010 & -0.002261 & 0.013818\\
+H3 & split & iid\_\allowbreak{}record & 40 & -0.006481 & -0.015996 & 0.002647\\
+H3 & task & matbench\_\allowbreak{}expt\_\allowbreak{}gap & 40 & 0.014369 & 0.002018 & 0.027111\\
+H3 & task & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & 40 & -0.006812 & -0.024133 & 0.010580\\
+H3 & task & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & 40 & -0.012422 & -0.023609 & -0.001090\\
+H3 & task & matbench\_\allowbreak{}mp\_\allowbreak{}gap & 40 & 0.003922 & -0.000685 & 0.008631\\
+H4 & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.011793 & -0.006027 & 0.031027\\
+H4 & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.009263 & -0.012353 & 0.030990\\
+H4 & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.007403 & -0.019159 & 0.033222\\
+H4 & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.005841 & -0.017970 & 0.030506\\
+H4 & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.061412 & 0.030933 & 0.093821\\
+H4 & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.093914 & 0.057222 & 0.132736\\
+H4 & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.043077 & 0.022701 & 0.064131\\
+H4 & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.047956 & 0.028772 & 0.067214\\
+H4 & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.043545 & 0.014779 & 0.071399\\
+H4 & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.052052 & 0.017550 & 0.087153\\
+H4 & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.030632 & 0.007122 & 0.054725\\
+H4 & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.047268 & 0.021556 & 0.071626\\
+H4 & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.020238 & 0.011354 & 0.028547\\
+H4 & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.014976 & 0.002968 & 0.026551\\
+H4 & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.003689 & 0.000528 & 0.006776\\
+H4 & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.012842 & 0.009068 & 0.016453\\
+H4 & model & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.027724 & 0.019011 & 0.036538\\
+H4 & model & random\_\allowbreak{}forest & 40 & 0.035514 & 0.026546 & 0.044608\\
+H4 & split & chemical\_\allowbreak{}system\_\allowbreak{}ood & 40 & 0.038399 & 0.029340 & 0.047501\\
+H4 & split & iid\_\allowbreak{}record & 40 & 0.024839 & 0.018394 & 0.031503\\
+H4 & task & matbench\_\allowbreak{}expt\_\allowbreak{}gap & 40 & 0.008575 & -0.002158 & 0.019811\\
+H4 & task & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & 40 & 0.061590 & 0.045212 & 0.078379\\
+H4 & task & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & 40 & 0.043374 & 0.027517 & 0.059380\\
+H4 & task & matbench\_\allowbreak{}mp\_\allowbreak{}gap & 40 & 0.012936 & 0.009464 & 0.016392\\
+H5A & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.212830 & 0.175166 & 0.250399\\
+H5A & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.287251 & 0.263011 & 0.310478\\
+H5A & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.155433 & 0.125889 & 0.185603\\
+H5A & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.270989 & 0.244927 & 0.295372\\
+H5A & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.013605 & -0.020555 & -0.007206\\
+H5A & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.021731 & -0.027960 & -0.015302\\
+H5A & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.017066 & -0.022430 & -0.011778\\
+H5A & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.019095 & -0.024673 & -0.013404\\
+H5A & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.014287 & -0.020605 & -0.008202\\
+H5A & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.019810 & -0.026138 & -0.013425\\
+H5A & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.019255 & -0.025694 & -0.012638\\
+H5A & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.021493 & -0.027168 & -0.015513\\
+H5A & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.198331 & 0.191248 & 0.205578\\
+H5A & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.215927 & 0.209543 & 0.221960\\
+H5A & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.157429 & 0.151777 & 0.163066\\
+H5A & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.182527 & 0.176240 & 0.188935\\
+H5A & model & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.082476 & 0.075551 & 0.089331\\
+H5A & model & random\_\allowbreak{}forest & 40 & 0.109321 & 0.104389 & 0.114167\\
+H5A & split & chemical\_\allowbreak{}system\_\allowbreak{}ood & 40 & 0.105613 & 0.098401 & 0.112813\\
+H5A & split & iid\_\allowbreak{}record & 40 & 0.086184 & 0.080201 & 0.091986\\
+H5A & task & matbench\_\allowbreak{}expt\_\allowbreak{}gap & 40 & 0.231626 & 0.212818 & 0.250477\\
+H5A & task & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & 40 & -0.017874 & -0.022122 & -0.013716\\
+H5A & task & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & 40 & -0.018711 & -0.022840 & -0.014481\\
+H5A & task & matbench\_\allowbreak{}mp\_\allowbreak{}gap & 40 & 0.188553 & 0.184313 & 0.192588\\
+H5B & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.056436 & -0.079912 & -0.033854\\
+H5B & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.038876 & -0.063207 & -0.017856\\
+H5B & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.058296 & -0.079391 & -0.038057\\
+H5B & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.017671 & -0.047136 & 0.017523\\
+H5B & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.027706 & -0.044001 & -0.011738\\
+H5B & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.017409 & -0.037839 & 0.004431\\
+H5B & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.028129 & -0.042291 & -0.014085\\
+H5B & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.028916 & -0.046794 & -0.010460\\
+H5B & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.044466 & -0.060395 & -0.028997\\
+H5B & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.031536 & -0.050604 & -0.013656\\
+H5B & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.042027 & -0.063064 & -0.020632\\
+H5B & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.073210 & -0.102535 & -0.047653\\
+H5B & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.017617 & -0.026321 & -0.008136\\
+H5B & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.027299 & -0.037352 & -0.017764\\
+H5B & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.013215 & -0.015894 & -0.010495\\
+H5B & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.022531 & -0.027667 & -0.017620\\
+H5B & model & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.035987 & -0.042466 & -0.029531\\
+H5B & model & random\_\allowbreak{}forest & 40 & -0.032181 & -0.039387 & -0.025273\\
+H5B & split & chemical\_\allowbreak{}system\_\allowbreak{}ood & 40 & -0.032668 & -0.039989 & -0.025586\\
+H5B & split & iid\_\allowbreak{}record & 40 & -0.035500 & -0.043571 & -0.027042\\
+H5B & task & matbench\_\allowbreak{}expt\_\allowbreak{}gap & 40 & -0.042820 & -0.056828 & -0.029539\\
+H5B & task & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & 40 & -0.025540 & -0.035461 & -0.015850\\
+H5B & task & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & 40 & -0.047810 & -0.058794 & -0.037148\\
+H5B & task & matbench\_\allowbreak{}mp\_\allowbreak{}gap & 40 & -0.020166 & -0.023445 & -0.017122\\
+H5C & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.056436 & -0.080953 & -0.033853\\
+H5C & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.038876 & -0.062463 & -0.017783\\
+H5C & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.058296 & -0.079577 & -0.038504\\
+H5C & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.017671 & -0.047321 & 0.016481\\
+H5C & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.027706 & -0.043655 & -0.011714\\
+H5C & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.017409 & -0.037566 & 0.003898\\
+H5C & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.028129 & -0.042282 & -0.013853\\
+H5C & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.028916 & -0.046888 & -0.009748\\
+H5C & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.044466 & -0.060395 & -0.028908\\
+H5C & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.031536 & -0.050735 & -0.013133\\
+H5C & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.042027 & -0.063710 & -0.021499\\
+H5C & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.073210 & -0.102117 & -0.048039\\
+H5C & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.017617 & -0.026495 & -0.008467\\
+H5C & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.027299 & -0.037282 & -0.017603\\
+H5C & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.013215 & -0.015907 & -0.010406\\
+H5C & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.022531 & -0.027772 & -0.017678\\
+H5C & model & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.035987 & -0.042494 & -0.029724\\
+H5C & model & random\_\allowbreak{}forest & 40 & -0.032181 & -0.039246 & -0.025210\\
+H5C & split & chemical\_\allowbreak{}system\_\allowbreak{}ood & 40 & -0.032668 & -0.040051 & -0.025630\\
+H5C & split & iid\_\allowbreak{}record & 40 & -0.035500 & -0.043497 & -0.027011\\
+H5C & task & matbench\_\allowbreak{}expt\_\allowbreak{}gap & 40 & -0.042820 & -0.057041 & -0.029594\\
+H5C & task & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & 40 & -0.025540 & -0.035104 & -0.015893\\
+H5C & task & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & 40 & -0.047810 & -0.059070 & -0.036995\\
+H5C & task & matbench\_\allowbreak{}mp\_\allowbreak{}gap & 40 & -0.020166 & -0.023285 & -0.017145\\
+H6 & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.186395 & -0.220548 & -0.153343\\
+H6 & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.257999 & -0.283112 & -0.232080\\
+H6 & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.131703 & -0.161756 & -0.103738\\
+H6 & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.244785 & -0.271043 & -0.217652\\
+H6 & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.035359 & -0.041567 & -0.029168\\
+H6 & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.039671 & -0.048136 & -0.031360\\
+H6 & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.039010 & -0.047604 & -0.030665\\
+H6 & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.042502 & -0.049716 & -0.035405\\
+H6 & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.009900 & -0.015757 & -0.004175\\
+H6 & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.029103 & -0.038255 & -0.020573\\
+H6 & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.014470 & -0.023780 & -0.005275\\
+H6 & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.022656 & -0.031471 & -0.013979\\
+H6 & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.181475 & -0.187389 & -0.175777\\
+H6 & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.200570 & -0.206590 & -0.194593\\
+H6 & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.164603 & -0.170464 & -0.158517\\
+H6 & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.184224 & -0.190734 & -0.177572\\
+H6 & model & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.095364 & -0.101306 & -0.089488\\
+H6 & model & random\_\allowbreak{}forest & 40 & -0.127689 & -0.132677 & -0.122864\\
+H6 & split & chemical\_\allowbreak{}system\_\allowbreak{}ood & 40 & -0.117559 & -0.124437 & -0.110833\\
+H6 & split & iid\_\allowbreak{}record & 40 & -0.105494 & -0.112387 & -0.098963\\
+H6 & task & matbench\_\allowbreak{}expt\_\allowbreak{}gap & 40 & -0.205220 & -0.222402 & -0.189137\\
+H6 & task & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & 40 & -0.039135 & -0.044170 & -0.034100\\
+H6 & task & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & 40 & -0.019032 & -0.022978 & -0.014970\\
+H6 & task & matbench\_\allowbreak{}mp\_\allowbreak{}gap & 40 & -0.182718 & -0.186088 & -0.179416\\
+H6A & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.064865 & 0.053623 & 0.076302\\
+H6A & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.082756 & 0.072421 & 0.092888\\
+H6A & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.050073 & 0.037669 & 0.062577\\
+H6A & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.077001 & 0.063282 & 0.090158\\
+H6A & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.022089 & 0.008750 & 0.035321\\
+H6A & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.041248 & 0.029207 & 0.052658\\
+H6A & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.000459 & -0.014196 & 0.013765\\
+H6A & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.008731 & -0.006643 & 0.023556\\
+H6A & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.010169 & -0.024195 & 0.003113\\
+H6A & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.006860 & -0.020916 & 0.006951\\
+H6A & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.021980 & -0.034421 & -0.009303\\
+H6A & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.024223 & -0.036686 & -0.011607\\
+H6A & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.174401 & 0.171531 & 0.176696\\
+H6A & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.175055 & 0.173960 & 0.176081\\
+H6A & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.169596 & 0.163580 & 0.174857\\
+H6A & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.176462 & 0.174960 & 0.177813\\
+H6A & model & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.056052 & 0.052002 & 0.060147\\
+H6A & model & random\_\allowbreak{}forest & 40 & 0.066271 & 0.061663 & 0.070947\\
+H6A & split & chemical\_\allowbreak{}system\_\allowbreak{}ood & 40 & 0.067923 & 0.062326 & 0.073548\\
+H6A & split & iid\_\allowbreak{}record & 40 & 0.054400 & 0.048110 & 0.060468\\
+H6A & task & matbench\_\allowbreak{}expt\_\allowbreak{}gap & 40 & 0.068674 & 0.060894 & 0.076053\\
+H6A & task & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & 40 & 0.017902 & 0.009664 & 0.026062\\
+H6A & task & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & 40 & -0.015808 & -0.026226 & -0.005775\\
+H6A & task & matbench\_\allowbreak{}mp\_\allowbreak{}gap & 40 & 0.173878 & 0.172161 & 0.175465\\
+H6B & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.005357 & 0.002355 & 0.008413\\
+H6B & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.010595 & 0.006963 & 0.014312\\
+H6B & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.002236 & -0.002907 & 0.007159\\
+H6B & environment & matbench\_\allowbreak{}expt\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.004162 & 0.000673 & 0.007817\\
+H6B & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.051963 & -0.059725 & -0.044084\\
+H6B & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.061209 & -0.069459 & -0.052739\\
+H6B & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.055871 & -0.062968 & -0.048615\\
+H6B & environment & matbench\_\allowbreak{}log\_\allowbreak{}gvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.064399 & -0.072030 & -0.056621\\
+H6B & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.032768 & -0.038305 & -0.027097\\
+H6B & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.045664 & -0.053386 & -0.038384\\
+H6B & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.043414 & -0.049365 & -0.037359\\
+H6B & environment & matbench\_\allowbreak{}log\_\allowbreak{}kvrh\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & -0.052426 & -0.058631 & -0.046067\\
+H6B & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.019515 & 0.017838 & 0.021256\\
+H6B & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}chemical\_\allowbreak{}system\_\allowbreak{}ood\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.018226 & 0.016566 & 0.019967\\
+H6B & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0.002132 & 0.001394 & 0.002884\\
+H6B & environment & matbench\_\allowbreak{}mp\_\allowbreak{}gap\_\allowbreak{}\_\allowbreak{}iid\_\allowbreak{}record\_\allowbreak{}\_\allowbreak{}random\_\allowbreak{}forest & 40 & 0.002420 & 0.001734 & 0.003103\\
+H6B & model & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & -0.019347 & -0.021617 & -0.017096\\
+H6B & model & random\_\allowbreak{}forest & 40 & -0.023537 & -0.026038 & -0.020982\\
+H6B & split & chemical\_\allowbreak{}system\_\allowbreak{}ood & 40 & -0.017239 & -0.020071 & -0.014336\\
+H6B & split & iid\_\allowbreak{}record & 40 & -0.025645 & -0.028717 & -0.022584\\
+H6B & task & matbench\_\allowbreak{}expt\_\allowbreak{}gap & 40 & 0.005588 & 0.003188 & 0.007843\\
+H6B & task & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & 40 & -0.058360 & -0.063702 & -0.052623\\
+H6B & task & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & 40 & -0.043568 & -0.047583 & -0.039520\\
+H6B & task & matbench\_\allowbreak{}mp\_\allowbreak{}gap & 40 & 0.010573 & 0.009861 & 0.011319\\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\end{landscape}
+
+\begin{landscape}
+
+\section{Pair completeness}
+
+\begingroup\scriptsize
+\begin{longtable}{L{.32in}L{1.05in}L{1.2in}L{1.3in}L{.42in}L{.42in}L{.42in}L{.48in}}
+\caption{All 176 registered environment-level completeness gates.}\\
+\toprule
+ID & Task & Split & Model & Pairs & Missing & Excl. & Gate\\
+\midrule
+\endfirsthead
+\toprule
+ID & Task & Split & Model & Pairs & Missing & Excl. & Gate\\
+\midrule
+\endhead
+H1 & matbench\_\allowbreak{}expt\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H1 & matbench\_\allowbreak{}expt\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H1 & matbench\_\allowbreak{}expt\_\allowbreak{}gap & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H1 & matbench\_\allowbreak{}expt\_\allowbreak{}gap & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H1 & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H1 & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H1 & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H1 & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H1 & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H1 & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H1 & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H1 & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H1 & matbench\_\allowbreak{}mp\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H1 & matbench\_\allowbreak{}mp\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H1 & matbench\_\allowbreak{}mp\_\allowbreak{}gap & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H1 & matbench\_\allowbreak{}mp\_\allowbreak{}gap & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H2A & matbench\_\allowbreak{}expt\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H2A & matbench\_\allowbreak{}expt\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H2A & matbench\_\allowbreak{}expt\_\allowbreak{}gap & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H2A & matbench\_\allowbreak{}expt\_\allowbreak{}gap & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H2A & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H2A & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H2A & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H2A & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H2A & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H2A & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H2A & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H2A & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H2A & matbench\_\allowbreak{}mp\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H2A & matbench\_\allowbreak{}mp\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H2A & matbench\_\allowbreak{}mp\_\allowbreak{}gap & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H2A & matbench\_\allowbreak{}mp\_\allowbreak{}gap & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H2B & matbench\_\allowbreak{}expt\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H2B & matbench\_\allowbreak{}expt\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H2B & matbench\_\allowbreak{}expt\_\allowbreak{}gap & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H2B & matbench\_\allowbreak{}expt\_\allowbreak{}gap & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H2B & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H2B & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H2B & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H2B & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H2B & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H2B & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H2B & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H2B & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H2B & matbench\_\allowbreak{}mp\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H2B & matbench\_\allowbreak{}mp\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H2B & matbench\_\allowbreak{}mp\_\allowbreak{}gap & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H2B & matbench\_\allowbreak{}mp\_\allowbreak{}gap & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H3 & matbench\_\allowbreak{}expt\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H3 & matbench\_\allowbreak{}expt\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H3 & matbench\_\allowbreak{}expt\_\allowbreak{}gap & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H3 & matbench\_\allowbreak{}expt\_\allowbreak{}gap & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H3 & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H3 & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H3 & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H3 & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H3 & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H3 & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H3 & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H3 & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H3 & matbench\_\allowbreak{}mp\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H3 & matbench\_\allowbreak{}mp\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H3 & matbench\_\allowbreak{}mp\_\allowbreak{}gap & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H3 & matbench\_\allowbreak{}mp\_\allowbreak{}gap & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H4 & matbench\_\allowbreak{}expt\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H4 & matbench\_\allowbreak{}expt\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H4 & matbench\_\allowbreak{}expt\_\allowbreak{}gap & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H4 & matbench\_\allowbreak{}expt\_\allowbreak{}gap & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H4 & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H4 & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H4 & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H4 & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H4 & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H4 & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H4 & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H4 & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H4 & matbench\_\allowbreak{}mp\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H4 & matbench\_\allowbreak{}mp\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H4 & matbench\_\allowbreak{}mp\_\allowbreak{}gap & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H4 & matbench\_\allowbreak{}mp\_\allowbreak{}gap & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H5A & matbench\_\allowbreak{}expt\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H5A & matbench\_\allowbreak{}expt\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H5A & matbench\_\allowbreak{}expt\_\allowbreak{}gap & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H5A & matbench\_\allowbreak{}expt\_\allowbreak{}gap & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H5A & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H5A & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H5A & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H5A & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H5A & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H5A & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H5A & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H5A & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H5A & matbench\_\allowbreak{}mp\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H5A & matbench\_\allowbreak{}mp\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H5A & matbench\_\allowbreak{}mp\_\allowbreak{}gap & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H5A & matbench\_\allowbreak{}mp\_\allowbreak{}gap & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H5B & matbench\_\allowbreak{}expt\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H5B & matbench\_\allowbreak{}expt\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H5B & matbench\_\allowbreak{}expt\_\allowbreak{}gap & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H5B & matbench\_\allowbreak{}expt\_\allowbreak{}gap & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H5B & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H5B & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H5B & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H5B & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H5B & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H5B & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H5B & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H5B & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H5B & matbench\_\allowbreak{}mp\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H5B & matbench\_\allowbreak{}mp\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H5B & matbench\_\allowbreak{}mp\_\allowbreak{}gap & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H5B & matbench\_\allowbreak{}mp\_\allowbreak{}gap & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H5C & matbench\_\allowbreak{}expt\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H5C & matbench\_\allowbreak{}expt\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H5C & matbench\_\allowbreak{}expt\_\allowbreak{}gap & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H5C & matbench\_\allowbreak{}expt\_\allowbreak{}gap & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H5C & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H5C & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H5C & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H5C & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H5C & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H5C & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H5C & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H5C & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H5C & matbench\_\allowbreak{}mp\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H5C & matbench\_\allowbreak{}mp\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H5C & matbench\_\allowbreak{}mp\_\allowbreak{}gap & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H5C & matbench\_\allowbreak{}mp\_\allowbreak{}gap & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H6 & matbench\_\allowbreak{}expt\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H6 & matbench\_\allowbreak{}expt\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H6 & matbench\_\allowbreak{}expt\_\allowbreak{}gap & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H6 & matbench\_\allowbreak{}expt\_\allowbreak{}gap & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H6 & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H6 & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H6 & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H6 & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H6 & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H6 & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H6 & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H6 & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H6 & matbench\_\allowbreak{}mp\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H6 & matbench\_\allowbreak{}mp\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H6 & matbench\_\allowbreak{}mp\_\allowbreak{}gap & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H6 & matbench\_\allowbreak{}mp\_\allowbreak{}gap & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H6A & matbench\_\allowbreak{}expt\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H6A & matbench\_\allowbreak{}expt\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H6A & matbench\_\allowbreak{}expt\_\allowbreak{}gap & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H6A & matbench\_\allowbreak{}expt\_\allowbreak{}gap & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H6A & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H6A & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H6A & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H6A & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H6A & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H6A & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H6A & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H6A & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H6A & matbench\_\allowbreak{}mp\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H6A & matbench\_\allowbreak{}mp\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H6A & matbench\_\allowbreak{}mp\_\allowbreak{}gap & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H6A & matbench\_\allowbreak{}mp\_\allowbreak{}gap & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H6B & matbench\_\allowbreak{}expt\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H6B & matbench\_\allowbreak{}expt\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H6B & matbench\_\allowbreak{}expt\_\allowbreak{}gap & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H6B & matbench\_\allowbreak{}expt\_\allowbreak{}gap & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H6B & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H6B & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H6B & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H6B & matbench\_\allowbreak{}log\_\allowbreak{}gvrh & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H6B & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H6B & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H6B & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H6B & matbench\_\allowbreak{}log\_\allowbreak{}kvrh & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H6B & matbench\_\allowbreak{}mp\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H6B & matbench\_\allowbreak{}mp\_\allowbreak{}gap & chemical\_\allowbreak{}system\_\allowbreak{}ood & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+H6B & matbench\_\allowbreak{}mp\_\allowbreak{}gap & iid\_\allowbreak{}record & extra\_\allowbreak{}randomized\_\allowbreak{}bagging & 40 & 0 & 0 & PASS\\
+H6B & matbench\_\allowbreak{}mp\_\allowbreak{}gap & iid\_\allowbreak{}record & random\_\allowbreak{}forest & 40 & 0 & 0 & PASS\\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\end{landscape}
+
+\section{H7 descriptive direction table}
+
+\begingroup\scriptsize
+\begin{longtable}{L{.65in}L{.45in}L{.45in}L{1.25in}L{1.0in}L{.85in}L{.8in}L{.45in}}
+\caption{Complete H7 direction table. H7 is descriptive and generates no binary claim.}\\
+\toprule
+H7 row & Source & Endpoint & Strategy & Baseline & Effect & Direction & Binary\\
+\midrule
+\endfirsthead
+\toprule
+H7 row & Source & Endpoint & Strategy & Baseline & Effect & Direction & Binary\\
+\midrule
+\endhead
+H7\_\allowbreak{}\_\allowbreak{}H1 & H1 & L1 & GG\_\allowbreak{}CALIBRATION\_\allowbreak{}ONLY & RAW & 0.065777 & unfavorable & False\\
+H7\_\allowbreak{}\_\allowbreak{}H5A & H5A & L1 & CS\_\allowbreak{}CALIBRATION\_\allowbreak{}ONLY & RAW & 0.095898 & unfavorable & False\\
+H7\_\allowbreak{}\_\allowbreak{}H2A & H2A & L4 & GG\_\allowbreak{}ACQUISITION\_\allowbreak{}ONLY & RAW & -0.076313 & unfavorable & False\\
+H7\_\allowbreak{}\_\allowbreak{}H2B & H2B & L4 & ORIGINAL\_\allowbreak{}GG & RAW & -0.076313 & unfavorable & False\\
+H7\_\allowbreak{}\_\allowbreak{}H5B & H5B & L4 & CS\_\allowbreak{}ACQUISITION\_\allowbreak{}ONLY & RAW & -0.034084 & unfavorable & False\\
+H7\_\allowbreak{}\_\allowbreak{}H5C & H5C & L4 & SELECTED\_\allowbreak{}CS & RAW & -0.034084 & unfavorable & False\\
+H7\_\allowbreak{}\_\allowbreak{}H3 & H3 & L4 & RAW\_\allowbreak{}FIXED\_\allowbreak{}BETA\_\allowbreak{}MATCHED & ORIGINAL\_\allowbreak{}GG & -0.000236 & unfavorable & False\\
+H7\_\allowbreak{}\_\allowbreak{}H4 & H4 & L4 & RAW\_\allowbreak{}STAGE\_\allowbreak{}BETA\_\allowbreak{}MATCHED & ORIGINAL\_\allowbreak{}GG & 0.031619 & favorable & False\\
+H7\_\allowbreak{}\_\allowbreak{}H6A & H6A & L1 & SCALAR\_\allowbreak{}TEMPERATURE\_\allowbreak{}NLL & IDENTITY\_\allowbreak{}CONTROL & 0.061162 & unfavorable & False\\
+H7\_\allowbreak{}\_\allowbreak{}H6B & H6B & L1 & SCALAR\_\allowbreak{}TEMPERATURE\_\allowbreak{}RESIDUAL\_\allowbreak{}RATIO & IDENTITY\_\allowbreak{}CONTROL & -0.021442 & favorable & False\\
+H7\_\allowbreak{}\_\allowbreak{}H6 & H6 & L1 & SCALAR\_\allowbreak{}TEMPERATURE\_\allowbreak{}RESIDUAL\_\allowbreak{}RATIO & SELECTED\_\allowbreak{}CS & -0.111527 & favorable & False\\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\section{Strategy and endpoint registry}
+
+\begingroup\scriptsize
+\begin{longtable}{L{1.05in}L{1.8in}L{1.0in}L{1.35in}L{1.0in}}
+\caption{Frozen endpoint registry.}\\
+\toprule
+ID & Name & Role & Direction & Unit\\
+\midrule
+\endfirsthead
+\toprule
+ID & Name & Role & Direction & Unit\\
+\midrule
+\endhead
+L1 & campaign MACE at initial/25/50/75\% canonical checkpoints & primary & lower\_\allowbreak{}is\_\allowbreak{}better & paired seed within environment\\
+L4 & top-1\% recall normalized AUC & primary & higher\_\allowbreak{}is\_\allowbreak{}better & paired seed within environment\\
+CONFORMAL\_\allowbreak{}COVERAGE & coverage-specific conformal interval coverage & secondary\_\allowbreak{}calibration & absolute error lower is better & \\
+NLL & Gaussian negative log likelihood & secondary\_\allowbreak{}conditional & lower\_\allowbreak{}is\_\allowbreak{}better & \\
+RANKING\_\allowbreak{}DIAGNOSTICS & stable-order path diagnostics & mechanism\_\allowbreak{}secondary & descriptive & \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\begin{landscape}\subsection{Strategy display names and policy identity}
+
+\begingroup\scriptsize
+\begin{longtable}{L{1.0in}L{1.0in}L{.7in}L{1.15in}L{1.15in}L{1.15in}L{1.65in}}
+\caption{Frozen strategy, beta, mapping, and policy identities for the registered comparisons and controls.}\\
+\toprule
+Strategy & Policy key & Nominal base $\beta$ & Calibration & Acquisition & Evaluation & Objective\\
+\midrule
+\endfirsthead
+\toprule
+Strategy & Policy key & Nominal base $\beta$ & Calibration & Acquisition & Evaluation & Objective\\
+\midrule
+\endhead
+IDENTITY\_\allowbreak{}CONTROL & IDENTITY\_\allowbreak{}CONTROL & 1.0 & raw\_\allowbreak{}gaussian\_\allowbreak{}sigma & raw\_\allowbreak{}sigma & raw\_\allowbreak{}gaussian\_\allowbreak{}sigma & identity\_\allowbreak{}control\\
+ORIGINAL\_\allowbreak{}GG & ORIGINAL\_\allowbreak{}GG\_\allowbreak{}\_\allowbreak{}beta\_\allowbreak{}1 & 1.0 & scaled\_\allowbreak{}gaussian\_\allowbreak{}sigma & scaled\_\allowbreak{}sigma & scaled\_\allowbreak{}gaussian\_\allowbreak{}sigma & V5 Gaussian-consistent median residual-ratio\\
+RAW\_\allowbreak{}FIXED\_\allowbreak{}BETA\_\allowbreak{}MATCHED & RAW\_\allowbreak{}FIXED\_\allowbreak{}BETA\_\allowbreak{}MATCHED & 1.0 & raw\_\allowbreak{}gaussian\_\allowbreak{}sigma & raw\_\allowbreak{}sigma & raw\_\allowbreak{}gaussian\_\allowbreak{}sigma & fixed development-matched-beta\\
+RAW\_\allowbreak{}STAGE\_\allowbreak{}BETA\_\allowbreak{}MATCHED & RAW\_\allowbreak{}STAGE\_\allowbreak{}BETA\_\allowbreak{}MATCHED & 1.0 & raw\_\allowbreak{}gaussian\_\allowbreak{}sigma & raw\_\allowbreak{}sigma & raw\_\allowbreak{}gaussian\_\allowbreak{}sigma & stagewise development-matched-beta\\
+SCALAR\_\allowbreak{}TEMPERATURE\_\allowbreak{}NLL & SCALAR\_\allowbreak{}TEMPERATURE\_\allowbreak{}NLL & 1.0 & scaled\_\allowbreak{}gaussian\_\allowbreak{}sigma & raw\_\allowbreak{}sigma & scaled\_\allowbreak{}gaussian\_\allowbreak{}sigma & Gaussian OOB NLL; calibration-only simple scaler\\
+SCALAR\_\allowbreak{}TEMPERATURE\_\allowbreak{}RESIDUAL\_\allowbreak{}RATIO & SCALAR\_\allowbreak{}TEMPERATURE\_\allowbreak{}RESIDUAL\_\allowbreak{}RATIO & 1.0 & scaled\_\allowbreak{}gaussian\_\allowbreak{}sigma & raw\_\allowbreak{}sigma & scaled\_\allowbreak{}gaussian\_\allowbreak{}sigma & OOB median absolute residual ratio; calibration-only simple scaler\\
+SELECTED\_\allowbreak{}CS & SELECTED\_\allowbreak{}CS & 1.0 & scaled\_\allowbreak{}gaussian\_\allowbreak{}sigma & scaled\_\allowbreak{}sigma & scaled\_\allowbreak{}gaussian\_\allowbreak{}sigma & V5 parsimonious F1 pairwise candidate-specific ranking\\
+SELECTED\_\allowbreak{}GG & SELECTED\_\allowbreak{}GG\_\allowbreak{}\_\allowbreak{}beta\_\allowbreak{}0p5 & 0.5 & scaled\_\allowbreak{}gaussian\_\allowbreak{}sigma & scaled\_\allowbreak{}sigma & scaled\_\allowbreak{}gaussian\_\allowbreak{}sigma & V5 Gaussian-global scaler with development-selected beta\\
+\bottomrule
+\end{longtable}
+\endgroup
+
+
+The operational exploration coefficient is $\beta$ for RAW/identity, $\beta c_t$ for GG, $\beta c_t(x)$ for CS, $\beta_{\mathrm{fixed}}$ for fixed matched-beta, and $\beta_{s(t)}$ for stagewise matched-beta. Display names are mapped to unchanged machine identifiers in \texttt{tables/display\_name\_mapping.csv}.
+
+\subsection{Main Figure 1 strategy-role and source information}
+Main Figure 1 is an explanatory schematic and contains no effect estimate.
+Its policy roles were read from
+\path{analysis_plan/v6_p0_confirmation_selection_map_FROZEN.json};
+endpoint roles were read from the frozen endpoint registry. The complete
+element-level binding, including source hashes and exact source rows, is in
+\path{tables/revised_figure_source_inventory.csv}. High-resolution
+outputs are supplied as
+\path{Figure1_uncertainty_role_decomposition.png},
+\path{Figure1_uncertainty_role_decomposition.pdf}, and
+\path{Figure1_uncertainty_role_decomposition.svg}.
+
+\begin{center}\small
+\begin{tabular}{lll}
+\toprule
+Role & Acquisition & L1 evaluation\\
+\midrule
+Calibration-only & raw $\sigma$ & transformed $\sigma$\\
+Acquisition-only & transformed $\sigma$ & raw $\sigma$\\
+Joint & transformed $\sigma$ & transformed $\sigma$\\
+Fixed matched-beta & frozen constant beta & raw $\sigma$\\
+Stagewise matched-beta & frozen beta schedule & raw $\sigma$\\
+RAW/Identity & raw $\sigma$ & raw $\sigma$\\
+Simple scalar & raw $\sigma$ & transformed $\sigma$\\
+\bottomrule
+\end{tabular}
+\par\smallskip\textit{Strategy-role mapping used in Main Figure 1. Simple
+scalar methods enter calibration replay unless explicitly registered
+otherwise.}
+\end{center}
+\end{landscape}
+
+\begin{landscape}
+\section{Matched-beta coefficients}
+The columns labelled Fixed and by budget stage are the Operational exploration coefficient. The task-specific coefficients below were derived only from broad
+leave-one-task-out development seeds 6100--6109. For each held-out task, that
+task did not enter its own beta map. Confirmation seeds 7000--7039 were not
+used. The registered nominal beta was 1.0, so the fixed and stagewise values
+were the operational acquisition coefficients. Every value is bound to the
+exact frozen selection-map file SHA-256 printed in its row.
+
+
+\begingroup\scriptsize
+\begin{longtable}{L{1.45in}L{.85in}L{.85in}L{.85in}L{.85in}L{.85in}L{2.45in}}
+\caption{Task-specific frozen operational matched-beta coefficients. The registered Nominal base $\beta$ was 1.0; displayed values are the operational exploration coefficients.}\\
+\toprule
+Held-out task & Fixed & 0--25\% & 25--50\% & 50--75\% & 75--100\% & Frozen selection-map SHA-256\\
+\midrule
+\endfirsthead
+\toprule
+Held-out task & Fixed & 0--25\% & 25--50\% & 50--75\% & 75--100\% & Frozen selection-map SHA-256\\
+\midrule
+\endhead
+matbench\_\allowbreak{}expt\_\allowbreak{}gap & 3.129251 & 1.886456 & 3.028321 & 3.242677 & 3.335345 & 77960873 3b1b7e87 27a28b3d 08666227 d6924175 6e30f685 180ea2ca 0f8909dd\\
+matbench\_\allowbreak{}log\_\allowbreak{}gvrh & 2.935900 & 1.816189 & 2.880623 & 2.983102 & 2.928673 & 77960873 3b1b7e87 27a28b3d 08666227 d6924175 6e30f685 180ea2ca 0f8909dd\\
+matbench\_\allowbreak{}log\_\allowbreak{}kvrh & 2.934119 & 1.851547 & 3.015790 & 2.952755 & 2.896339 & 77960873 3b1b7e87 27a28b3d 08666227 d6924175 6e30f685 180ea2ca 0f8909dd\\
+matbench\_\allowbreak{}mp\_\allowbreak{}gap & 2.996273 & 1.746245 & 2.880623 & 3.054085 & 3.080713 & 77960873 3b1b7e87 27a28b3d 08666227 d6924175 6e30f685 180ea2ca 0f8909dd\\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\end{landscape}
+
+\section{Execution and result-lock provenance}\label{sec:supp-v6-locks}
+Sentinel implementation validation used seeds 6000--6009. Broad
+leave-one-task-out development and policy selection used seeds 6100--6109,
+whereas confirmation used the disjoint seeds 7000--7039. The operational
+matched-beta maps above are bound to
+\texttt{779608733b1b7e8727a28b3d08666227d69241756e30f685180ea2ca0f8909dd}.
+All 12,800 frozen confirmation trajectory and replay jobs completed, all 176 completeness gates
+passed, and no endpoint was missing. The frozen inference lock records 11
+primary contrast rows, 10 multiplicity rows, 264 heterogeneity rows, and 11 H7
+rows.
+
+
+\begingroup\scriptsize
+\begin{longtable}{L{1.0in}L{2.3in}L{2.4in}}
+\caption{Files bound by the frozen V6 inference-result lock.\label{tab:supp-v6-lock-files}}\\
+\toprule
+Locked object & Path & SHA-256\\
+\midrule
+\endfirsthead
+\toprule
+Locked object & Path & SHA-256\\
+\midrule
+\endhead
+endpoint\_\allowbreak{}table & tables/v6\_\allowbreak{}p0\_\allowbreak{}confirmation\_\allowbreak{}seed\_\allowbreak{}level\_\allowbreak{}endpoints.csv & a56a8530 83535b76 b8e2c7ea eab056bd d81b0a9e 73e953fb 00c13237 c9c8af8d\\
+endpoint\_\allowbreak{}table\_\allowbreak{}lock & locks/v6\_\allowbreak{}p0\_\allowbreak{}confirmation\_\allowbreak{}seed\_\allowbreak{}level\_\allowbreak{}endpoints\_\allowbreak{}lock.json & 0ac56f85 4aadfe73 f488abb5 c33daa82 92246bb6 96dfe73b ceeba6ae 48f93d83\\
+environment\_\allowbreak{}effects & tables/v6\_\allowbreak{}p0\_\allowbreak{}confirmation\_\allowbreak{}environment\_\allowbreak{}effects.csv & 379555bc 225bf8e0 52ce5aa2 01a52ee2 266d7b66 99a4e7b9 e59e699e e2e284e9\\
+h7\_\allowbreak{}direction\_\allowbreak{}table & tables/v6\_\allowbreak{}p0\_\allowbreak{}confirmation\_\allowbreak{}h7\_\allowbreak{}direction\_\allowbreak{}table.csv & dc2e75bf d0a867b6 e0681022 83e87961 a358f867 c5066200 fba77373 a9ee31bf\\
+inference\_\allowbreak{}report & reports/09\_\allowbreak{}p0\_\allowbreak{}confirmation\_\allowbreak{}inference.md & 084e72ad 09f2f96c ff709c6f 444af02b d40a5fcc b7182bda ec90259d 74c6d620\\
+multiplicity & tables/v6\_\allowbreak{}p0\_\allowbreak{}confirmation\_\allowbreak{}multiplicity.csv & f117dfaf 7766e7dc 648088c0 1d0e7ce1 e6a16b18 68c10959 4e77a69e fec20e56\\
+pair\_\allowbreak{}completeness & tables/v6\_\allowbreak{}p0\_\allowbreak{}confirmation\_\allowbreak{}pair\_\allowbreak{}completeness.csv & b6e8cf31 b19b2c43 19517192 4e292bf8 ab36acbb dbc4821c 72db8849 db6a7ce8\\
+primary\_\allowbreak{}contrasts & tables/v6\_\allowbreak{}p0\_\allowbreak{}confirmation\_\allowbreak{}primary\_\allowbreak{}contrasts.csv & 2b9820a0 167a8e87 5c322d10 5fe54cdb ad614a39 1f02db59 938aabfe 06d2a2fa\\
+raw\_\allowbreak{}lock\_\allowbreak{}validation\_\allowbreak{}report & reports/08\_\allowbreak{}p0\_\allowbreak{}raw\_\allowbreak{}result\_\allowbreak{}lock\_\allowbreak{}validation.md & 75130637 47c62061 541ad97a de42e503 2be2d29f 0f84e351 60941b15 b6a5c6a8\\
+resampling\_\allowbreak{}seeds & tables/v6\_\allowbreak{}p0\_\allowbreak{}confirmation\_\allowbreak{}resampling\_\allowbreak{}seeds.csv & 398f2528 4ddf6785 9f1afed8 d51d7d6a 8e328ac5 ec3224c7 bc0d85ef 2a9aa6ee\\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\section{Related-work comparison}\label{sec:supp-related-work}
+Table~\ref{tab:related-work} positions the operational contribution against studies whose primary records and identifiers were verified. Different endpoints and intervention structures are not treated as replications of the present design.
+
+\begin{landscape}
+\begingroup\scriptsize
+\begin{longtable}{L{1.35in}L{1.45in}L{1.45in}L{1.45in}L{1.15in}L{1.1in}L{1.55in}}
+\caption{Verified related work and the role-decomposed contribution.\label{tab:related-work}}\\
+\toprule
+Study & Calibration endpoint & Discovery endpoint & Surrogate/domain & Role separation & Independent confirmation & Difference from present work\\
+\midrule
+\endfirsthead
+\toprule
+Study & Calibration endpoint & Discovery endpoint & Surrogate/domain & Role separation & Independent confirmation & Difference from present work\\
+\midrule
+\endhead
+Foldager et al. (2023), PMLR 216:592-601; arXiv:2301.05983 & Regression uncertainty calibration & Bayesian-optimization regret & Synthetic and real-world BO; multiple surrogates & No intervention-level calibration/acquisition decomposition & Benchmark repetitions & The present study freezes role-specific interventions and separates calibration from discovery endpoints.\\
+Wang et al. (2022), doi:10.1093/oxfmat/itac006 & Not a primary endpoint & Materials optimization regret & Fe-Co-Ni experimental library; Gaussian process & No & Repeated benchmark campaigns & The present study adds locked calibration endpoints and role-specific controls.\\
+Varivoda et al. (2023), doi:10.1063/5.0133528 & UQ quality and error bounds & Active-learning utility & Materials property prediction; graph models & Uses compared, not intervention roles & Not reported as a frozen confirmation stage & The present study separates evaluation and acquisition mappings within one campaign architecture.\\
+Jiang et al. (2026), doi:10.20517/jmi.2025.70 & Miscalibration area & Optimization across alloy datasets & SVR, neural network and XGBoost; three alloy datasets & No calibration-only versus acquisition-only arms & No frozen paired confirmation stage reported & The present study tests whether scaling transfers across roles and surrogate constructions.\\
+Dale et al. (2025 preprint), arXiv:2511.17760 & ID/OOD uncertainty calibration & OOD active-learning data efficiency & ALIGNN, XGBoost, Random Forest and neural-network ensembles & Calibration methods evaluated through acquisition & Five active-learning seeds; no frozen confirmation stage reported & The present study uses locked paired confirmation and separates evaluation from acquisition placement.\\
+Riebesell et al. (2025), doi:10.1038/s42256-025-01055-1 & Reliability and error diagnostics & Stability classification and discovery acceleration & Crystal-stability prefilter benchmark & No & Prospective benchmark framing & The present study adds frozen role-specific contrasts and matched-beta controls.\\
+Present study & Four-coverage campaign MACE & Top-1\% recall nAUC & Four Matbench task snapshots; tree and QGB surrogates & Calibration-only and acquisition-only interventions & Forty disjoint paired confirmation seeds & Frozen role-specific comparisons with matched-exploration controls\\
+\bottomrule
+\end{longtable}
+\endgroup
+\end{landscape}
+
+\section{P1 protocol and evidence boundary}\label{sec:supp-p1-protocol}
+P1 used disjoint sentinel (8000--8004), development (8100--8109) and confirmation (8200--8239) seeds. Five contrasts, two multiplicity families, endpoints, directions, exclusions and equal-environment paired-seed aggregation were frozen before confirmation. A compute-only amendment, created at 2026-08-01T18:30:00+08:00 before any confirmation outcome, changed only wall-time, worker and scheduling limits. No P1 value entered V6 inference.
+
+\section{P1 surrogate and strategy registry}\label{sec:supp-p1-strategies}
+The non-bagged surrogate comprised one squared-error and two quantile gradient-boosting regressors at 0.16 and 0.84. The quantile width defines a conditional predictive-spread proxy with a $10^{-8}$ floor, not a strict epistemic-uncertainty estimate.
+
+\begin{landscape}\begin{table}[p]\centering\scriptsize
+\caption{P1 strategy-role map.\label{tab:p1-strategy-role}}
+\resizebox{\linewidth}{!}{\begin{tabular}{llllll}
+\toprule Strategy & Surrogate & Acquisition uncertainty & Evaluation uncertainty & Scalar source & Registered endpoint role\\\midrule
+QGB raw & quantile gradient boosting & raw quantile spread & raw quantile spread & none & P1\_L1, P1\_L4\\
+QGB residual-ratio calibration-only & quantile gradient boosting & raw quantile spread & cross-fitted residual-ratio scaled quantile spread & labelled five-fold cross-fit residual ratio & P1\_L1\\
+QGB residual-ratio acquisition-only & quantile gradient boosting & cross-fitted residual-ratio scaled quantile spread & raw quantile spread & labelled five-fold cross-fit residual ratio & P1\_L4\\
+Tree RAW & frozen V6 bagged tree & raw tree dispersion & raw tree dispersion & none & P1\_L4\\
+Tree fixed matched beta & frozen V6 bagged tree & fixed matched-beta tree dispersion & raw tree dispersion & frozen V6 development map & P1\_L4\\
+Tree stagewise matched beta & frozen V6 bagged tree & stagewise matched-beta tree dispersion & raw tree dispersion & frozen V6 development map & P1\_L4\\
+Tree development-selected constant beta & frozen V6 bagged tree & development-selected constant-beta tree dispersion & raw tree dispersion & P1 development leave-one-task-out selection & P1\_L4\\
+\bottomrule\end{tabular}}\end{table}\end{landscape}
+
+\begin{landscape}\section{P1 complete registered contrasts}\label{sec:supp-p1-contrasts}
+\begin{table}[!ht]\centering\scriptsize
+\caption{Complete P1 registered comparisons and locked results.\label{tab:p1-registered-full}}
+\resizebox{\linewidth}{!}{\begin{tabular}{lllllllllllll}
+\toprule ID & Strategy & Baseline & End. & Alt. & Family & Effect & 95\% CI & Raw $p$ & BH $p$ & Env. & Seeds & Decision\\\midrule
+P1\_C1 & RAW\_STAGE\_BETA\_MATCHED & RAW & L4 & greater & P1\_DISCOVERY\_EXISTING & -0.040800 & [-0.047582, -0.033996] & 1.0000 & 1.0000 & 16 & 40 & opposed registered alternative\\
+P1\_C2 & RAW\_STAGE\_BETA\_MATCHED & RAW\_FIXED\_BETA\_MATCHED & L4 & greater & P1\_DISCOVERY\_EXISTING & 0.030320 & [0.024001, 0.036682] & $9.999\times10^{-5}$ & 0.00029997 & 16 & 40 & supported\\
+P1\_C3 & DEVELOPMENT\_SELECTED\_CONSTANT\_BETA\_UCB & RAW & L4 & greater & P1\_DISCOVERY\_EXISTING & -0.017442 & [-0.020936, -0.013972] & 1.0000 & 1.0000 & 16 & 40 & opposed registered alternative\\
+P1\_C4 & P1\_QGB\_CALIBRATION\_ONLY\_RR & P1\_QGB\_RAW & L1 & less & P1\_NEW\_UQ\_ROLE & 0.097439 & [0.095013, 0.099841] & 1.0000 & 1.0000 & 8 & 40 & opposed registered alternative\\
+P1\_C5 & P1\_QGB\_ACQUISITION\_ONLY\_RR & P1\_QGB\_RAW & L4 & greater & P1\_NEW\_UQ\_ROLE & -0.009354 & [-0.014256, -0.004685] & 1.0000 & 1.0000 & 8 & 40 & opposed registered alternative\\
+\bottomrule\end{tabular}}\end{table}\end{landscape}
+
+\section{P1 multiplicity families}\label{sec:supp-p1-multiplicity}
+The three tree L4 comparisons form one BH family; the two QGB role comparisons form a second. Neither shares adjustment with V6.
+
+\section{P1 completeness}\label{sec:supp-p1-completeness}
+All 3,520 immutable-manifest jobs completed. Every registered pair contained all 40 confirmation seeds; duplicate jobs, evidence-stage contamination, environment selection and incomplete-subset inference were absent.
+
+\section{P1 task, split and environment diagnostics}\label{sec:supp-p1-heterogeneity}
+Figure~\ref{fig:p1-02} reports the four scientific tasks. Figures~\ref{fig:p1-16}--\ref{fig:p1-18} retain all task $\times$ split $\times$ model environments in readable groups. These rows are descriptive diagnostics rather than independent task replicates.
+
+\section{P1 calibration diagnostics}\label{sec:supp-p1-calibration}
+Figures~\ref{fig:p1-04}--\ref{fig:p1-08} report coverage, sharpness, proper scores and residual diagnostics. Only campaign MACE in P1\_C4 is confirmatory.
+
+\section{P1 discovery diagnostics}\label{sec:supp-p1-discovery}
+Figures~\ref{fig:p1-09}--\ref{fig:p1-11} report recall, realized improvement, regret and budget-segment behavior. Only registered L4 comparisons are confirmatory.
+
+\section{P1 robustness and sensitivity analyses}\label{sec:supp-p1-robustness}
+Task estimates, split summaries, seed-block distributions, leave-one-task-out estimates, between-task random effects and Wilcoxon sensitivity are exploratory robustness analyses.
+
+\section{P1 execution provenance and result locks}\label{sec:supp-p1-provenance}
+Execution began at 2026-08-01T11:45:33.733115+00:00 and ended at 2026-08-01T20:51:14.238681+00:00, an observed elapsed wall time of 9.094585 h. Timestamp overlap shows at most six concurrent jobs on one audited host. The sum of job-process wall times was 53.650284 job-hours and is not labelled CPU-hours. The durable confirmation corpus occupied 68.592643 GiB after completion. No job failed and no retry marker was present. Peak RAM, CPU time and peak temporary-disk use were not instrumented and are not estimated retrospectively. Every job has an immutable manifest row, atomic state, execution log and provenance record. Final endpoint and inference artifacts are bound by SHA-256 result locks.
+
+\begin{figure}[p]\centering\includegraphics[width=.88\textwidth]{figures_p1_confirmation/P1_Figure01_registered_effects.pdf}\caption{Registered P1 effects separated by endpoint and role; confirmatory display. Confirmation used seeds 8200--8239. Pooled multiplicity status is stated only for the registered-effect display.\label{fig:p1-01}}\end{figure}
+\begin{figure}[p]\centering\includegraphics[width=.88\textwidth]{figures_p1_confirmation/P1_Figure02_environment_heterogeneity.pdf}\caption{Four scientific-task effects plus pooled estimates; exploratory robustness. Confirmation used seeds 8200--8239. Pooled multiplicity status is stated only for the registered-effect display.\label{fig:p1-02}}\end{figure}
+\begin{figure}[p]\centering\includegraphics[width=.88\textwidth]{figures_p1_confirmation/P1_Figure03_absolute_endpoints.pdf}\caption{Absolute L1 and L4 levels; descriptive endpoints. Confirmation used seeds 8200--8239. Pooled multiplicity status is stated only for the registered-effect display.\label{fig:p1-03}}\end{figure}
+\begin{figure}[p]\centering\includegraphics[width=.88\textwidth]{figures_p1_confirmation/P1_Figure04_nominal_empirical_coverage.pdf}\caption{Nominal versus empirical coverage; exploratory diagnostic. Confirmation used seeds 8200--8239. Pooled multiplicity status is stated only for the registered-effect display.\label{fig:p1-04}}\end{figure}
+\begin{figure}[p]\centering\includegraphics[width=.88\textwidth]{figures_p1_confirmation/P1_Figure05_width_vs_calibration_error.pdf}\caption{Interval width versus calibration error; exploratory diagnostic. Confirmation used seeds 8200--8239. Pooled multiplicity status is stated only for the registered-effect display.\label{fig:p1-05}}\end{figure}
+\begin{figure}[p]\centering\includegraphics[width=.88\textwidth]{figures_p1_confirmation/P1_Figure06_proper_scores.pdf}\caption{Interval score and Gaussian-proxy proper scores; exploratory diagnostics. Confirmation used seeds 8200--8239. Pooled multiplicity status is stated only for the registered-effect display.\label{fig:p1-06}}\end{figure}
+\begin{figure}[p]\centering\includegraphics[width=.88\textwidth]{figures_p1_confirmation/P1_Figure07_standardized_residual_qq.pdf}\caption{Standardized-residual QQ display; descriptive diagnostic. Confirmation used seeds 8200--8239. Pooled multiplicity status is stated only for the registered-effect display.\label{fig:p1-07}}\end{figure}
+\begin{figure}[p]\centering\includegraphics[width=.88\textwidth]{figures_p1_confirmation/P1_Figure08_conditional_coverage.pdf}\caption{Conditional 90\% coverage by predicted-spread quintile; exploratory diagnostic. Confirmation used seeds 8200--8239. Pooled multiplicity status is stated only for the registered-effect display.\label{fig:p1-08}}\end{figure}
+\begin{figure}[p]\centering\includegraphics[width=.88\textwidth]{figures_p1_confirmation/P1_Figure09_recall_trajectories.pdf}\caption{Top-1/5/10\% recall trajectories; exploratory discovery diagnostic. Confirmation used seeds 8200--8239. Pooled multiplicity status is stated only for the registered-effect display.\label{fig:p1-09}}\end{figure}
+\begin{figure}[p]\centering\includegraphics[width=.88\textwidth]{figures_p1_confirmation/P1_Figure10_best_and_regret.pdf}\caption{Within-job normalized best-value improvement and regret reduction; exploratory diagnostic. Confirmation used seeds 8200--8239. Pooled multiplicity status is stated only for the registered-effect display.\label{fig:p1-10}}\end{figure}
+\begin{figure}[p]\centering\includegraphics[width=.88\textwidth]{figures_p1_confirmation/P1_Figure11_budget_segments.pdf}\caption{Early, middle and late normalized discovery AUC; exploratory diagnostic. Confirmation used seeds 8200--8239. Pooled multiplicity status is stated only for the registered-effect display.\label{fig:p1-11}}\end{figure}
+\begin{figure}[p]\centering\includegraphics[width=.88\textwidth]{figures_p1_confirmation/P1_Figure12_seed_block_strip.pdf}\caption{Paired confirmation seed-block effects; inferential units shown descriptively. Confirmation used seeds 8200--8239. Pooled multiplicity status is stated only for the registered-effect display.\label{fig:p1-12}}\end{figure}
+\begin{figure}[p]\centering\includegraphics[width=.88\textwidth]{figures_p1_confirmation/P1_Figure13_task_leave_one_out.pdf}\caption{Leave-one-task-out pooled sensitivity; exploratory robustness. Confirmation used seeds 8200--8239. Pooled multiplicity status is stated only for the registered-effect display.\label{fig:p1-13}}\end{figure}
+\begin{figure}[p]\centering\includegraphics[width=.88\textwidth]{figures_p1_confirmation/P1_Figure14_quantile_crossings.pdf}\caption{Quantile-crossing counts; descriptive implementation diagnostic. Confirmation used seeds 8200--8239. Pooled multiplicity status is stated only for the registered-effect display.\label{fig:p1-14}}\end{figure}
+\begin{figure}[p]\centering\includegraphics[width=.88\textwidth]{figures_p1_confirmation/P1_Figure15_scalar_stage_distribution.pdf}\caption{Residual-ratio scalar by campaign stage; descriptive diagnostic. Confirmation used seeds 8200--8239. Pooled multiplicity status is stated only for the registered-effect display.\label{fig:p1-15}}\end{figure}
+\begin{figure}[p]\centering\includegraphics[width=.88\textwidth]{figures_p1_confirmation/P1_Figure16_environment_tree_c1_c2.pdf}\caption{Environment-level P1\_C1 and P1\_C2 effects; descriptive diagnostics. Confirmation used seeds 8200--8239. Pooled multiplicity status is stated only for the registered-effect display.\label{fig:p1-16}}\end{figure}
+\begin{figure}[p]\centering\includegraphics[width=.88\textwidth]{figures_p1_confirmation/P1_Figure17_environment_tree_c3.pdf}\caption{Environment-level P1\_C3 effects; descriptive diagnostics. Confirmation used seeds 8200--8239. Pooled multiplicity status is stated only for the registered-effect display.\label{fig:p1-17}}\end{figure}
+\begin{figure}[p]\centering\includegraphics[width=.88\textwidth]{figures_p1_confirmation/P1_Figure18_environment_qgb_c4_c5.pdf}\caption{Environment-level P1\_C4 and P1\_C5 effects; descriptive diagnostics. Confirmation used seeds 8200--8239. Pooled multiplicity status is stated only for the registered-effect display.\label{fig:p1-18}}\end{figure}
+\end{document}
+
+

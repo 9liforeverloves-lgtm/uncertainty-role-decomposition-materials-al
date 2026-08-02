@@ -1,0 +1,213 @@
+{
+  "status": "PASS",
+  "platform": "Ubuntu 26.04 under local WSL2",
+  "python": "Python 3.12.13",
+  "source": "copied dist/release_candidate only",
+  "network": "package installation only; no scientific data retrieval",
+  "latex_compilation": "NOT TESTED: TeX toolchain absent in WSL; bundled PDFs hash-verified only",
+  "started_utc": "2026-08-02T04:35:40.117924+00:00",
+  "ended_utc": "2026-08-02T04:37:58.358741+00:00",
+  "commands": [
+    {
+      "command": [
+        "<PYTHON>",
+        "-m",
+        "pip",
+        "install",
+        "--no-cache-dir",
+        "-r",
+        "requirements-lock.txt"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 67.322,
+      "stdout_tail": "9 MB/s eta 0:00:00\nDownloading pyparsing-3.3.2-py3-none-any.whl (122 kB)\nDownloading pypdf-6.1.1-py3-none-any.whl (323 kB)\nDownloading pytest-8.3.3-py3-none-any.whl (342 kB)\nDownloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)\nDownloading pytz-2026.3.post1-py2.py3-none-any.whl (508 kB)\nDownloading PyYAML-6.0.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (767 kB)\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 767.5/767.5 kB 28.7 MB/s eta 0:00:00\nDownloading requests-2.34.2-py3-none-any.whl (73 kB)\nDownloading ruamel_yaml-0.19.1-py3-none-any.whl (118 kB)\nDownloading scikit_learn-1.5.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (12.9 MB)\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 12.9/12.9 MB 24.8 MB/s eta 0:00:00\nDownloading scipy-1.14.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (40.8 MB)\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 40.8/40.8 MB 24.5 MB/s eta 0:00:00\nDownloading six-1.17.0-py2.py3-none-any.whl (11 kB)\nDownloading spglib-2.7.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (962 kB)\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 962.5/962.5 kB 26.1 MB/s eta 0:00:00\nDownloading sympy-1.14.0-py3-none-any.whl (6.3 MB)\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 6.3/6.3 MB 25.3 MB/s eta 0:00:00\nDownloading tabulate-0.10.0-py3-none-any.whl (39 kB)\nDownloading threadpoolctl-3.6.0-py3-none-any.whl (18 kB)\nDownloading tqdm-4.69.1-py3-none-any.whl (675 kB)\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 675.5/675.5 kB 26.8 MB/s eta 0:00:00\nDownloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)\nDownloading tzdata-2026.3-py2.py3-none-any.whl (348 kB)\nDownloading uncertainties-3.2.3-py3-none-any.whl (60 kB)\nDownloading urllib3-2.7.0-py3-none-any.whl (131 kB)\nInstalling collected packages: pytz, mpmath, urllib3, uncertainties, tzdata, typing_extensions, tqdm, threadpoolctl, tabulate, sympy, six, ruamel.yaml, PyYAML, pypdf, pyparsing, pluggy, pillow, palettable, packaging, numpy, networkx, narwhals, latexcodec, kiwisolver, joblib, iniconfig, idna, fonttools, cycler, colorama, charset-normalizer, certifi, spglib, scipy, requests, python-dateutil, pytest, pybtex, pyarrow, plotly, monty, contourpy, scikit-learn, pandas, matplotlib, pymatgen\nSuccessfully installed PyYAML-6.0.2 certifi-2026.7.22 charset-normalizer-3.4.9 colorama-0.4.6 contourpy-1.3.3 cycler-0.12.1 fonttools-4.63.0 idna-3.18 iniconfig-2.3.0 joblib-1.5.3 kiwisolver-1.5.0 latexcodec-3.0.1 matplotlib-3.11.1 monty-2026.7.16 mpmath-1.3.0 narwhals-2.24.0 networkx-3.6.1 numpy-2.1.3 packaging-26.2 palettable-3.3.3 pandas-2.2.3 pillow-12.3.0 plotly-6.9.0 pluggy-1.6.0 pyarrow-17.0.0 pybtex-0.26.1 pymatgen-2024.10.29 pyparsing-3.3.2 pypdf-6.1.1 pytest-8.3.3 python-dateutil-2.9.0.post0 pytz-2026.3.post1 requests-2.34.2 ruamel.yaml-0.19.1 scikit-learn-1.5.2 scipy-1.14.1 six-1.17.0 spglib-2.7.0 sympy-1.14.0 tabulate-0.10.0 threadpoolctl-3.6.0 tqdm-4.69.1 typing_extensions-4.16.0 tzdata-2026.3 uncertainties-3.2.3 urllib3-2.7.0\n",
+      "stderr_tail": "\n[notice] A new release of pip is available: 25.0.1 -> 26.2\n[notice] To update, run: <TEMP_ROOT>/venv/bin/python -m pip install --upgrade pip\n"
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "-m",
+        "pip",
+        "install",
+        "--no-cache-dir",
+        "build==1.3.0"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 6.202,
+      "stdout_tail": "Collecting build==1.3.0\n  Downloading build-1.3.0-py3-none-any.whl.metadata (5.6 kB)\nRequirement already satisfied: packaging>=19.1 in <TEMP_ROOT>/venv/lib/python3.12/site-packages (from build==1.3.0) (26.2)\nCollecting pyproject_hooks (from build==1.3.0)\n  Downloading pyproject_hooks-1.2.0-py3-none-any.whl.metadata (1.3 kB)\nDownloading build-1.3.0-py3-none-any.whl (23 kB)\nDownloading pyproject_hooks-1.2.0-py3-none-any.whl (10 kB)\nInstalling collected packages: pyproject_hooks, build\nSuccessfully installed build-1.3.0 pyproject_hooks-1.2.0\n",
+      "stderr_tail": "\n[notice] A new release of pip is available: 25.0.1 -> 26.2\n[notice] To update, run: <TEMP_ROOT>/venv/bin/python -m pip install --upgrade pip\n"
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "-m",
+        "build",
+        "--outdir",
+        "<TEMP_ROOT>/outputs spaces UTF8/packages",
+        "."
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 4.134,
+      "stdout_tail": "ransportability_v6/registry_freeze.py -> build/bdist.linux-x86_64/wheel/./transportability_v6\ncopying build/lib/transportability_v6/selection.py -> build/bdist.linux-x86_64/wheel/./transportability_v6\ncopying build/lib/transportability_v6/strategies.py -> build/bdist.linux-x86_64/wheel/./transportability_v6\ncopying build/lib/transportability_v6/surrogates.py -> build/bdist.linux-x86_64/wheel/./transportability_v6\nrunning install_egg_info\nCopying src/materials_transportability_v6.egg-info to build/bdist.linux-x86_64/wheel/./materials_transportability_v6-1.0.0-py3.12.egg-info\nrunning install_scripts\ncreating build/bdist.linux-x86_64/wheel/materials_transportability_v6-1.0.0.dist-info/WHEEL\ncreating '<TEMP_ROOT>/outputs spaces UTF8/packages/.tmp-2tderz2_/materials_transportability_v6-1.0.0-py3-none-any.whl' and adding 'build/bdist.linux-x86_64/wheel' to it\nadding 'p1_extension/__init__.py'\nadding 'p1_extension/campaign.py'\nadding 'p1_extension/metrics.py'\nadding 'p1_extension/models.py'\nadding 'transportability_v6/__init__.py'\nadding 'transportability_v6/__main__.py'\nadding 'transportability_v6/broad_development.py'\nadding 'transportability_v6/calibration.py'\nadding 'transportability_v6/calibration_replay.py'\nadding 'transportability_v6/campaigns.py'\nadding 'transportability_v6/canonical_adapter.py'\nadding 'transportability_v6/cli.py'\nadding 'transportability_v6/data.py'\nadding 'transportability_v6/development.py'\nadding 'transportability_v6/diagnostics.py'\nadding 'transportability_v6/execution_registry.py'\nadding 'transportability_v6/freeze_readiness.py'\nadding 'transportability_v6/inference.py'\nadding 'transportability_v6/production_campaign.py'\nadding 'transportability_v6/production_endpoints.py'\nadding 'transportability_v6/production_strategies.py'\nadding 'transportability_v6/provenance.py'\nadding 'transportability_v6/ranking.py'\nadding 'transportability_v6/records.py'\nadding 'transportability_v6/registry_freeze.py'\nadding 'transportability_v6/selection.py'\nadding 'transportability_v6/strategies.py'\nadding 'transportability_v6/surrogates.py'\nadding 'transportability_v6/smoke_only/__init__.py'\nadding 'transportability_v6/smoke_only/campaigns.py'\nadding 'transportability_v6/smoke_only/data.py'\nadding 'transportability_v6/smoke_only/surrogates.py'\nadding 'materials_transportability_v6-1.0.0.dist-info/LICENSE'\nadding 'materials_transportability_v6-1.0.0.dist-info/METADATA'\nadding 'materials_transportability_v6-1.0.0.dist-info/NOTICE'\nadding 'materials_transportability_v6-1.0.0.dist-info/THIRD_PARTY_NOTICES'\nadding 'materials_transportability_v6-1.0.0.dist-info/WHEEL'\nadding 'materials_transportability_v6-1.0.0.dist-info/entry_points.txt'\nadding 'materials_transportability_v6-1.0.0.dist-info/top_level.txt'\nadding 'materials_transportability_v6-1.0.0.dist-info/RECORD'\nremoving build/bdist.linux-x86_64/wheel\nSuccessfully built materials_transportability_v6-1.0.0.tar.gz and materials_transportability_v6-1.0.0-py3-none-any.whl\n",
+      "stderr_tail": ""
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "-m",
+        "pip",
+        "install",
+        "--no-cache-dir",
+        "--no-deps",
+        "--force-reinstall",
+        "<TEMP_ROOT>/outputs spaces UTF8/packages/materials_transportability_v6-1.0.0-py3-none-any.whl"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 5.339,
+      "stdout_tail": "Processing <TEMP_ROOT>/outputs spaces UTF8/packages/materials_transportability_v6-1.0.0-py3-none-any.whl\nInstalling collected packages: materials-transportability-v6\nSuccessfully installed materials-transportability-v6-1.0.0\n",
+      "stderr_tail": ""
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "-c",
+        "import importlib.metadata as m, transportability_v6, p1_extension; assert m.version('materials-transportability-v6') == '1.0.0'"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.783,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "-m",
+        "pip",
+        "install",
+        "--no-cache-dir",
+        "--no-deps",
+        "--force-reinstall",
+        "<TEMP_ROOT>/outputs spaces UTF8/packages/materials_transportability_v6-1.0.0.tar.gz"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 8.398,
+      "stdout_tail": "Processing <TEMP_ROOT>/outputs spaces UTF8/packages/materials_transportability_v6-1.0.0.tar.gz\n  Installing build dependencies: started\n  Installing build dependencies: finished with status 'done'\n  Getting requirements to build wheel: started\n  Getting requirements to build wheel: finished with status 'done'\n  Preparing metadata (pyproject.toml): started\n  Preparing metadata (pyproject.toml): finished with status 'done'\nBuilding wheels for collected packages: materials-transportability-v6\n  Building wheel for materials-transportability-v6 (pyproject.toml): started\n  Building wheel for materials-transportability-v6 (pyproject.toml): finished with status 'done'\n  Created wheel for materials-transportability-v6: filename=materials_transportability_v6-1.0.0-py3-none-any.whl size=99375 sha256=ae9989321ce669922a44473a510a91b419cc9b16c7bc947086c63ba89fd23a11\n  Stored in directory: /tmp/pip-ephem-wheel-cache-apbkhvlj/wheels/58/c4/6f/51208350a2b29fcf6f83bfaecce591909db3033e71a3786049\nSuccessfully built materials-transportability-v6\nInstalling collected packages: materials-transportability-v6\n  Attempting uninstall: materials-transportability-v6\n    Found existing installation: materials-transportability-v6 1.0.0\n    Uninstalling materials-transportability-v6-1.0.0:\n      Successfully uninstalled materials-transportability-v6-1.0.0\nSuccessfully installed materials-transportability-v6-1.0.0\nCould not fetch URL https://pypi.org/simple/pip/: There was a problem confirming the ssl certificate: HTTPSConnectionPool(host='pypi.org', port=443): Max retries exceeded with url: /simple/pip/ (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))) - skipping\n",
+      "stderr_tail": ""
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "-c",
+        "import importlib.metadata as m, transportability_v6, p1_extension; assert m.version('materials-transportability-v6') == '1.0.0'"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.711,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "-m",
+        "pip",
+        "check"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.186,
+      "stdout_tail": "No broken requirements found.\n",
+      "stderr_tail": ""
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "-m",
+        "transportability_v6",
+        "--help"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.7,
+      "stdout_tail": "usage: transportability-v6 [-h]\n                           {smoke,canonical-replay,p0-manifest,p0-reissue-lock,p0-run,p0-selection-stability,p0-broad-design,p0-broad-canary,p0-broad-lock,p0-broad-run}\n                           ...\n\npositional arguments:\n  {smoke,canonical-replay,p0-manifest,p0-reissue-lock,p0-run,p0-selection-stability,p0-broad-design,p0-broad-canary,p0-broad-lock,p0-broad-run}\n    smoke               run non-inferential Stage-2 smoke jobs\n    canonical-replay    run a read-only V5 RAW compatibility replay\n    p0-manifest         generate, but do not execute, the P0 development\n                        manifest\n    p0-reissue-lock     explicitly supersede a P0 lock after a recorded canary\n                        defect\n    p0-run              execute only the already locked P0 development\n                        manifest\n    p0-selection-stability\n                        write the descriptive P0 selection-stability summary\n    p0-broad-design     write the prospective broad-development plan and\n                        manifest only\n    p0-broad-canary     run the out-of-range broad-development engineering\n                        canary only\n    p0-broad-lock       issue the one final broad-development lock after a\n                        passing canary\n    p0-broad-run        execute only the final locked broad-development\n                        manifest\n\noptions:\n  -h, --help            show this help message and exit\n",
+      "stderr_tail": ""
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "scripts/verify_release.py",
+        "--json-output",
+        "<TEMP_ROOT>/outputs spaces UTF8/verify.json"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.355,
+      "stdout_tail": "{\n  \"verification_status\": \"PASS\",\n  \"release_state\": \"READY_FOR_AUTHOR_PUBLICATION\",\n  \"PUBLIC_RELEASE_READY\": false,\n  \"SUBMISSION_READY\": false,\n  \"python\": \"3.12.13 (main, Jul 23 2026, 14:43:28) [Clang 22.1.3 ]\",\n  \"root\": \"release candidate spaces UTF8\",\n  \"checks\": [\n    {\n      \"check\": \"required release files\",\n      \"passed\": true,\n      \"evidence\": \"[]\"\n    },\n    {\n      \"check\": \"V6/P1 authority hashes\",\n      \"passed\": true,\n      \"evidence\": \"14 locked files\"\n    },\n    {\n      \"check\": \"P1 scientific identity\",\n      \"passed\": true,\n      \"evidence\": \"five locked contrasts\"\n    },\n    {\n      \"check\": \"P1 manifest\",\n      \"passed\": true,\n      \"evidence\": \"3,520 unique jobs\"\n    },\n    {\n      \"check\": \"no secret patterns\",\n      \"passed\": true,\n      \"evidence\": \"[]\"\n    },\n    {\n      \"check\": \"no developer absolute paths\",\n      \"passed\": true,\n      \"evidence\": \"[]\"\n    },\n    {\n      \"check\": \"BSD-3-Clause authorization\",\n      \"passed\": true,\n      \"evidence\": \"author decision, root license and raw-data exclusion\"\n    },\n    {\n      \"check\": \"publication metadata truthfulness\",\n      \"passed\": true,\n      \"evidence\": \"repository URL and archive DOI are both null or both real\"\n    }\n  ]\n}\n",
+      "stderr_tail": ""
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "scripts/reproduce_smoke.py",
+        "--output-dir",
+        "<TEMP_ROOT>/outputs spaces UTF8/smoke"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.945,
+      "stdout_tail": "Expected: <2 minutes, CPU only, <100 MiB; no confirmatory job is run.\n",
+      "stderr_tail": ""
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "scripts/reproduce_tables.py",
+        "--output-dir",
+        "<TEMP_ROOT>/outputs spaces UTF8/tables"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 1.957,
+      "stdout_tail": "Expected: <2 minutes, CPU only, <1 GiB; reads frozen CSVs only.\nverified 5 rebuilt tables\n",
+      "stderr_tail": ""
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "scripts/reproduce_figures.py",
+        "--output-dir",
+        "<TEMP_ROOT>/outputs spaces UTF8/figures"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 16.611,
+      "stdout_tail": "Expected: 1\u20135 minutes, CPU only, <2 GiB; no model jobs are run.\nverified 18 P1 figure sets in PDF/PNG/SVG\n",
+      "stderr_tail": ""
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "-m",
+        "pytest",
+        "tests",
+        "v6_revision/tests",
+        "-q"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 22.857,
+      "stdout_tail": "...............................................................s........ [ 48%]\n........................................................................ [ 97%]\n...                                                                      [100%]\n=============================== warnings summary ===============================\nv6_revision/tests/test_calibration.py::test_all_simple_scalers_are_positive_and_finite\n  <TEMP_ROOT>/release candidate spaces UTF8/v6_revision/tests/test_calibration.py:36: DeprecationWarning: fit_conformal_global is deprecated; use fit_conformal_interval_only\n    fit_conformal_global(residual, sigma),\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n=========================== short test summary info ============================\nSKIPPED [1] v6_revision/tests/test_campaign_identity.py:79: real Matbench smoke asset unavailable\n146 passed, 1 skipped, 1 warning in 22.51s\n",
+      "stderr_tail": ""
+    },
+    {
+      "command": [
+        "<PYTHON>",
+        "scripts/verify_release.py",
+        "--json-output",
+        "<TEMP_ROOT>/outputs spaces UTF8/verify_after.json"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.339,
+      "stdout_tail": "{\n  \"verification_status\": \"PASS\",\n  \"release_state\": \"READY_FOR_AUTHOR_PUBLICATION\",\n  \"PUBLIC_RELEASE_READY\": false,\n  \"SUBMISSION_READY\": false,\n  \"python\": \"3.12.13 (main, Jul 23 2026, 14:43:28) [Clang 22.1.3 ]\",\n  \"root\": \"release candidate spaces UTF8\",\n  \"checks\": [\n    {\n      \"check\": \"required release files\",\n      \"passed\": true,\n      \"evidence\": \"[]\"\n    },\n    {\n      \"check\": \"V6/P1 authority hashes\",\n      \"passed\": true,\n      \"evidence\": \"14 locked files\"\n    },\n    {\n      \"check\": \"P1 scientific identity\",\n      \"passed\": true,\n      \"evidence\": \"five locked contrasts\"\n    },\n    {\n      \"check\": \"P1 manifest\",\n      \"passed\": true,\n      \"evidence\": \"3,520 unique jobs\"\n    },\n    {\n      \"check\": \"no secret patterns\",\n      \"passed\": true,\n      \"evidence\": \"[]\"\n    },\n    {\n      \"check\": \"no developer absolute paths\",\n      \"passed\": true,\n      \"evidence\": \"[]\"\n    },\n    {\n      \"check\": \"BSD-3-Clause authorization\",\n      \"passed\": true,\n      \"evidence\": \"author decision, root license and raw-data exclusion\"\n    },\n    {\n      \"check\": \"publication metadata truthfulness\",\n      \"passed\": true,\n      \"evidence\": \"repository URL and archive DOI are both null or both real\"\n    }\n  ]\n}\n",
+      "stderr_tail": ""
+    }
+  ],
+  "bundled_pdf_hashes": {
+    "supplement_submission_P1_COMPLETE.pdf": "19820e314a72441654c94f77ef88298f49ddc2dbe3e1aeada7a2a40fec0ae83b",
+    "manuscript_submission_P1_COMPLETE_twocolumn.pdf": "6dca7aad4b1618281f6c13a27406adfed0c0577f277e0584e083c667c9a972d2",
+    "manuscript_submission_P1_COMPLETE.pdf": "fbec08e0a7769973df7d736f236c8d7c243686be1f7fe003aeb196fabc11862a"
+  },
+  "used_parent_repository_files": false
+}
