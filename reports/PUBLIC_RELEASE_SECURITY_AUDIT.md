@@ -8,4 +8,4 @@ The release excludes credentials, local virtual environments, caches, raw Matben
 
 Immutable V5 provenance retains historical paths inside frozen evidence files; these are non-executable audit literals. The portability regression test no longer embeds an absolute-path literal and constructs its forbidden prefixes at runtime. Windows and Linux external runs both succeeded from unrelated paths containing spaces and Unicode/UTF-8 text.
 
-The three GitHub Actions YAML files contain no token or credential. They do not run a full 3,520-job experiment and do not publish to Zenodo. Online status remains `NOT_RUN`.
+The three GitHub Actions YAML files contain no token or credential. They do not run a full 3,520-job experiment and do not publish to Zenodo. Online Windows, Ubuntu and reproducibility workflows passed on final private main commit `1906979ca00aab4d440367301439baab92f1e42b`; public-source reproduction remains `NOT_RUN` until publication is authorized.
