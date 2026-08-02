@@ -7,3 +7,8 @@ manuscript/figures_v6/*.svg -text
 manuscript/figures_p1/*.svg -text
 manuscript/figures_p1_confirmation/*.svg -text
 revision_v5/** -text
+
+# V6/P1 authority locks and machine tables are likewise byte-identity inputs.
+locks/*.json -text
+tables/v6_p0_confirmation_*.csv -text
+tables/p1_confirmation_*.csv -text
