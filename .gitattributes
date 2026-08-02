@@ -12,3 +12,8 @@ revision_v5/** -text
 locks/*.json -text
 tables/v6_p0_confirmation_*.csv -text
 tables/p1_confirmation_*.csv -text
+
+# P1 protocol/manifests and figure sources are referenced by exact hashes.
+analysis_plan/p1_extension_* -text
+manifests/p1_extension_*.csv -text
+tables/p1_extension/*.csv -text
