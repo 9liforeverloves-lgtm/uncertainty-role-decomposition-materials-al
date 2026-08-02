@@ -1,2 +1,9 @@
 tables/p1_confirmation_trajectory_points.csv filter=lfs diff=lfs merge=lfs -text
 tables/p1_confirmation_calibration_diagnostics.csv filter=lfs diff=lfs merge=lfs -text
+
+# These generated figures and frozen V5 authority assets are verified by
+# byte-level SHA-256 locks. Preserve their recorded bytes on every platform.
+manuscript/figures_v6/*.svg -text
+manuscript/figures_p1/*.svg -text
+manuscript/figures_p1_confirmation/*.svg -text
+revision_v5/** -text
