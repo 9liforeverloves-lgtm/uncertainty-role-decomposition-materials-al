@@ -121,13 +121,21 @@ def main() -> None:
     placeholders = ("[PUBLIC REPOSITORY URL]", "[VERSION DOI]", "10.5281/zenodo")
     check("submission manuscript has no unpublished availability claim", not any(value in manuscript_text for value in placeholders), "final templates remain reports-only")
 
+    online_ci_text = (ROOT / "reports/ONLINE_CI_RESULTS.md").read_text(encoding="utf-8")
+    audited_main = "1d6fef9ca8dca3fc92877405d967dde40dcdedc6"
+    github_actions_status = (
+        "PASS"
+        if "GITHUB_ACTIONS_STATUS = PASS" in online_ci_text and audited_main in online_ci_text
+        else "NOT_RUN"
+    )
+
     overall = all(item["passed"] for item in checks)
     payload = {
         "status": "PASS" if overall else "FAIL",
         "release_state": "READY_FOR_AUTHOR_PUBLICATION" if overall else "VALIDATION_FAILED",
         "PUBLIC_RELEASE_READY": False,
         "SUBMISSION_READY": False,
-        "GITHUB_ACTIONS_STATUS": "NOT_RUN",
+        "GITHUB_ACTIONS_STATUS": github_actions_status,
         "Docker": "NOT_TESTED" if not (shutil.which("docker") or shutil.which("podman")) else "AVAILABLE_NOT_VALIDATED_BY_THIS_SCRIPT",
         "checks": checks,
         "python": sys.version,

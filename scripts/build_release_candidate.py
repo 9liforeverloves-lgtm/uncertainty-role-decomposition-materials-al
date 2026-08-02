@@ -205,7 +205,7 @@ def main() -> None:
     payload = {
         "status": "READY_FOR_AUTHOR_PUBLICATION",
         "PUBLIC_RELEASE_READY": False,
-        "publication_blocker": "public repository, real tag, archive DOI and online CI do not yet exist",
+        "publication_blocker": "public repository, real tag and archive DOI do not yet exist; online CI passed on the audited private main commit",
         "file_count_source": "public_release_archive_inventory.csv",
         "checksum_source": "SHA256SUMS",
     }

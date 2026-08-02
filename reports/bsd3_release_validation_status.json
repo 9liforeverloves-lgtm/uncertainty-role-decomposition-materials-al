@@ -3,7 +3,7 @@
   "release_state": "READY_FOR_AUTHOR_PUBLICATION",
   "PUBLIC_RELEASE_READY": false,
   "SUBMISSION_READY": false,
-  "GITHUB_ACTIONS_STATUS": "NOT_RUN",
+  "GITHUB_ACTIONS_STATUS": "PASS",
   "Docker": "NOT_TESTED",
   "checks": [
     {

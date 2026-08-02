@@ -24,7 +24,7 @@ The final machine validator confirms all 14 V6/P1 authority hashes, five P1 cont
 - Windows: PASS, 16 zero-return steps; package build/install, pip check, CLI, locks, smoke, tables, 18 figure sets, manuscript compilation, 146 passed/1 skipped and post-run verification.
 - Ubuntu 26.04/WSL2: PASS, 15 zero-return steps; equivalent flow excluding TeX compilation, which is explicitly `NOT TESTED`; 146 passed/1 skipped.
 - Docker/Podman: `NOT TESTED` because neither executable is installed.
-- GitHub Actions: YAML parsed locally; online status `NOT_RUN`.
+- GitHub Actions: PASS on audited main commit `1d6fef9ca8dca3fc92877405d967dde40dcdedc6`; Windows/Ubuntu tests and the Ubuntu reproducibility build are linked in `reports/ONLINE_CI_RESULTS.md`.
 
 ## Publication truthfulness
 
