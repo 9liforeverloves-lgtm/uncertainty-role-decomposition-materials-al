@@ -1,6 +1,6 @@
 # Author procedure: publish GitHub and permanent archive
 
-No public repository, `v1.0.0` Git tag or archive DOI is created by this candidate. BSD-3-Clause and the processed-output authorization are resolved.
+This checklist was drafted before repository creation. Since then, the repository has been made public and the historical experiment-data archive was published as a GitHub Release (`research-data-archive-2026-08-17`, 2026-08-17). Do not repeat repository-creation, remote-push or visibility-change steps. The archive is not the planned formal `v1.0.0` software release and has no Zenodo DOI. The remaining work concerns review of the formal software-release candidate and any later Zenodo deposition. BSD-3-Clause and the processed-output authorization are resolved.
 
 1. Complete the remaining author metadata and create a real repository under the authorized account; enable secret scanning and confirm visibility/default branch.
 2. Review `dist/release_candidate`, `public_release_archive_inventory.csv` and `SHA256SUMS`.
@@ -26,4 +26,4 @@ No public repository, `v1.0.0` Git tag or archive DOI is created by this candida
 
 Avoid a DOI/content loop: archive the content first, receive the DOI, then update only metadata in a clearly versioned follow-up release.
 
-Current machine states: `PUBLIC_REPOSITORY_CREATED = false`, `GITHUB_ACTIONS_STATUS = NOT_RUN`, `ARCHIVE_DOI_CREATED = false`.
+Current state (2026-10-22): `PUBLIC_REPOSITORY_CREATED = true`; online GitHub Actions tests/reproducibility have successful runs (see `reports/ONLINE_CI_RESULTS.md`); historical GitHub archive Release = published; formal `v1.0.0` software tag/Release = not published; Zenodo DOI = not created.
