@@ -1,6 +1,6 @@
 # Role-decomposed uncertainty evaluation in materials active learning
 
-Code, locked machine-readable evidence, manuscript sources and reproducibility tooling for an offline materials active-learning study. Original project software is licensed under BSD-3-Clause; the public repository and permanent archive are pending author publication.
+Code, locked machine-readable evidence, manuscript sources and reproducibility tooling for an offline materials active-learning study. Original project software is licensed under BSD-3-Clause. This repository is public. A historical experiment-data archive was published as a GitHub Release on 2026-08-17; it is separate from the planned formal software release. No formal v1.0.0 software release or Zenodo DOI has been published.
 
 ## Project summary and scientific scope
 
@@ -102,11 +102,11 @@ CSV authorities and locks require byte-exact hashes. Rebuilt numeric tables use 
 
 ## Testing and CI
 
-Local Windows Python 3.12 testing is recorded under `reports/`. GitHub Actions definitions cover Windows/Ubuntu tests, reproducibility and tag packaging, but have not run online because no public remote exists. macOS is unverified.
+Local Windows Python 3.12 testing is recorded under `reports/`. GitHub Actions has run online: the main-branch tests and reproducibility workflows passed on 2026-08-02, and the tests workflow passed for the historical archive tag on 2026-08-17. See `reports/ONLINE_CI_RESULTS.md` for the recorded main-branch results. macOS and online Linux TeX remain unverified.
 
 ## Citation
 
-Use `CITATION.cff`. The private preparation repository exists at `https://github.com/9liforeverloves-lgtm/uncertainty-role-decomposition-materials-al`; it is not publicly accessible yet. The intended release is `v1.0.0`, but no tag or DOI may be cited until those resources actually exist.
+Use `CITATION.cff` to cite the software repository. The repository is public at `https://github.com/9liforeverloves-lgtm/uncertainty-role-decomposition-materials-al`. The [historical experiment-data archive](https://github.com/9liforeverloves-lgtm/uncertainty-role-decomposition-materials-al/releases/tag/research-data-archive-2026-08-17), published on 2026-08-17, preserves experiment outputs and is not a formal software release. The planned `v1.0.0` software release has not been published, and no Zenodo DOI exists.
 
 ## License
 
@@ -118,6 +118,6 @@ See `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md` and `SECURITY.md`. Never alter froze
 
 ## Known limitations and publication state
 
-Repository: created private; public visibility pending explicit author confirmation. Archive DOI: pending public release. License: BSD-3-Clause. No `v1.0.0` tag exists yet. Online CI status is reported separately and Docker is not claimed as PASS.
+Repository: public. Historical experiment-data GitHub Release: published 2026-08-17 under `research-data-archive-2026-08-17`. Formal software release: `v1.0.0` is planned, but no `v1.0.0` tag or software Release exists yet. Zenodo DOI: not created. License: BSD-3-Clause. Docker is not claimed as PASS.
 
-Current gate after local release validation: `READY_FOR_AUTHOR_PUBLICATION`; `PUBLIC_RELEASE_READY = false`; `SUBMISSION_READY = false`.
+Current formal software-release gate after local validation: `READY_FOR_AUTHOR_PUBLICATION`; `PUBLIC_RELEASE_READY = false`; `SUBMISSION_READY = false`. These gate values describe the planned formal `v1.0.0` release and manuscript submission; they do not describe the repository's visibility or the already-published historical archive.
